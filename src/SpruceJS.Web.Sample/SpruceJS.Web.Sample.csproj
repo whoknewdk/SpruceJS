@@ -131,9 +131,18 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Desktop\controllers\" />
+    <Folder Include="Views\Desktop\models\" />
+    <Folder Include="Views\Desktop\views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SpruceJS.Web\SpruceJS.Web.csproj">
+      <Project>{701de11a-2be8-4107-993a-e0627affec6d}</Project>
+      <Name>SpruceJS.Web</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
