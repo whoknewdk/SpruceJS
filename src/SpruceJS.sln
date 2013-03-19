@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS", "SpruceJS\SpruceJS.csproj", "{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Web", "SpruceJS.Web\SpruceJS.Web.csproj", "{701DE11A-2BE8-4107-993A-E0627AFFEC6D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Core", "SpruceJS.Core\SpruceJS.Core.csproj", "{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,14 +11,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{701DE11A-2BE8-4107-993A-E0627AFFEC6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{701DE11A-2BE8-4107-993A-E0627AFFEC6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{701DE11A-2BE8-4107-993A-E0627AFFEC6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{701DE11A-2BE8-4107-993A-E0627AFFEC6D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53CBC47F-F9CA-4F55-AE3A-37D463E8A5B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
