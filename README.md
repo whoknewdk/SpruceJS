@@ -1,4 +1,4 @@
-sprucejs
+SpruceJS
 ========
 
 SpruceJS .NET
