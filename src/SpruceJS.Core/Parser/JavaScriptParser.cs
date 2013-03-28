@@ -17,7 +17,7 @@ using HashMap = System.Collections.Generic.Dictionary<object, object>;
 using Antlr.Runtime.Tree;
 using RewriteRuleITokenStream = Antlr.Runtime.Tree.RewriteRuleTokenStream;
 
-namespace  Sudio.NET.Parser 
+namespace SpruceJS.Core.Parser 
 {
 [System.CodeDom.Compiler.GeneratedCode("ANTLR", "3.3 Nov 30, 2010 12:45:30")]
 [System.CLSCompliant(false)]
@@ -21989,4 +21989,4 @@ public partial class JavaScriptParser : Antlr.Runtime.Parser
 	#endregion Follow sets
 }
 
-} // namespace  Sudio.NET.Parser 
+} // namespace  SpruceJS.Core.Parser 
