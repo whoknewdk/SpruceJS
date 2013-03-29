@@ -11,11 +11,6 @@ namespace SpruceJS.Core
 	{
 		public IList<string> Files = new List<string>();
 
-
-		public AppConfig()
-		{ }
-
-
 		public AppConfig(string config)
 		{
 			XmlDocument doc = new XmlDocument();

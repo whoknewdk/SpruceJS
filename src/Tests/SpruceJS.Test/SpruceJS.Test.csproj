@@ -36,6 +36,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="xunit">
+      <HintPath>..\..\..\lib\xunit-1.9.1\xunit.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -50,7 +53,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Core\AppConfigTest.cs" />
+    <Compile Include="Core\JSAppTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\SpruceJS.Core\SpruceJS.Core.csproj">
+      <Project>{53cbc47f-f9ca-4f55-ae3a-37d463e8a5b4}</Project>
+      <Name>SpruceJS.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Web\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
