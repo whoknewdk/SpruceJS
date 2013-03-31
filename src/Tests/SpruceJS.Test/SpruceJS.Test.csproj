@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Core\AppConfigTest.cs" />
     <Compile Include="Core\JSAppTest.cs" />
+    <Compile Include="Core\JSFileAnalyzerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

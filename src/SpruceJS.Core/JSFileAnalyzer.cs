@@ -28,16 +28,29 @@ namespace SpruceJS.Core
 			catch (Exception ex)
 			{
 				throw ex;
-			} 
+			}
+
+			var children = tree.Children;
+			for (int i = 0; i < children.Count; i++)
+			{
+				CommonTree t = (CommonTree)children[i];
+				
+				// Find define
+				if (t.Text == "define") {
+					
+					// Next must be string
+					var next = children[i + 2];
+
+					this.Name = next.Text.ToString();
+				}
+			}
 		}
 
 		public bool IsValid() {
 			return true;
 		}
 
-		public string GetName() {
-			return "";
-		}
+		public string Name { get; private set; }
 
 		public IList<string> GetDependencies()
 		{

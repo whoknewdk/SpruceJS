@@ -33,7 +33,7 @@ namespace SpruceJS.Core
 			}
 
 			return new JSModule {
-				Name = fileAnalyzer.GetName(),
+				Name = fileAnalyzer.Name,
 				Dependencies = fileAnalyzer.GetDependencies(),
 				Content = content
 			};
