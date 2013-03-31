@@ -10,6 +10,7 @@ namespace SpruceJS.Core
 	public class AppConfig
 	{
 		public IList<string> Files = new List<string>();
+		public IList<Directory> Directories = new List<Directory>();
 
 		public AppConfig(string config)
 		{
@@ -21,6 +22,25 @@ namespace SpruceJS.Core
 			{
 				Files.Add(node.Attributes["path"].Value);
 			}
+
+			// Directory references
+			foreach (XmlNode node in doc.SelectNodes("//directory"))
+			{
+				var dir = new Directory {
+					Path = node.Attributes["path"].Value,
+				};
+
+				if (node.Attributes["recursive"] != null)
+					dir.Recursive = Convert.ToBoolean(node.Attributes["recursive"].Value);
+				
+				Directories.Add(dir);
+			}
 		}
+	}
+
+	public struct Directory
+	{
+		public string Path;
+		public bool Recursive;
 	}
 }
