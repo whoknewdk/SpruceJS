@@ -1,34 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Antlr.Runtime;
+﻿using System.Collections.Generic;
 using Antlr.Runtime.Tree;
-using SpruceJS.Core.Parser;
+using SpruceJS.Core.Tree;
 
 namespace SpruceJS.Core
 {
 	public class JSFileAnalyzer
 	{
-		CommonTree tree;
+		JSCommonTree tree = new JSCommonTree();
 
 		public JSFileAnalyzer(string content)
 		{
-			try
-			{
-				var stream = new ANTLRStringStream(content);
-				var lexer = new JavaScriptLexer(stream);
-				var tokenStream = new CommonTokenStream(lexer);
-				var parser = new JavaScriptParser(tokenStream);
-				JavaScriptParser.program_return programReturn = parser.program();
-
-				tree = programReturn.Tree as CommonTree;
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			tree.Load(content);
 
 			var children = tree.Children;
 			for (int i = 0; i < children.Count; i++)
