@@ -27,14 +27,14 @@ namespace SpruceJS.Core
 
 			var fileAnalyzer = new JSFileAnalyzer(content);
 
-			if (fileAnalyzer.IsValid()) 
+			if (fileAnalyzer.IsValid) 
 			{
 				
 			}
 
 			return new JSModule {
 				Name = fileAnalyzer.Name,
-				Dependencies = fileAnalyzer.GetDependencies(),
+				Dependencies = fileAnalyzer.Dependencies,
 				Content = content
 			};
 		}
