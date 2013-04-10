@@ -5,33 +5,49 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using SpruceJS.Core.Config;
 
 namespace SpruceJS.Core
 {
 	public class Engine
 	{
-		public Engine(AppConfig config)
-		{
-			var app = new JSApp();
+		JSApp app = new JSApp();
 
+		public Engine(IAppConfig config)
+		{
+			// Add files
 			foreach (var file in config.Files)
 				app.Add(create(file));
+
+			// Add directory files
+			foreach (var dir in config.Directories)
+			{
+				DirectoryInfo info = new DirectoryInfo(dir.Path);
+				foreach (var file in info.GetFiles())
+					app.Add(create(file.FullName));
+			}
 		}
 
-		private JSModule create (string file)
+		public string Render()
 		{
-			// Get actual file path on server
-			//string filePath = HttpContext.Current.Server.MapPath(file);
-			string filePath = "";
-			string content = File.ReadAllText(filePath);
+			return app.ToString();
+		}
 
+		private JSModule create(string filePath)
+		{
+			// Stop if no file exists
+			if (!File.Exists(filePath))
+				return null;
+
+			// Read/Analyse file
+			string content = File.ReadAllText(filePath);
 			var fileAnalyzer = new JSFileAnalyzer(content);
 
+			// Stop if content is not valid
 			if (fileAnalyzer.IsValid) 
-			{
-				
-			}
+				return null;
 
+			// Build new module
 			return new JSModule {
 				Name = fileAnalyzer.Name,
 				Dependencies = fileAnalyzer.Dependencies,

@@ -5,15 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace SpruceJS.Core
+namespace SpruceJS.Core.Config
 {
-	public class AppConfig
+	public class AppConfig : IAppConfig
 	{
-		public IList<string> Files = new List<string>();
-		public IList<Directory> Directories = new List<Directory>();
+		public IList<string> Files { get; private set; }
+		public IList<Directory> Directories { get; private set; }
 
 		public AppConfig(string config)
 		{
+			Files = new List<string>();
+			Directories = new List<Directory>();
+
 			XmlDocument doc = new XmlDocument();
 			doc.LoadXml(config);
 

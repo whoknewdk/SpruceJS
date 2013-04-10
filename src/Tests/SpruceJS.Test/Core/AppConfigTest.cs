@@ -1,4 +1,5 @@
 ﻿using SpruceJS.Core;
+using SpruceJS.Core.Config;
 using Xunit;
 
 namespace SpruceJS.Test

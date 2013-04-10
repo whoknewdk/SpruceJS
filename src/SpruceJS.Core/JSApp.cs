@@ -12,7 +12,17 @@ namespace SpruceJS.Core
 
 		public void Add(JSModule module)
 		{
-			Modules.Add(module);
+			if (module != null)
+				Modules.Add(module);
+		}
+
+		public override string ToString()
+		{
+			var sb = new StringBuilder();
+			foreach (JSModule module in Modules)
+				sb.Append(module.Content);
+
+			return sb.ToString();
 		}
 	}
 }

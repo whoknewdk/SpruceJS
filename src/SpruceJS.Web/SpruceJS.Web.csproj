@@ -42,12 +42,16 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpruceJSHttpHandler.cs" />
+    <Compile Include="WebAppConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpruceJS.Core\SpruceJS.Core.csproj">
       <Project>{53cbc47f-f9ca-4f55-ae3a-37d463e8a5b4}</Project>
       <Name>SpruceJS.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Config\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

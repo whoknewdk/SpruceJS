@@ -45,7 +45,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AppConfig.cs" />
+    <Compile Include="Config\AppConfig.cs" />
+    <Compile Include="Config\IAppConfig.cs" />
     <Compile Include="JSApp.cs" />
     <Compile Include="JSFileAnalyzer.cs" />
     <Compile Include="JSModule.cs" />
