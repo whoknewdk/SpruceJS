@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
+﻿using System.IO;
 using SpruceJS.Core.Config;
 
-namespace SpruceJS.Core
+namespace SpruceJS.Core.Engine
 {
-	public class Engine
+	public class Engine : IEngine
 	{
 		JSApp app = new JSApp();
 

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using SpruceJS.Core;
+﻿using System.Web;
+using SpruceJS.Core.Config;
 
 namespace SpruceJS.Web
 {
@@ -14,10 +9,10 @@ namespace SpruceJS.Web
 		{
 			// Read config
 			var configFile = context.Server.MapPath("app.config");
-			var config = new WebAppConfig(configFile, context);
+			var config = new AppConfig(configFile);
 
 			// Create engine instance
-			var engine = new Engine(config);
+			var engine = new WebEngine(config, context);
 
 			// Output 
 			context.Response.Write(engine.Render());

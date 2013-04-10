@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpruceJSHttpHandler.cs" />
-    <Compile Include="WebAppConfig.cs" />
+    <Compile Include="WebEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SpruceJS.Core\SpruceJS.Core.csproj">
@@ -50,9 +50,7 @@
       <Name>SpruceJS.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Config\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
