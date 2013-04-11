@@ -14,17 +14,29 @@ namespace SpruceJS.Core.Engine
 				app.Add(create(file));
 
 			// Add directory files
-			foreach (var dir in config.Directories)
-			{
-				DirectoryInfo info = new DirectoryInfo(dir.Path);
-				foreach (var file in info.GetFiles())
-					app.Add(create(file.FullName));
-			}
+			foreach (var directory in config.Directories)
+				loadDirectoryFiles(directory.Path, directory.Recursive);
+		}
+
+		public void loadDirectoryFiles(string path, bool isRecursive)
+		{
+			DirectoryInfo info = new DirectoryInfo(path);
+			
+			foreach (var file in info.GetFiles())
+				app.Add(create(file.FullName));
+			
+			foreach (var directory in info.GetDirectories())
+				loadDirectoryFiles(directory.FullName, isRecursive);
 		}
 
 		public string Render()
 		{
 			return app.ToString();
+		}
+
+		protected virtual string GetFullPath(string path)
+		{
+			return Path.GetFullPath(path);
 		}
 
 		private JSModule create(string filePath)
@@ -34,7 +46,7 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			string content = File.ReadAllText(filePath);
+			string content = File.ReadAllText(GetFullPath(filePath));
 			var fileAnalyzer = new JSFileAnalyzer(content);
 
 			// Stop if content is not valid

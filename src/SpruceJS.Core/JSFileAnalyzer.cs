@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Antlr.Runtime.Tree;
 using SpruceJS.Core.Tree;
 
@@ -49,7 +50,8 @@ namespace SpruceJS.Core
 				}
 			}
 
-			IsValid = true;
+			// If key is present module is valid
+			IsValid = !String.IsNullOrEmpty(this.Name);
 		}
 	}
 }

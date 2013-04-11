@@ -33,5 +33,20 @@ namespace SpruceJS.Test
 
 			Assert.Equal(3, appconfig.Directories.Count);
 		}
+
+		[Fact]
+		public void RecursiveDirectoriesCanBeRead()
+		{
+			string xml = @"<files>
+							<directory path='abc' />
+							<directory path='def' recursive='true' />
+						</files>";
+
+			var appconfig = new AppConfig(xml);
+
+			Assert.Equal(2, appconfig.Directories.Count);
+			Assert.False(appconfig.Directories[0].Recursive);
+			Assert.True(appconfig.Directories[1].Recursive);
+		}
 	}
 }
