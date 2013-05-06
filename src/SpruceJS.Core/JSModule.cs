@@ -11,5 +11,8 @@ namespace SpruceJS.Core
 		public string Name { get; set; }
 		public string Content { get; set; }
 		public IList<string> Dependencies = new List<string>();
+
+		public bool Marked = false;
+		public bool TempMarked = false;
 	}
 }

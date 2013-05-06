@@ -17,7 +17,8 @@ namespace SpruceJS.Web
 			// Create engine instance
 			var engine = new WebEngine(config, context);
 
-			// Output 
+			// Output
+			context.Response.ContentType = "text/javascript";
 			context.Response.Write(engine.Render());
 		}
 
