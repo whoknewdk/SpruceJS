@@ -6,16 +6,11 @@ namespace SpruceJS.Core.Engine
 	public class Engine : IEngine
 	{
 		JSApp app = new JSApp();
+		IAppConfig config;
 
 		public Engine(IAppConfig config)
 		{
-			// Add files
-			foreach (var file in config.Files)
-				app.Add(create(file));
-
-			// Add directory files
-			foreach (var directory in config.Directories)
-				loadDirectoryFiles(directory.Path, directory.Recursive);
+			this.config = config;
 		}
 
 		public void loadDirectoryFiles(string path, bool isRecursive)
@@ -23,7 +18,7 @@ namespace SpruceJS.Core.Engine
 			DirectoryInfo info = new DirectoryInfo(path);
 			
 			foreach (var file in info.GetFiles())
-				app.Add(create(file.FullName));
+				app.Add(createModule(file.FullName));
 			
 			foreach (var directory in info.GetDirectories())
 				loadDirectoryFiles(directory.FullName, isRecursive);
@@ -31,6 +26,14 @@ namespace SpruceJS.Core.Engine
 
 		public string Render()
 		{
+			// Add files
+			foreach (var file in config.Files)
+				app.Add(createModule(file));
+
+			// Add directory files
+			foreach (var directory in config.Directories)
+				loadDirectoryFiles(directory.Path, directory.Recursive);
+
 			return app.ToString();
 		}
 
@@ -39,18 +42,20 @@ namespace SpruceJS.Core.Engine
 			return Path.GetFullPath(path);
 		}
 
-		private JSModule create(string filePath)
+		private JSModule createModule(string filePath)
 		{
+			string fullePath = GetFullPath(filePath);
+
 			// Stop if no file exists
-			if (!File.Exists(filePath))
+			if (!File.Exists(fullePath))
 				return null;
 
 			// Read/Analyse file
-			string content = File.ReadAllText(GetFullPath(filePath));
+			string content = File.ReadAllText(fullePath);
 			var fileAnalyzer = new JSFileAnalyzer(content);
 
 			// Stop if content is not valid
-			if (fileAnalyzer.IsValid) 
+			if (!fileAnalyzer.IsValid) 
 				return null;
 
 			// Build new module

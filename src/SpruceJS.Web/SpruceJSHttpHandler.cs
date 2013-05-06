@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using SpruceJS.Core.Config;
 
 namespace SpruceJS.Web
@@ -9,7 +10,9 @@ namespace SpruceJS.Web
 		{
 			// Read config
 			var configFile = context.Server.MapPath("app.config");
-			var config = new AppConfig(configFile);
+			string configFileContent = File.ReadAllText(configFile);
+
+			var config = new AppConfig(configFileContent);
 
 			// Create engine instance
 			var engine = new WebEngine(config, context);
