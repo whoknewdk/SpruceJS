@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\AppConfigTest.cs" />
+    <Compile Include="Core\SortingServiceTest.cs" />
     <Compile Include="Core\JSAppTest.cs" />
     <Compile Include="Core\JSFileAnalyzerTest.cs" />
     <Compile Include="Core\Tree\JSCommenTreeTest.cs" />

@@ -1,4 +1,4 @@
-﻿define("b", function () {
+﻿define("b", ["c"], function () {
 
 	return { b: 999 };
 

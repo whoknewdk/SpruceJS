@@ -60,6 +60,7 @@
     <Content Include="demo\a.js" />
     <None Include="demo\app.config" />
     <Content Include="demo\b.js" />
+    <Content Include="demo\c.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

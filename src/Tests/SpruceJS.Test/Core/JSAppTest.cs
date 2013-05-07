@@ -10,12 +10,12 @@ namespace SpruceJS.Test.Core
 		{
 			var jsapp = new JSApp();
 
-			jsapp.Add(new JSModule {});
-			jsapp.Add(new JSModule { });
-			jsapp.Add(new JSModule { });
-			jsapp.Add(new JSModule { });
+			jsapp.Add(new JSModule { Name = "a" });
+			jsapp.Add(new JSModule { Name = "b" });
+			jsapp.Add(new JSModule { Name = "c" });
+			jsapp.Add(new JSModule { Name = "d" });
 
-			Assert.Equal(4, jsapp.Modules.Count);
+			Assert.Equal(4, jsapp.Count);
 		}
 	}
 }
