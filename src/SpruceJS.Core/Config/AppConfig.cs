@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Xml;
 
 namespace SpruceJS.Core.Config
@@ -9,13 +10,20 @@ namespace SpruceJS.Core.Config
 		public IList<string> Files { get; private set; }
 		public IList<Directory> Directories { get; private set; }
 
-		public AppConfig(string config)
+		public AppConfig() { }
+
+		public AppConfig(string path)
+		{
+			Load(path);
+		}
+
+		protected void Load(string path)
 		{
 			Files = new List<string>();
 			Directories = new List<Directory>();
 
 			XmlDocument doc = new XmlDocument();
-			doc.LoadXml(config);
+			doc.Load(GetFullPath(path));
 
 			// File references
 			foreach (XmlNode node in doc.SelectNodes("//file"))
@@ -24,15 +32,21 @@ namespace SpruceJS.Core.Config
 			// Directory references
 			foreach (XmlNode node in doc.SelectNodes("//directory"))
 			{
-				var dir = new Directory {
+				var dir = new Directory
+				{
 					Path = node.Attributes["path"].Value,
 				};
 
 				if (node.Attributes["recursive"] != null)
 					dir.Recursive = Convert.ToBoolean(node.Attributes["recursive"].Value);
-				
+
 				Directories.Add(dir);
 			}
+		}
+
+		protected virtual string GetFullPath(string path)
+		{
+			return Path.GetFullPath(path);
 		}
 	}
 

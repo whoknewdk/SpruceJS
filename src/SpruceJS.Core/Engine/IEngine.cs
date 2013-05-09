@@ -8,5 +8,6 @@ namespace SpruceJS.Core.Engine
 {
 	public interface IEngine
 	{
+		string Render();
 	}
 }

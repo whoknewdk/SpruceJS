@@ -8,11 +8,7 @@ namespace SpruceJS.Web
 	{
 		public void ProcessRequest(HttpContext context)
 		{
-			// Read config
-			var configFile = context.Server.MapPath("app.config");
-			string configFileContent = File.ReadAllText(configFile);
-
-			var config = new AppConfig(configFileContent);
+			var config = new WebAppConfig("app.config", context);
 
 			// Create engine instance
 			var engine = new WebEngine(config, context);

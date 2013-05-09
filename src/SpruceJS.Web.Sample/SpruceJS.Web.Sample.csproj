@@ -61,9 +61,17 @@
     <None Include="demo\app.config" />
     <Content Include="demo\b.js" />
     <Content Include="demo\c.js" />
+    <Content Include="Manual.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Manual.aspx.cs">
+      <DependentUpon>Manual.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Manual.aspx.designer.cs">
+      <DependentUpon>Manual.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +83,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SpruceJS.Core\SpruceJS.Core.csproj">
+      <Project>{53cbc47f-f9ca-4f55-ae3a-37d463e8a5b4}</Project>
+      <Name>SpruceJS.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SpruceJS.Web\SpruceJS.Web.csproj">
       <Project>{701de11a-2be8-4107-993a-e0627affec6d}</Project>
       <Name>SpruceJS.Web</Name>
