@@ -17,15 +17,16 @@ namespace SpruceJS.Core
 
 			// Topological sort
 			foreach (var m in decoratedModules)
-				if (!m.Value.Marked)
-					foreach (T t in visit<T>(m.Value, decoratedModules))
+			{
+				SortItem<T> item = m.Value;
+				if (!item.Marked)
+					foreach (T t in visit<T>(item, decoratedModules))
 						yield return t;
+			}
 		}
 
 		static IEnumerable<T> visit<T>(SortItem<T> item, IDictionary<string, SortItem<T>> Modules) where T : IEnumerable
 		{
-			Modules.First();
-
 			if (item.TempMarked)
 				throw new NotDirectedAcyclicGraphException();
 
