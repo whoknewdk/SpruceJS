@@ -15,7 +15,8 @@ namespace SpruceJS.Core
 
 		public IEnumerator GetEnumerator()
 		{
-			throw new NotImplementedException();
+			foreach (string name in Dependencies)
+				yield return name;
 		}
 	}
 }
