@@ -8,18 +8,18 @@ namespace SpruceJS.Core
 {
 	public class JSApp
 	{
-		private IDictionary<string, JSModule> Modules = new Dictionary<string, JSModule>();
+		private JSModuleList Modules = new JSModuleList();
 
 		public void Add(JSModule module)
 		{
-			if (module != null)
-				Modules.Add(module.Name, module);
+			Modules.Add(module);
 		}
 
 		public override string ToString()
 		{
 			var sb = new StringBuilder();
-			foreach (JSModule module in SortingService.Sort(Modules))
+
+			foreach (JSModule module in Modules)
 				sb.Append(module.Content);
 
 			return sb.ToString();

@@ -19,9 +19,7 @@ namespace SpruceJS.Core.Config
 
 			// File references
 			foreach (XmlNode node in doc.SelectNodes("//file"))
-			{
 				Files.Add(node.Attributes["path"].Value);
-			}
 
 			// Directory references
 			foreach (XmlNode node in doc.SelectNodes("//directory"))
