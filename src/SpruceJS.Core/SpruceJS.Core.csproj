@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AjaxMin">
+      <HintPath>..\..\lib\Microsoft Ajax Minifier\AjaxMin.dll</HintPath>
+    </Reference>
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\lib\antlr-dotnet-tool-3.3.1.7705\Antlr3.Runtime.dll</HintPath>
     </Reference>
@@ -53,6 +56,8 @@
     <Compile Include="JSFileAnalyzer.cs" />
     <Compile Include="JSModule.cs" />
     <Compile Include="JSModuleList.cs" />
+    <Compile Include="Minification\AjaxminMinificator.cs" />
+    <Compile Include="Minification\IMinificator.cs" />
     <Compile Include="Parser\JavaScriptLexer.cs" />
     <Compile Include="Parser\JavaScriptParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
