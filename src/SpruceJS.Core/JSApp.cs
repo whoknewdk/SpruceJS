@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SpruceJS.Core.Minification;
 
 namespace SpruceJS.Core
 {
 	public class JSApp
 	{
 		private JSModuleList Modules = new JSModuleList();
+
+		IMinificator minificator;
+		public JSApp(IMinificator minificator)
+		{
+			this.minificator = minificator;
+		}
 
 		public void Add(JSModule module)
 		{
@@ -20,7 +27,9 @@ namespace SpruceJS.Core
 			var sb = new StringBuilder();
 
 			foreach (JSModule module in Modules)
-				sb.Append(module.Content);
+				sb.Append(minificator.Minify(module.Content, module.Name));
+
+				minificator.Close();
 
 			return sb.ToString();
 		}

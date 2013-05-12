@@ -15,7 +15,10 @@ namespace SpruceJS.Web
 
 			// Output
 			context.Response.ContentType = "text/javascript";
-			context.Response.Write(engine.Render());
+			context.Response.AddHeader("X-SourceMap", "/app.spruce.js.map");
+			context.Response.Write("function define (x, y, z) { z(); }" + "\n");
+			context.Response.Write(engine.Render() + "\n");
+			//context.Response.Write("//@ sourceMappingURL=/app.spruce.js.map");
 		}
 
 		public bool IsReusable

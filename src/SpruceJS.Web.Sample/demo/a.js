@@ -1,5 +1,3 @@
 ﻿define("a", ["b"], function (b) {
-
-	return { a: 123 };
-
+	return "wassup";
 });

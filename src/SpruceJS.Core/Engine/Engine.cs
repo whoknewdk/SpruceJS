@@ -1,15 +1,17 @@
 ﻿using System.IO;
 using SpruceJS.Core.Config;
+using SpruceJS.Core.Minification;
 
 namespace SpruceJS.Core.Engine
 {
 	public class Engine : IEngine
 	{
-		JSApp app = new JSApp();
+		JSApp app;
 		IAppConfig config;
 
 		public Engine(IAppConfig config)
 		{
+			app = new JSApp(new AjaxminMinificator());
 			this.config = config;
 		}
 

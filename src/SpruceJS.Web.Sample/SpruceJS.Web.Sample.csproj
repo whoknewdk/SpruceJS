@@ -61,6 +61,7 @@
     <None Include="demo\app.config" />
     <Content Include="demo\b.js" />
     <Content Include="demo\c.js" />
+    <Content Include="Default.htm" />
     <Content Include="Manual.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>

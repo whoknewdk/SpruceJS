@@ -1,5 +1,3 @@
-﻿define("c", function () {
-
+﻿define("c", [], function () {
 	return { b: "C" };
-
 });

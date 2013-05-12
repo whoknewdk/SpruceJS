@@ -1,5 +1,9 @@
 ﻿define("b", ["c"], function () {
 
-	return { b: 999 };
+	var veryLongVariableName = "yeeehaaaa2";
+
+	alert(adef);
+
+	return { b: veryLongVariableName };
 
 });

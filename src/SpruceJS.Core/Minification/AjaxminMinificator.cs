@@ -12,15 +12,41 @@ namespace SpruceJS.Core.Minification
 	{
 		Minifier minifier = new Minifier();
 
-		public string Minify(string input)
+		ISourceMap sourcemap;
+		CodeSettings settings;
+
+		StreamWriter sw;
+
+		public AjaxminMinificator()
 		{
-			MemoryStream memoryStream = new MemoryStream();
-			TextWriter tw = new StreamWriter(memoryStream);
+			sw = new StreamWriter(Path.Combine(@"D:\Web\SpruceJS\src\SpruceJS.Web.Sample", "app.spruce.js.map"), false, new UTF8Encoding(false));
+			sourcemap = new V3SourceMap(sw);
+			settings = new CodeSettings { SymbolsMap = sourcemap };
 
-			ISourceMap sourcemap = new V3SourceMap(tw);
+			settings.TermSemicolons = true;
 
-			var settings = new CodeSettings { SymbolsMap = sourcemap };
-			return minifier.MinifyJavaScript(input, settings);
+			sourcemap.StartPackage("app.spruce.js.map", "");
+			sourcemap.SourceRoot = "/demo";
+		}
+
+		public string Minify(string input, string name)
+		{
+			try
+			{
+				minifier.FileName = name.Replace("\"", "") + ".js";
+				return minifier.MinifyJavaScript(input, settings);
+			}
+			catch (Exception ex)
+			{
+				this.Close();
+				throw ex;
+			}
+		}
+
+		public void Close()
+		{
+			sourcemap.EndPackage();
+			sourcemap.Dispose();
 		}
 	}
 }

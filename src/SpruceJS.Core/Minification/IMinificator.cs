@@ -8,6 +8,8 @@ namespace SpruceJS.Core.Minification
 {
 	public interface IMinificator
 	{
-		string Minify(string input);
+		string Minify(string input, string name);
+
+		void Close();
 	}
 }
