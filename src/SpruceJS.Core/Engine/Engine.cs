@@ -11,7 +11,7 @@ namespace SpruceJS.Core.Engine
 
 		public Engine(IAppConfig config)
 		{
-			app = new JSApp(new AjaxminMinificator());
+			app = new JSApp(new AjaxminMinificator("app.spruce.js"));
 			this.config = config;
 		}
 
@@ -26,7 +26,7 @@ namespace SpruceJS.Core.Engine
 				loadDirectoryFiles(directory.FullName, isRecursive);
 		}
 
-		public string Render()
+		public EngineResult Render()
 		{
 			// Add files
 			foreach (var file in config.Files)
@@ -36,7 +36,7 @@ namespace SpruceJS.Core.Engine
 			foreach (var directory in config.Directories)
 				loadDirectoryFiles(directory.Path, directory.Recursive);
 
-			return app.ToString();
+			return new EngineResult { Output = app.ToString(), SourceMap = app.SourceMap };
 		}
 
 		protected virtual string GetFullPath(string path)
@@ -46,25 +46,29 @@ namespace SpruceJS.Core.Engine
 
 		private JSModule createModule(string filePath)
 		{
-			string fullePath = GetFullPath(filePath);
+			string fullPath = GetFullPath(filePath);
 
 			// Stop if no file exists
-			if (!File.Exists(fullePath))
+			if (!File.Exists(fullPath))
 				return null;
 
 			// Read/Analyse file
-			string content = File.ReadAllText(fullePath);
+			string content = File.ReadAllText(fullPath);
 			var fileAnalyzer = new JSFileAnalyzer(content);
 
 			// Stop if content is not valid
 			if (!fileAnalyzer.IsValid) 
 				return null;
 
+			var info = new FileInfo(fullPath);
+
 			// Build new module
 			return new JSModule {
 				Name = fileAnalyzer.Name,
 				Dependencies = fileAnalyzer.Dependencies,
-				Content = content
+				Content = content,
+
+				FileName = info.Name
 			};
 		}
 	}

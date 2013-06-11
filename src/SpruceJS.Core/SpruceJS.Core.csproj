@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Config\IAppConfig.cs" />
+    <Compile Include="Engine\EngineResult.cs" />
     <Compile Include="Engine\IEngine.cs" />
     <Compile Include="Exceptions\NotDirectedAcyclicGraphException.cs" />
     <Compile Include="JSApp.cs" />

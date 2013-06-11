@@ -10,36 +10,55 @@ namespace SpruceJS.Core.Minification
 {
 	public class AjaxminMinificator : IMinificator
 	{
-		Minifier minifier = new Minifier();
-
 		ISourceMap sourcemap;
 		CodeSettings settings;
 
 		StreamWriter sw;
 
-		public AjaxminMinificator()
+		private string realMapName;
+
+		Random rnd = new Random();
+
+		Minifier minifier;
+		public AjaxminMinificator(string appname)
 		{
-			sw = new StreamWriter(Path.Combine(@"D:\Web\SpruceJS\src\SpruceJS.Web.Sample", "app.spruce.js.map"), false, new UTF8Encoding(false));
+			realMapName = appname + ".map";
+
+			sw = new StreamWriter(new FileStream(@"D:\Web\SpruceJS\src\SpruceJS.Web.Sample\" + realMapName, FileMode.Create), new UTF8Encoding(false));
+			
 			sourcemap = new V3SourceMap(sw);
-			settings = new CodeSettings { SymbolsMap = sourcemap };
+			//sourcemap.SourceRoot = "/demo";
 
-			settings.TermSemicolons = true;
+			settings = new CodeSettings { 
+				SymbolsMap = sourcemap
+			};
 
-			sourcemap.StartPackage("app.spruce.js.map", "");
-			sourcemap.SourceRoot = "/demo";
+			sourcemap.StartPackage(appname, "");
+			
+			minifier = new Minifier();
 		}
 
-		public string Minify(string input, string name)
+		public string Minify(Dictionary<string, string> list)
 		{
 			try
 			{
-				minifier.FileName = name.Replace("\"", "") + ".js";
-				return minifier.MinifyJavaScript(input, settings);
+				StringBuilder sb = new StringBuilder();
+
+				foreach (var file in list)
+				{
+					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", file.Key));
+					sb.AppendLine(file.Value);
+				}
+
+				return minifier.MinifyJavaScript(sb.ToString(), settings);
 			}
 			catch (Exception ex)
 			{
-				this.Close();
 				throw ex;
+			}
+			finally
+			{
+				this.Close();
 			}
 		}
 
@@ -47,6 +66,13 @@ namespace SpruceJS.Core.Minification
 		{
 			sourcemap.EndPackage();
 			sourcemap.Dispose();
+
+			sw.Close();
+		}
+
+		public string SourceMap
+		{
+			get { return realMapName; }
 		}
 	}
 }

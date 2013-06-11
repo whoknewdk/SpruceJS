@@ -24,9 +24,12 @@ namespace SpruceJS.Core
 			for (int i = 0; i < children.Count; i++)
 			{
 				var t = children[i];
-				
+
+				if (t.Text == ";")
+					break;
+
 				// Find define
-				if (t.Text == "define") {
+				if (t.Text == "define" && String.IsNullOrEmpty(this.Name)) {
 					
 					// Next must be string
 					var next = children[i + 2];

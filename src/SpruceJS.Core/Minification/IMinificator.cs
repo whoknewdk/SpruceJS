@@ -8,7 +8,9 @@ namespace SpruceJS.Core.Minification
 {
 	public interface IMinificator
 	{
-		string Minify(string input, string name);
+		string SourceMap { get; }
+
+		string Minify(Dictionary<string, string> lst);
 
 		void Close();
 	}

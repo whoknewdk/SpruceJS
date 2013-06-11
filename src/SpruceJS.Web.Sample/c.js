@@ -1,0 +1,3 @@
+define("coo");
+
+function define() { }

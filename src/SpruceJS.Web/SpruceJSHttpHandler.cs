@@ -13,12 +13,19 @@ namespace SpruceJS.Web
 			// Create engine instance
 			var engine = new WebEngine(config, context);
 
-			// Output
 			context.Response.ContentType = "text/javascript";
-			context.Response.AddHeader("X-SourceMap", "/app.spruce.js.map");
-			context.Response.Write("function define (x, y, z) { z(); }" + "\n");
-			context.Response.Write(engine.Render() + "\n");
-			//context.Response.Write("//@ sourceMappingURL=/app.spruce.js.map");
+
+			// no-cache
+			context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+			context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
+			context.Response.AppendHeader("Expires", "0"); // Proxies.
+
+			var result = engine.Render();
+
+			// Output
+			context.Response.AppendHeader("X-SourceMap", result.SourceMap);
+			//context.Response.Write("function define (x, y, z) { z(); }" + "\n");
+			context.Response.Write(result.Output + "\n");
 		}
 
 		public bool IsReusable

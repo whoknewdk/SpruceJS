@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace SpruceJS.Core.Engine
 {
-	public interface IEngine
+	public struct EngineResult
 	{
-		EngineResult Render();
+		public string Output;
+		public string SourceMap;
 	}
 }

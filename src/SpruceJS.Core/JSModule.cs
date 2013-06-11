@@ -10,6 +10,7 @@ namespace SpruceJS.Core
 	public class JSModule : IEnumerable
 	{
 		public string Name { get; set; }
+		public string FileName { get; set; }
 		public string Content { get; set; }
 		public IList<string> Dependencies = new List<string>();
 

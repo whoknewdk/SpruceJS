@@ -11,10 +11,13 @@ namespace SpruceJS.Core
 	{
 		private JSModuleList Modules = new JSModuleList();
 
+		public string SourceMap;
+
 		IMinificator minificator;
 		public JSApp(IMinificator minificator)
 		{
 			this.minificator = minificator;
+			SourceMap = this.minificator.SourceMap;
 		}
 
 		public void Add(JSModule module)
@@ -24,14 +27,19 @@ namespace SpruceJS.Core
 
 		public override string ToString()
 		{
-			var sb = new StringBuilder();
+			//var sb = new StringBuilder();
+
+			Dictionary<string, string> lst = new Dictionary<string,string>();
 
 			foreach (JSModule module in Modules)
-				sb.Append(minificator.Minify(module.Content, module.Name));
+				lst.Add(module.FileName, module.Content);
 
-				minificator.Close();
+			//foreach (JSModule module in Modules)
+			//	sb.Append(minificator.Minify(module.Content, module.FileName));
 
-			return sb.ToString();
+			//minificator.Close();
+
+			return minificator.Minify(lst);
 		}
 
 		public int Count
