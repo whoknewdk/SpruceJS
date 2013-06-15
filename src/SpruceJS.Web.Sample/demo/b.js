@@ -1,4 +1,3 @@
 define("boo");
 
-
-HH2222
+console.log(123);

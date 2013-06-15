@@ -10,8 +10,6 @@ namespace SpruceJS.Core.Minification
 	{
 		string SourceMap { get; }
 
-		string Minify(Dictionary<string, string> lst);
-
-		void Close();
+		string Minify(JSModuleList Modules);
 	}
 }

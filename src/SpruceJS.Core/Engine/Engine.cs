@@ -68,7 +68,7 @@ namespace SpruceJS.Core.Engine
 				Dependencies = fileAnalyzer.Dependencies,
 				Content = content,
 
-				FileName = info.Name
+				FileName = filePath
 			};
 		}
 	}

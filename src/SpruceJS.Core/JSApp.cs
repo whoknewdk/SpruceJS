@@ -27,19 +27,7 @@ namespace SpruceJS.Core
 
 		public override string ToString()
 		{
-			//var sb = new StringBuilder();
-
-			Dictionary<string, string> lst = new Dictionary<string,string>();
-
-			foreach (JSModule module in Modules)
-				lst.Add(module.FileName, module.Content);
-
-			//foreach (JSModule module in Modules)
-			//	sb.Append(minificator.Minify(module.Content, module.FileName));
-
-			//minificator.Close();
-
-			return minificator.Minify(lst);
+			return minificator.Minify(Modules);
 		}
 
 		public int Count

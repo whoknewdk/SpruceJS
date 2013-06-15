@@ -57,10 +57,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="a.js" />
+    <Content Include="demo\a.js" />
     <None Include="app.config" />
-    <Content Include="b.js" />
-    <Content Include="c.js" />
+    <Content Include="demo\b.js" />
+    <Content Include="demo\c.js" />
     <Content Include="Default.htm" />
     <Content Include="Manual.aspx" />
     <Content Include="Web.config" />
@@ -93,9 +93,7 @@
       <Name>SpruceJS.Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="demo\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
