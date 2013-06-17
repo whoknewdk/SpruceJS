@@ -24,7 +24,7 @@ Features
 
 Howto get started
 ===============
-First have a look at the [[Getting started]] guide. Followig this, the wiki provides all details needed for at deeper
+First have a look at the [Getting started guide](https://github.com/whoknewdk/SpruceJS/wiki/Getting-started). Followig this, the wiki provides all details needed for at deeper
 understanding of how SpruceJS can be used.
 
 
