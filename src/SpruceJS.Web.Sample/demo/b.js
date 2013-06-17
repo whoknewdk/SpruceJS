@@ -1,3 +1,5 @@
-define("boo");
+define("boo", function () {
 
-console.log(123);
+	return { a: 1 };
+
+});

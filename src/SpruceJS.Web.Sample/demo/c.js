@@ -1,3 +1,5 @@
-define("coo");
+define("coo", function () {
 
-function define() { }
+	return { test: 123 };
+
+});
