@@ -27,7 +27,7 @@ namespace SpruceJS.Web
 			var result = engine.Render(filePath);
 
 			// Save sourcemap to disk
-			File.WriteAllText(sourceMapFile, result.SourceMap);
+			File.WriteAllText(context.Server.MapPath(sourceMapFile), result.SourceMap);
 
 			context.Response.AppendHeader("X-SourceMap", sourceMapFile);
 			context.Response.Write(result.Content);

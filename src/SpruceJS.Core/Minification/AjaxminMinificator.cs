@@ -17,7 +17,7 @@ namespace SpruceJS.Core.Minification
 			using (StreamReader reader = new StreamReader(stream))
 				definejs = reader.ReadToEnd();
 			
-			//
+			string result;
 			StringBuilder sourceMapBuilder = new StringBuilder();
 			using (StringWriter sw = new StringWriter(sourceMapBuilder))
 			{
@@ -27,8 +27,7 @@ namespace SpruceJS.Core.Minification
 					CodeSettings settings = new CodeSettings
 					{
 						SymbolsMap = sourcemap,
-						TermSemicolons = true,
-						ReorderScopeDeclarations = false
+						TermSemicolons = true
 					};
 
 					sourcemap.StartPackage(appName, appName + ".map");
@@ -48,16 +47,17 @@ namespace SpruceJS.Core.Minification
 						sb.AppendLine(file.Content);
 					}
 
-					var result = minifier.MinifyJavaScript(sb.ToString(), settings);
+					result = minifier.MinifyJavaScript(sb.ToString(), settings);
 
 					sourcemap.EndPackage();
-
-					return new MinifyResult {
-						Content = result,
-						SourceMap = sourceMapBuilder.ToString()
-					};
 				}
 			}
+
+			return new MinifyResult
+			{
+				Content = result,
+				SourceMap = sourceMapBuilder.ToString()
+			};
 		}
 	}
 }
