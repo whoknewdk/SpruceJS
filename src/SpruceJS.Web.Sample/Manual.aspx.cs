@@ -13,7 +13,7 @@ namespace SpruceJS.Web.Sample
 			IEngine engine = new WebEngine(config, Context);
 			
 			Response.ContentType = "text/javascript";
-			Response.Write(engine.Render());
+			Response.Write(engine.Render("app.spruce.js"));
 		}
 	}
 }

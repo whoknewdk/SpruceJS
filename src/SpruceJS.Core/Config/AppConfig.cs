@@ -17,13 +17,23 @@ namespace SpruceJS.Core.Config
 			Load(path);
 		}
 
-		protected void Load(string path)
+		public void LoadXml(string content)
+		{
+			loadDirectoriesAndFile(doc => doc.LoadXml(content));
+		}
+
+		public void Load(string path)
+		{
+			loadDirectoriesAndFile(doc => doc.Load(GetFullPath(path)));
+		}
+
+		private void loadDirectoriesAndFile(Action<XmlDocument> loadDocument)
 		{
 			Files = new List<string>();
 			Directories = new List<Directory>();
 
 			XmlDocument doc = new XmlDocument();
-			doc.Load(GetFullPath(path));
+			loadDocument(doc);
 
 			// File references
 			foreach (XmlNode node in doc.SelectNodes("//file"))

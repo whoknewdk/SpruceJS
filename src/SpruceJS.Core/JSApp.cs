@@ -11,13 +11,10 @@ namespace SpruceJS.Core
 	{
 		private JSModuleList Modules = new JSModuleList();
 
-		public string SourceMap;
-
 		IMinificator minificator;
 		public JSApp(IMinificator minificator)
 		{
 			this.minificator = minificator;
-			SourceMap = this.minificator.SourceMap;
 		}
 
 		public void Add(JSModule module)
@@ -25,9 +22,9 @@ namespace SpruceJS.Core
 			Modules.Add(module);
 		}
 
-		public override string ToString()
+		public MinifyResult GetBuild(string appName)
 		{
-			return minificator.Minify(Modules);
+			return minificator.Minify(Modules, appName);
 		}
 
 		public int Count

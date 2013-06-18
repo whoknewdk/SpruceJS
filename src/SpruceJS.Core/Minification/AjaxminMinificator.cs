@@ -8,24 +8,18 @@ namespace SpruceJS.Core.Minification
 {
 	public class AjaxminMinificator : IMinificator
 	{
-		private string appname, mapname;
-
-		public AjaxminMinificator(string appname)
-		{
-			this.appname = appname;
-			this.mapname = appname + ".map";
-		}
-
-		public string Minify(JSModuleList Modules)
+		public MinifyResult Minify(JSModuleList Modules, string appName)
 		{
 			string definejs;
 
+			// Read embedded JavaScript library
 			using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.define.js"))
 			using (StreamReader reader = new StreamReader(stream))
 				definejs = reader.ReadToEnd();
 			
-
-			using (StreamWriter sw = new StreamWriter(new FileStream(@"D:\Web\SpruceJS\src\SpruceJS.Web.Sample\" + mapname, FileMode.Create), new UTF8Encoding(false)))
+			//
+			StringBuilder sourceMapBuilder = new StringBuilder();
+			using (StringWriter sw = new StringWriter(sourceMapBuilder))
 			{
 
 				using(ISourceMap sourcemap = new V3SourceMap(sw))
@@ -37,7 +31,7 @@ namespace SpruceJS.Core.Minification
 						ReorderScopeDeclarations = false
 					};
 
-					sourcemap.StartPackage(appname, mapname);
+					sourcemap.StartPackage(appName, appName + ".map");
 
 					Minifier minifier = new Minifier();
 
@@ -54,18 +48,16 @@ namespace SpruceJS.Core.Minification
 						sb.AppendLine(file.Content);
 					}
 
-					var _result = minifier.MinifyJavaScript(sb.ToString(), settings);
+					var result = minifier.MinifyJavaScript(sb.ToString(), settings);
 
 					sourcemap.EndPackage();
 
-					return _result;
+					return new MinifyResult {
+						Content = result,
+						SourceMap = sourceMapBuilder.ToString()
+					};
 				}
 			}
-		}
-
-		public string SourceMap
-		{
-			get { return mapname; }
 		}
 	}
 }

@@ -8,8 +8,6 @@ namespace SpruceJS.Core.Minification
 {
 	public interface IMinificator
 	{
-		string SourceMap { get; }
-
-		string Minify(JSModuleList Modules);
+		MinifyResult Minify(JSModuleList Modules, string appName);
 	}
 }

@@ -8,7 +8,7 @@ namespace SpruceJS.Core.Engine
 {
 	public struct EngineResult
 	{
-		public string Output;
+		public string Content;
 		public string SourceMap;
 	}
 }

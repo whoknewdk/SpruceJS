@@ -59,6 +59,7 @@
     <Compile Include="JSModuleList.cs" />
     <Compile Include="Minification\AjaxminMinificator.cs" />
     <Compile Include="Minification\IMinificator.cs" />
+    <Compile Include="Minification\MinifyResult.cs" />
     <Compile Include="Parser\JavaScriptLexer.cs" />
     <Compile Include="Parser\JavaScriptParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

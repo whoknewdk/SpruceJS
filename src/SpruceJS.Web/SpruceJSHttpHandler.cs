@@ -8,7 +8,11 @@ namespace SpruceJS.Web
 	{
 		public void ProcessRequest(HttpContext context)
 		{
-			var config = new WebAppConfig(context.Request.FilePath.Replace(".spruce.js", ".config"), context);
+			string filePath = context.Request.FilePath;
+			string sourceMapFile = filePath + ".map";
+			string configFilePath = filePath.Replace(".spruce.js", ".config");
+
+			var config = new WebAppConfig(configFilePath, context);
 
 			// Create engine instance
 			var engine = new WebEngine(config, context);
@@ -19,10 +23,14 @@ namespace SpruceJS.Web
 			context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
 			context.Response.AppendHeader("Expires", "0"); // Proxies.
 
-			// Output
-			var result = engine.Render();
-			context.Response.AppendHeader("X-SourceMap", result.SourceMap);
-			context.Response.Write(result.Output);
+			// Get result
+			var result = engine.Render(filePath);
+
+			// Save sourcemap to disk
+			File.WriteAllText(sourceMapFile, result.SourceMap);
+
+			context.Response.AppendHeader("X-SourceMap", sourceMapFile);
+			context.Response.Write(result.Content);
 		}
 
 		public bool IsReusable

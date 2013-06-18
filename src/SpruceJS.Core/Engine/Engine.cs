@@ -6,12 +6,11 @@ namespace SpruceJS.Core.Engine
 {
 	public class Engine : IEngine
 	{
-		JSApp app;
+		JSApp app = new JSApp(new AjaxminMinificator());
+		
 		IAppConfig config;
-
 		public Engine(IAppConfig config)
 		{
-			app = new JSApp(new AjaxminMinificator("app.spruce.js"));
 			this.config = config;
 		}
 
@@ -26,7 +25,7 @@ namespace SpruceJS.Core.Engine
 				loadDirectoryFiles(directory.FullName, isRecursive);
 		}
 
-		public EngineResult Render()
+		public EngineResult Render(string appName)
 		{
 			// Add files
 			foreach (var file in config.Files)
@@ -36,7 +35,12 @@ namespace SpruceJS.Core.Engine
 			foreach (var directory in config.Directories)
 				loadDirectoryFiles(directory.Path, directory.Recursive);
 
-			return new EngineResult { Output = app.ToString(), SourceMap = app.SourceMap };
+			MinifyResult result = app.GetBuild(appName);
+
+			return new EngineResult {
+				Content = result.Content, 
+				SourceMap = result.SourceMap 
+			};
 		}
 
 		protected virtual string GetFullPath(string path)

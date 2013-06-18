@@ -15,7 +15,8 @@ namespace SpruceJS.Test
 							<file path='def' />
 						</files>";
 
-			var appconfig = new AppConfig(xml);
+			var appconfig = new AppConfig();
+			appconfig.LoadXml(xml);
 
 			Assert.Equal(3, appconfig.Files.Count);
 		}
@@ -29,7 +30,8 @@ namespace SpruceJS.Test
 							<directory path='def' />
 						</files>";
 
-			var appconfig = new AppConfig(xml);
+			var appconfig = new AppConfig();
+			appconfig.LoadXml(xml);
 
 			Assert.Equal(3, appconfig.Directories.Count);
 		}
@@ -42,7 +44,8 @@ namespace SpruceJS.Test
 							<directory path='def' recursive='true' />
 						</files>";
 
-			var appconfig = new AppConfig(xml);
+			var appconfig = new AppConfig();
+			appconfig.LoadXml(xml);
 
 			Assert.Equal(2, appconfig.Directories.Count);
 			Assert.False(appconfig.Directories[0].Recursive);
