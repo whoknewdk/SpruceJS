@@ -9,9 +9,9 @@ namespace SpruceJS.Core
 {
 	public class JSApp
 	{
-		private JSModuleList Modules = new JSModuleList();
+		private readonly JSModuleList modules = new JSModuleList();
 
-		IMinificator minificator;
+		readonly IMinificator minificator;
 		public JSApp(IMinificator minificator)
 		{
 			this.minificator = minificator;
@@ -19,17 +19,17 @@ namespace SpruceJS.Core
 
 		public void Add(JSModule module)
 		{
-			Modules.Add(module);
+			modules.Add(module);
 		}
 
 		public MinifyResult GetBuild(string appName)
 		{
-			return minificator.Minify(Modules, appName);
+			return minificator.Minify(modules, appName);
 		}
 
 		public int Count
 		{
-			get { return Modules.Count; }
+			get { return modules.Count; }
 		}
 	}
 }

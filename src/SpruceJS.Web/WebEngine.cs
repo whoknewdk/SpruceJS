@@ -6,7 +6,7 @@ namespace SpruceJS.Web
 {
 	public class WebEngine : Engine, IEngine
 	{
-		HttpContext context;
+		readonly HttpContext context;
 
 		public WebEngine(IAppConfig appConfig, HttpContext context)
 			: base(appConfig)
@@ -17,6 +17,11 @@ namespace SpruceJS.Web
 		protected override string GetFullPath(string path)
 		{
 			return context.Server.MapPath(path);
+		}
+
+		protected override string UrlPath(string path)
+		{
+			return "/" + path.Replace(context.Request.PhysicalApplicationPath, "").Replace("\\", "/");
 		}
 	}
 }

@@ -57,25 +57,17 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="demo\a.js" />
-    <None Include="app.config" />
-    <Content Include="demo\b.js" />
-    <Content Include="demo\c.js" />
-    <Content Include="Default.htm" />
-    <Content Include="Manual.aspx" />
+    <Content Include="platform\desktop\Default.htm" />
+    <Content Include="platform\desktop\views\main.js" />
+    <Content Include="platform\desktop\views\overview.js" />
     <Content Include="Web.config" />
+    <Content Include="shared\models\todo.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Manual.aspx.cs">
-      <DependentUpon>Manual.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Manual.aspx.designer.cs">
-      <DependentUpon>Manual.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="platform\desktop\app.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -93,7 +85,9 @@
       <Name>SpruceJS.Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="libs\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -13,18 +13,18 @@ namespace SpruceJS.Core.Minification
 			string definejs;
 
 			// Read embedded JavaScript library
-			using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.define.js"))
-			using (StreamReader reader = new StreamReader(stream))
+			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.define.js"))
+			using (var reader = new StreamReader(stream))
 				definejs = reader.ReadToEnd();
 			
 			string result;
-			StringBuilder sourceMapBuilder = new StringBuilder();
-			using (StringWriter sw = new StringWriter(sourceMapBuilder))
+			var sourceMapBuilder = new StringBuilder();
+			using (var sw = new StringWriter(sourceMapBuilder))
 			{
 
 				using(ISourceMap sourcemap = new V3SourceMap(sw))
 				{
-					CodeSettings settings = new CodeSettings
+					var settings = new CodeSettings
 					{
 						SymbolsMap = sourcemap,
 						TermSemicolons = true
@@ -32,9 +32,9 @@ namespace SpruceJS.Core.Minification
 
 					sourcemap.StartPackage(appName, appName + ".map");
 
-					Minifier minifier = new Minifier();
+					var minifier = new Minifier();
 
-					StringBuilder sb = new StringBuilder();
+					var sb = new StringBuilder();
 
 					// Add definejs
 					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "define.sp.js"));
@@ -43,7 +43,7 @@ namespace SpruceJS.Core.Minification
 					// Add each file
 					foreach (var file in Modules)
 					{
-						sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", file.FileName));
+						sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", file.Url));
 						sb.AppendLine(file.Content);
 					}
 
