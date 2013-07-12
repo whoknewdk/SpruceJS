@@ -1,36 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
+using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Parser;
 
 namespace SpruceJS.Core.Tree
 {
 	public class JSCommonTree
 	{
-		CommonTree tree = null;
+		private Block block;
 
-		public IList<ITree> Children
+		public IEnumerable<AstNode> Children
 		{
-			get { return tree.Children; }
+			get { return block.Children; }
 		}
 
 		public void Load(string content)
 		{
-			try
-			{
-				var stream = new ANTLRStringStream(content);
-				var lexer = new JavaScriptLexer(stream);
-				var tokenStream = new CommonTokenStream(lexer);
-				var parser = new JavaScriptParser(tokenStream);
-				JavaScriptParser.program_return programReturn = parser.program();
+			JSParser parser = new JSParser(content);
 
-				tree = programReturn.Tree as CommonTree;
-			}
-			catch (Exception ex)
-			{
-				throw ex;
-			}
+			parser.CompilerError += ErrorHandler;
+
+			CodeSettings settings = new CodeSettings();
+			settings.AddKnownGlobal("define");
+
+			block = parser.Parse(settings);
+		}
+
+		static void ErrorHandler(object source, JScriptExceptionEventArgs ea)
+		{
+			//throw new Exception(ea.Error.ToString());
 		}
 	}
 }

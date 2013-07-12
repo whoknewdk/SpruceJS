@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 using Antlr.Runtime.Tree;
+using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Tree;
 
 namespace SpruceJS.Core
@@ -20,41 +23,52 @@ namespace SpruceJS.Core
 		{
 			tree.Load(content);
 
-			var children = tree.Children;
-			for (int i = 0; i < children.Count; i++)
-			{
-				var t = children[i];
-
-				if (t.Text == ";")
-					break;
-
-				// Find define
-				if (t.Text == "define" && String.IsNullOrEmpty(this.Name)) {
-					
-					// Next must be string
-					var next = children[i + 2];
-
-					this.Name = next.Text;
-				}
-
-				// Find dependencies
-				if (t.Text == "[")
-				{
-					var next = t;
-
-					int j = 1;
-					while (next.Text != "]")
-					{
-						if (next.Type == 6)
-							dependencies.Add(next.Text);
-
-						next = children[i + j++];
-					}
-				}
-			}
+			iterate(tree.Children, 0);
 
 			// If key is present module is valid
 			IsValid = !String.IsNullOrEmpty(this.Name);
+		}
+
+		private void iterate(IEnumerable<AstNode> nodes, int i)
+		{
+			// Everything has already been found!
+			if (dependencies.Count > 0)
+				return;
+
+			bool defineFound = false;
+			foreach (var child in nodes)
+			{
+				// Search for key/name
+				if (defineFound && child is AstNodeList)
+				{
+					defineFound = false;
+					var lst = child.Children.ToArray();
+
+					// Set name
+					if (lst[0] is ConstantWrapper)
+						Name = lst[0].ToCode().Replace("\"", "");
+
+					// Set dependencies
+					if (lst[1] is ArrayLiteral)
+					{
+						var abc = lst[1].Children.ToArray();
+						if (abc[0] is AstNodeList)
+						{
+							var depends = (AstNodeList) abc[0];
+							foreach (var depend in depends)
+								dependencies.Add(depend.ToCode().Replace("\"", ""));
+						}
+
+						return;
+					}
+				}
+
+				// Search for "define"
+				if (child is Lookup && child.ToCode() == "define")
+					defineFound = true;
+
+				iterate(child.Children, i+1);
+			}
 		}
 	}
 }
