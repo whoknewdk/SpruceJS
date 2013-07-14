@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using SpruceJS.Core;
 using SpruceJS.Core.Sort;
 using Xunit;
@@ -16,18 +17,19 @@ namespace SpruceJS.Test.Core
 			var d = new JSModule { Name = "d", Dependencies = new[] { "a", "e" } };
 			var e = new JSModule { Name = "e", Dependencies = new[] { "c", "b" } };
 
-			IDictionary<string, JSModule> Modules = new Dictionary<string, JSModule>();
+			IList<JSModule> modules = new List<JSModule>();
 
-			Modules.Add("c", c);
-			Modules.Add("d", d);
+			modules.Add(c);
+			modules.Add(d);
 
-			Modules.Add("a", a);
-			Modules.Add("b", b);
-			Modules.Add("e", e);
+			modules.Add(a);
+			modules.Add(b);
+			modules.Add(e);
 
-			var list = SortingService.Sort(Modules);
+			var list = SortingService.Sort(modules, x => x.Name, x => x.Dependencies);
 
-			Assert.Equal(list, new List<JSModule> { a, b, c, e, d });
+			Assert.Equal(5, list.Count());
+			Assert.Equal(new List<JSModule> { a, b, c, e, d }, list);
 		}
 	}
 }

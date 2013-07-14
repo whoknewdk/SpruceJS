@@ -13,27 +13,43 @@ namespace SpruceJS.Test.Core
 			Assert.True(a.IsValid);
 			Assert.Equal("myid", a.Name);
 
-			//var b = new JSFileAnalyzer("define(['id1','id2'], function (id1, id2) { var test = {}; });");
-			//Assert.True(b.IsValid);
+			var b = new JSFileAnalyzer("define(['id1','id2'], function (id1, id2) { var test = {}; });");
+			Assert.True(b.IsValid);
 
-			//var c = new JSFileAnalyzer("define(function () { var test = {}; });");
-			//Assert.True(c.IsValid);
+			var c = new JSFileAnalyzer("define(function () { var test = {}; });");
+			Assert.True(c.IsValid);
 
-			//var d = new JSFileAnalyzer("define('myid', function (id1, id2) { var test = {}; });");
-			//Assert.True(d.IsValid);
+			var d = new JSFileAnalyzer("define('myid', function (id1, id2) { var test = {}; });");
+			Assert.True(d.IsValid);
 
 			// Node
 			var e = new JSFileAnalyzer("define('myid', ['id1','id2'], function (id1, id2) { return {}; });");
 			Assert.True(e.IsValid);
 
-			//var f = new JSFileAnalyzer("define(['id1','id2'], function (id1, id2) { return {}; });");
-			//Assert.True(f.IsValid);
+			var f = new JSFileAnalyzer("define(['id1','id2'], function (id1, id2) { return {}; });");
+			Assert.True(f.IsValid);
 
-			//var g = new JSFileAnalyzer("define(function () { return {}; });");
-			//Assert.True(g.IsValid);
+			var g = new JSFileAnalyzer("define(function () { return {}; });");
+			Assert.True(g.IsValid);
 
-			//var h = new JSFileAnalyzer("define('myid', function (id1, id2) { return {}; });");
-			//Assert.True(h.IsValid);
+			var h = new JSFileAnalyzer("define('myid', function (id1, id2) { return {}; });");
+			Assert.True(h.IsValid);
+		}
+
+		[Fact]
+		public void CanNotValidate()
+		{
+			var a = new JSFileAnalyzer("define();");
+			Assert.False(a.IsValid);
+
+			var b = new JSFileAnalyzer("define('id1');");
+			Assert.False(b.IsValid);
+
+			var c = new JSFileAnalyzer("define('id1', ['id2', 'id3']);");
+			Assert.False(c.IsValid);
+
+			var d = new JSFileAnalyzer("define(['id2', 'id3']);");
+			Assert.False(d.IsValid);
 		}
 
 		[Fact]

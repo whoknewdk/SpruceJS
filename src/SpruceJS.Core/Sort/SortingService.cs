@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SpruceJS.Core.Exceptions.Sort;
@@ -8,21 +9,21 @@ namespace SpruceJS.Core.Sort
 	public static class SortingService
 	{
 		// Topological sort
-		public static IEnumerable<T> Sort<T>(IDictionary<string, T> Modules) where T : IEnumerable
+		public static IEnumerable<T> Sort<T>(IList<T> items, Func<T, string> getKey, Func<T, IEnumerable> getImports)
 		{
-			var decoratedModules = Modules.ToDictionary(x => x.Key, x => new SortItem<T>(x.Value));
+			//var decoratedModules = Modules.ToDictionary(getKey, x => new SortItem<T>(x));
+			var decoratedModules = items.Select(x => new SortItem<T>(x)).ToList();
 
 			// Topological sort
-			foreach (var m in decoratedModules)
+			foreach (var item in decoratedModules)
 			{
-				SortItem<T> item = m.Value;
 				if (!item.Marked)
-					foreach (T t in visit<T>(item, decoratedModules))
+					foreach (T t in visit(item, decoratedModules, getKey, getImports))
 						yield return t;
 			}
 		}
 
-		static IEnumerable<T> visit<T>(SortItem<T> item, IDictionary<string, SortItem<T>> Modules) where T : IEnumerable
+		static IEnumerable<T> visit<T>(SortItem<T> item, IList<SortItem<T>> items, Func<T, string> getKey, Func<T, IEnumerable> getImports)
 		{
 			if (item.TempMarked)
 				throw new NotDirectedAcyclicGraphException();
@@ -31,12 +32,14 @@ namespace SpruceJS.Core.Sort
 			{
 				item.TempMarked = true;
 
-				foreach (string name in item.Item)
+				foreach (string name in getImports(item.Item))
 				{
-					if (!Modules.ContainsKey(name))
+					var mod = items.SingleOrDefault(x => getKey(x.Item) == name);
+
+					if (mod == null)
 						throw new NameNotFoundException<T>(name, item.Item);
 
-					foreach (T t in visit(Modules[name], Modules))
+					foreach (T t in visit(mod, items, getKey, getImports))
 						yield return t;
 				}
 
