@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
 using Microsoft.Ajax.Utilities;
+using SpruceJS.Core.Exceptions.Modules;
+using SpruceJS.Core.Exceptions.Sort;
 
 namespace SpruceJS.Core.Minification
 {
@@ -40,11 +43,18 @@ namespace SpruceJS.Core.Minification
 					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "define.sp.js"));
 					sb.AppendLine(definejs);
 
-					// Add each file
-					foreach (var file in Modules)
+					try
 					{
-						sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", file.Url));
-						sb.AppendLine(file.Content);
+						// Add each file
+						foreach (var file in Modules)
+						{
+							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", file.Url));
+							sb.AppendLine(file.Content);
+						}
+					}
+					catch (NameNotFoundException<JSModule> ex)
+					{
+						throw new ModuleKeyDoesNotExistException(ex.Name, ex.Item.Url);
 					}
 
 					result = minifier.MinifyJavaScript(sb.ToString(), settings);
@@ -53,8 +63,7 @@ namespace SpruceJS.Core.Minification
 				}
 			}
 
-			return new MinifyResult
-			{
+			return new MinifyResult {
 				Content = result,
 				SourceMap = sourceMapBuilder.ToString()
 			};

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SpruceJS.Core.Exceptions;
+using SpruceJS.Core.Exceptions.Sort;
 
-namespace SpruceJS.Core
+namespace SpruceJS.Core.Sort
 {
 	public static class SortingService
 	{
@@ -32,8 +32,13 @@ namespace SpruceJS.Core
 				item.TempMarked = true;
 
 				foreach (string name in item.Item)
-					foreach (T t in visit<T>(Modules[name], Modules))
+				{
+					if (!Modules.ContainsKey(name))
+						throw new NameNotFoundException<T>(name, item.Item);
+
+					foreach (T t in visit(Modules[name], Modules))
 						yield return t;
+				}
 
 				item.TempMarked = false;
 				item.Marked = true;
@@ -51,7 +56,7 @@ namespace SpruceJS.Core
 
 		public SortItem(T item)
 		{
-			this.Item = item;
+			Item = item;
 		}
 	}
 }
