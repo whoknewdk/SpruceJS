@@ -10,12 +10,11 @@ namespace SpruceJS.Web
 		{
 			string filePath = context.Request.FilePath;
 
-			// no-cache
-			if (!SpruceJSConfigurationSection.Instance.Cache)
+			context.Response.ContentType = "text/javascript";
+			if (filePath.Contains(".map"))
 			{
-				context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-				context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
-				context.Response.AppendHeader("Expires", "0"); // Proxies.	
+				context.Response.Write(context.Application[filePath]);
+				return;
 			}
 
 			string configFilePath = filePath.Replace(".spruce.js", ".spruce.config").Replace(".map", "");
@@ -28,16 +27,18 @@ namespace SpruceJS.Web
 			// Get result
 			var result = engine.Render(filePath);
 
-			context.Response.ContentType = "text/javascript";
-			if (filePath.Contains(".map"))
+			context.Application[filePath + ".map"] = result.SourceMapBody;
+
+
+			// no-cache
+			if (!SpruceJSConfigurationSection.Instance.Cache)
 			{
-				context.Response.Write(result.SourceMapBody);
+				context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+				context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
+				context.Response.AppendHeader("Expires", "0"); // Proxies.	
 			}
-			else
-			{
-				context.Response.AppendHeader("X-SourceMap", filePath + ".map");
-				context.Response.Write(result.JavaScriptBody);
-			}
+			context.Response.AppendHeader("X-SourceMap", filePath + ".map");
+			context.Response.Write(result.JavaScriptBody);
 		}
 
 		public bool IsReusable
