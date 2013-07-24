@@ -1,4 +1,7 @@
-﻿using SpruceJS.Core.Minification;
+﻿using System.IO;
+using System.Reflection;
+using System.Text;
+using SpruceJS.Core.Minification;
 
 namespace SpruceJS.Core
 {
@@ -17,9 +20,25 @@ namespace SpruceJS.Core
 			modules.Add(module);
 		}
 
-		public MinifyResult GetBuild(string appName)
+		public MinifyResult GetMinifiedOutput(string appName)
 		{
 			return minificator.Minify(modules, appName);
+		}
+
+		public string GetOutput(string appName)
+		{
+			// Read embedded JavaScript library
+			string definejs;
+			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.define.js"))
+			using (var reader = new StreamReader(stream))
+				definejs = reader.ReadToEnd();
+
+			var sb = new StringBuilder(definejs);
+
+			foreach (var module in modules)
+				sb.Append(module.Content);
+			
+			return sb.ToString();
 		}
 	}
 }

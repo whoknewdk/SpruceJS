@@ -5,6 +5,12 @@ namespace SpruceJS.Core.Config
 {
 	public class SpruceJSConfigurationSection : ConfigurationSection
 	{
+		private static SpruceJSConfigurationSection instance;
+		public static SpruceJSConfigurationSection Instance
+		{
+			get { return instance ?? (instance = (SpruceJSConfigurationSection)ConfigurationManager.GetSection("SpruceJS")); }
+		}
+
 		[ConfigurationProperty("minify", DefaultValue = "false", IsRequired = false)]
 		public Boolean Minify
 		{
@@ -18,7 +24,7 @@ namespace SpruceJS.Core.Config
 			}
 		}
 
-		[ConfigurationProperty("cache", DefaultValue = "cache", IsRequired = false)]
+		[ConfigurationProperty("cache", DefaultValue = "false", IsRequired = false)]
 		public Boolean Cache
 		{
 			get

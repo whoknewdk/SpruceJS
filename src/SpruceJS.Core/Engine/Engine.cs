@@ -23,11 +23,20 @@ namespace SpruceJS.Core.Engine
 			foreach (var file in fileConfig.Files)
 				app.Add(createModule(file));
 
-			MinifyResult result = app.GetBuild(appName);
+			if (SpruceJSConfigurationSection.Instance.Minify)
+			{
+				MinifyResult result = app.GetMinifiedOutput(appName);
 
-			return new EngineResult {
-				JavaScriptBody = result.JavaScriptBody,
-				SourceMapBody = result.SourceMapBody
+				return new EngineResult
+				{
+					JavaScriptBody = result.JavaScriptBody,
+					SourceMapBody = result.SourceMapBody
+				};
+			}
+
+			return new EngineResult
+			{
+				JavaScriptBody = app.GetOutput(appName)
 			};
 		}
 
