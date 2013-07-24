@@ -26,8 +26,8 @@ namespace SpruceJS.Core.Engine
 			MinifyResult result = app.GetBuild(appName);
 
 			return new EngineResult {
-				Content = result.Content, 
-				SourceMap = result.SourceMap 
+				JavaScriptBody = result.JavaScriptBody,
+				SourceMapBody = result.SourceMapBody
 			};
 		}
 

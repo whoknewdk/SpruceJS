@@ -1,21 +1,14 @@
-﻿using System.IO;
-using System.Web;
-using SpruceJS.Core.Config;
+﻿using System.Web;
+using System.Web.SessionState;
 
 namespace SpruceJS.Web
 {
-	public class SpruceJSHttpHandler : IHttpHandler
+	public class SpruceJSHttpHandler : IRequiresSessionState, IHttpHandler
 	{
 		public void ProcessRequest(HttpContext context)
 		{
 			string filePath = context.Request.FilePath;
-			string sourceMapFile = filePath + ".map";
-			string configFilePath = filePath.Replace(".spruce.js", ".spruce.config");
-
-			var config = new WebAppConfig(configFilePath, context);
-
-			// Create engine instance
-			var engine = new WebEngine(config, context);
+			string map = filePath + ".map";
 
 			// no-cache
 			context.Response.ContentType = "text/javascript";
@@ -23,14 +16,29 @@ namespace SpruceJS.Web
 			context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
 			context.Response.AppendHeader("Expires", "0"); // Proxies.
 
-			// Get result
-			var result = engine.Render(filePath);
+			if (filePath.Contains(".map"))
+			{
+				context.Response.Write(context.Session[map]);
+				context.Session.Remove(map);
+			}
+			else
+			{
+				string configFilePath = filePath.Replace(".spruce.js", ".spruce.config");
 
-			// Save sourcemap to disk
-			File.WriteAllText(context.Server.MapPath(sourceMapFile), result.SourceMap);
+				var config = new WebAppConfig(configFilePath, context);
 
-			context.Response.AppendHeader("X-SourceMap", sourceMapFile);
-			context.Response.Write(result.Content);
+				// Create engine instance
+				var engine = new WebEngine(config, context);
+
+				// Get result
+				var result = engine.Render(filePath);
+
+				// Save source map for sibling request
+				context.Session[map] = result.SourceMapBody;
+
+				context.Response.AppendHeader("X-SourceMap", map);
+				context.Response.Write(result.JavaScriptBody);
+			}
 		}
 
 		public bool IsReusable

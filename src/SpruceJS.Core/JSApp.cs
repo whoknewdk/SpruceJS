@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SpruceJS.Core.Minification;
+﻿using SpruceJS.Core.Minification;
 
 namespace SpruceJS.Core
 {
@@ -25,11 +20,6 @@ namespace SpruceJS.Core
 		public MinifyResult GetBuild(string appName)
 		{
 			return minificator.Minify(modules, appName);
-		}
-
-		public int Count
-		{
-			get { return modules.Count; }
 		}
 	}
 }

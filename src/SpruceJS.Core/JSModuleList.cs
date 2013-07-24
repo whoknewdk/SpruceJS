@@ -8,8 +8,6 @@ namespace SpruceJS.Core
 	{
 		private readonly IList<JSModule> modules = new List<JSModule>();
 
-		public int Count { get { return modules.Count; } }
-
 		public void Add(JSModule module)
 		{
 			if (module != null)

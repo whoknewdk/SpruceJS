@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Text;
@@ -11,7 +10,7 @@ namespace SpruceJS.Core.Minification
 {
 	public class AjaxminMinificator : IMinificator
 	{
-		public MinifyResult Minify(JSModuleList Modules, string appName)
+		public MinifyResult Minify(JSModuleList modules, string appName)
 		{
 			string definejs;
 
@@ -46,7 +45,7 @@ namespace SpruceJS.Core.Minification
 					try
 					{
 						// Add each file
-						foreach (var file in Modules)
+						foreach (var file in modules)
 						{
 							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", file.Url));
 							sb.AppendLine(file.Content);
@@ -64,8 +63,8 @@ namespace SpruceJS.Core.Minification
 			}
 
 			return new MinifyResult {
-				Content = result,
-				SourceMap = sourceMapBuilder.ToString()
+				JavaScriptBody = result,
+				SourceMapBody = sourceMapBuilder.ToString()
 			};
 		}
 	}
