@@ -10,7 +10,7 @@ namespace SpruceJS.Web
 		{
 			string filePath = context.Request.FilePath;
 			string sourceMapFile = filePath + ".map";
-			string configFilePath = filePath.Replace(".spruce.js", ".config");
+			string configFilePath = filePath.Replace(".spruce.js", ".spruce.config");
 
 			var config = new WebAppConfig(configFilePath, context);
 

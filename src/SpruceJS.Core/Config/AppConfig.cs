@@ -7,8 +7,8 @@ namespace SpruceJS.Core.Config
 {
 	public class AppConfig : IAppConfig
 	{
-		public IList<string> Files { get; private set; }
-		public IList<Directory> Directories { get; private set; }
+		public IList<Data> Externals { get; private set; }
+		public IList<Data> Modules { get; private set; }
 
 		public AppConfig() { }
 
@@ -29,28 +29,36 @@ namespace SpruceJS.Core.Config
 
 		private void loadDirectoriesAndFile(Action<XmlDocument> loadDocument)
 		{
-			Files = new List<string>();
-			Directories = new List<Directory>();
+			Modules = new List<Data>();
+			Externals = new List<Data>();
 
-			XmlDocument doc = new XmlDocument();
+			var doc = new XmlDocument();
 			loadDocument(doc);
 
 			// File references
-			foreach (XmlNode node in doc.SelectNodes("//file"))
-				Files.Add(node.Attributes["path"].Value);
-
-			// Directory references
-			foreach (XmlNode node in doc.SelectNodes("//directory"))
+			foreach (XmlNode node in doc.SelectNodes("//add[ancestor::modules]"))
 			{
-				var dir = new Directory
-				{
-					Path = node.Attributes["path"].Value,
-				};
+				var data = new Data { Path = node.Attributes["path"].Value };
 
 				if (node.Attributes["recursive"] != null)
-					dir.Recursive = Convert.ToBoolean(node.Attributes["recursive"].Value);
+					data.Recursive = Convert.ToBoolean(node.Attributes["recursive"].Value);
+				else
+					data.Recursive = false;
 
-				Directories.Add(dir);
+				Modules.Add(data);
+			}
+
+			// Directory references
+			foreach (XmlNode node in doc.SelectNodes("//add[ancestor::externals]"))
+			{
+				var data = new Data { Path = node.Attributes["path"].Value };
+
+				if (node.Attributes["recursive"] != null)
+					data.Recursive = Convert.ToBoolean(node.Attributes["recursive"].Value);
+				else
+					data.Recursive = false;
+
+				Externals.Add(data);
 			}
 		}
 
@@ -60,7 +68,7 @@ namespace SpruceJS.Core.Config
 		}
 	}
 
-	public struct Directory
+	public struct Data
 	{
 		public string Path;
 		public bool Recursive;

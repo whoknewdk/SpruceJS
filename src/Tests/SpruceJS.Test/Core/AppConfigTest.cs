@@ -7,49 +7,55 @@ namespace SpruceJS.Test
 	public class AppConfigTest
 	{
 		[Fact]
-		public void FilesCanBeRead()
+		public void ModulesCanBeRead()
 		{
-			string xml = @"<files>
-							<file path='abc' />
-							<file path='def' />
-							<file path='def' />
-						</files>";
+			string xml = @"<sprucejs>
+							<modules>
+								<add path='abc.js' />
+								<add path='def.js' />
+								<add path='def.js' />
+							</modules>
+						</sprucejs>";
 
 			var appconfig = new AppConfig();
 			appconfig.LoadXml(xml);
 
-			Assert.Equal(3, appconfig.Files.Count);
+			Assert.Equal(3, appconfig.Modules.Count);
 		}
 
 		[Fact]
-		public void DirectoriesCanBeRead()
+		public void ExternalsCanBeRead()
 		{
-			string xml = @"<files>
-							<directory path='abc' />
-							<directory path='def' />
-							<directory path='def' />
-						</files>";
+			string xml = @"<sprucejs>
+							<externals>
+								<add path='/abc' />
+								<add path='/def/' />
+								<add path='/def' />
+							</externals>
+						</sprucejs>";
 
 			var appconfig = new AppConfig();
 			appconfig.LoadXml(xml);
 
-			Assert.Equal(3, appconfig.Directories.Count);
+			Assert.Equal(3, appconfig.Externals.Count);
 		}
 
 		[Fact]
 		public void RecursiveDirectoriesCanBeRead()
 		{
-			string xml = @"<files>
-							<directory path='abc' />
-							<directory path='def' recursive='true' />
-						</files>";
+			string xml = @"<sprucejs>
+							<modules>
+								<add path='abc' />
+								<add path='def' recursive='true' />
+							</modules>
+						</sprucejs>";
 
 			var appconfig = new AppConfig();
 			appconfig.LoadXml(xml);
 
-			Assert.Equal(2, appconfig.Directories.Count);
-			Assert.False(appconfig.Directories[0].Recursive);
-			Assert.True(appconfig.Directories[1].Recursive);
+			Assert.Equal(2, appconfig.Modules.Count);
+			Assert.False(appconfig.Modules[0].Recursive);
+			Assert.True(appconfig.Modules[1].Recursive);
 		}
 	}
 }

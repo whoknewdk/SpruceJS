@@ -40,6 +40,7 @@
       <HintPath>..\..\lib\antlr-dotnet-tool-3.3.1.7705\Antlr3.StringTemplate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
@@ -50,7 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\AppConfig.cs" />
+    <Compile Include="Config\Files\FileConfig.cs" />
+    <Compile Include="Config\Files\IFileConfig.cs" />
     <Compile Include="Config\IAppConfig.cs" />
+    <Compile Include="Config\SpruceJSConfigurationSection.cs" />
     <Compile Include="Engine\EngineResult.cs" />
     <Compile Include="Engine\IEngine.cs" />
     <Compile Include="Exceptions\Modules\ModuleKeyCircularReferenceException.cs" />

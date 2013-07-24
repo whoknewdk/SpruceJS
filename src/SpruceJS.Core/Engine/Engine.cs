@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using SpruceJS.Core.Config;
+using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Minification;
 
 namespace SpruceJS.Core.Engine
@@ -8,36 +9,19 @@ namespace SpruceJS.Core.Engine
 	{
 		readonly JSApp app = new JSApp(new AjaxminMinificator());
 
-		readonly IAppConfig config;
+		private readonly IAppConfig config;
 		public Engine(IAppConfig config)
 		{
 			this.config = config;
 		}
 
-		private void loadDirectoryFiles(string path, bool isRecursive)
-		{
-			var info = new DirectoryInfo(path);
-			
-			foreach (var file in info.GetFiles())
-				app.Add(createModule(file.FullName));
-
-			// Stop, if not recursive
-			if (!isRecursive) 
-				return;
-
-			foreach (var directory in info.GetDirectories())
-				loadDirectoryFiles(directory.FullName, true);
-		}
-
 		public EngineResult Render(string appName)
 		{
-			// Add files
-			foreach (var file in config.Files)
-				app.Add(createModule(GetFullPath(file)));
+			var fileConfig = new FileConfig(config, GetFullPath);
 
-			// Add directory files
-			foreach (var directory in config.Directories)
-				loadDirectoryFiles(GetFullPath(directory.Path), directory.Recursive);
+			// Add files
+			foreach (var file in fileConfig.Files)
+				app.Add(createModule(file));
 
 			MinifyResult result = app.GetBuild(appName);
 
@@ -65,8 +49,6 @@ namespace SpruceJS.Core.Engine
 			// Stop if content is not valid
 			if (!fileAnalyzer.IsValid) 
 				return null;
-
-			var fi = new FileInfo(filePath);
 
 			// Build new module
 			return new JSModule {

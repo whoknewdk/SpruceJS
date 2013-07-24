@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace SpruceJS.Core.Config
 {
 	public interface IAppConfig
 	{
-		IList<string> Files { get; }
-		IList<Directory> Directories { get; }
+		IList<Data> Externals { get; }
+		IList<Data> Modules { get; }
 	}
 }
