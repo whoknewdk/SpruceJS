@@ -1,8 +1,10 @@
-﻿namespace SpruceJS.Core.Engine
+﻿using SpruceJS.Core.Results;
+
+namespace SpruceJS.Core.Engine
 {
-	public struct EngineResult
+	public struct EngineResult : IResult
 	{
-		public string JavaScriptBody;
-		public string SourceMapBody;
+		public string JavaScriptBody { get; set; }
+		public string SourceMapBody { get; set; }
 	}
 }

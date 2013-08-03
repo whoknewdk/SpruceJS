@@ -15,7 +15,7 @@ namespace SpruceJS.Core.Minification
 			string definejs;
 
 			// Read embedded JavaScript library
-			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.define.js"))
+			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.spruce.js"))
 			using (var reader = new StreamReader(stream))
 				definejs = reader.ReadToEnd();
 			

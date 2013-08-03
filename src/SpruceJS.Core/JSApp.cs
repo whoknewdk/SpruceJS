@@ -29,7 +29,7 @@ namespace SpruceJS.Core
 		{
 			// Read embedded JavaScript library
 			string definejs;
-			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.define.js"))
+			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.spruce.js"))
 			using (var reader = new StreamReader(stream))
 				definejs = reader.ReadToEnd();
 

@@ -57,10 +57,13 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="libs\mylib.js" />
     <Content Include="platform\desktop\Default.htm" />
     <Content Include="platform\desktop\views\main.js" />
     <Content Include="platform\desktop\views\overview.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="shared\models\todo.js" />
   </ItemGroup>
   <ItemGroup>
@@ -85,9 +88,7 @@
       <Name>SpruceJS.Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="libs\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

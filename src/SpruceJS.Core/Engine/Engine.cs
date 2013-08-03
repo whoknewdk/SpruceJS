@@ -2,6 +2,7 @@
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Minification;
+using SpruceJS.Core.Results;
 
 namespace SpruceJS.Core.Engine
 {
@@ -15,7 +16,7 @@ namespace SpruceJS.Core.Engine
 			this.config = config;
 		}
 
-		public EngineResult Render(string appName)
+		public IResult Render(string appName)
 		{
 			var fileConfig = new FileConfig(config, GetFullPath);
 
@@ -23,19 +24,11 @@ namespace SpruceJS.Core.Engine
 			foreach (var file in fileConfig.Files)
 				app.Add(createModule(file));
 
+			// Minify?
 			if (SpruceJSConfigurationSection.Instance.Minify)
-			{
-				MinifyResult result = app.GetMinifiedOutput(appName);
+				return app.GetMinifiedOutput(appName);
 
-				return new EngineResult
-				{
-					JavaScriptBody = result.JavaScriptBody,
-					SourceMapBody = result.SourceMapBody
-				};
-			}
-
-			return new EngineResult
-			{
+			return new EngineResult {
 				JavaScriptBody = app.GetOutput(appName)
 			};
 		}

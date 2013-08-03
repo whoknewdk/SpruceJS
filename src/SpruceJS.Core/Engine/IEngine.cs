@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using SpruceJS.Core.Results;
 
 namespace SpruceJS.Core.Engine
 {
 	public interface IEngine
 	{
-		EngineResult Render(string appName);
+		IResult Render(string appName);
 	}
 }
