@@ -22,7 +22,7 @@ namespace SpruceJS.Core.Engine
 			this.projectDirectoryPath = projectDirectoryPath;
 		}
 
-		public IResult Render(string appName)
+		public IResult Render()
 		{
 			var fileConfig = new FileConfig(config, GetFullPath);
 
@@ -32,10 +32,10 @@ namespace SpruceJS.Core.Engine
 
 			// Minify?
 			if (Minify)
-				return app.GetMinifiedOutput(appName);
+				return app.GetMinifiedOutput();
 
 			return new EngineResult {
-				JavaScriptBody = app.GetOutput(appName)
+				JavaScriptBody = app.GetOutput()
 			};
 		}
 

@@ -26,7 +26,7 @@ namespace SpruceJS.Web
 			engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
 			// Get result
-			var result = engine.Render(filePath);
+			var result = engine.Render();
 
 			context.Application[filePath + ".map"] = result.SourceMapBody;
 

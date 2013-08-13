@@ -20,12 +20,12 @@ namespace SpruceJS.Core
 			modules.Add(module);
 		}
 
-		public MinifyResult GetMinifiedOutput(string appName)
+		public MinifyResult GetMinifiedOutput()
 		{
-			return minificator.Minify(modules, appName);
+			return minificator.Minify(modules);
 		}
 
-		public string GetOutput(string appName)
+		public string GetOutput()
 		{
 			// Read embedded JavaScript library
 			string definejs;

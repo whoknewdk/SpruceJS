@@ -4,7 +4,7 @@ namespace SpruceJS.Core.Engine
 {
 	public interface IEngine
 	{
-		IResult Render(string appName);
+		IResult Render();
 		bool Minify { get; set; }
 	}
 }

@@ -1,5 +1,5 @@
 ﻿define('todo', [], function () {
 
-	return { name: 'Yehaaaaa2' };
+	return { name: 'Yehaaaaa3' };
 
 });

@@ -10,7 +10,7 @@ namespace SpruceJS.Core.Minification
 {
 	public class AjaxminMinificator : IMinificator
 	{
-		public MinifyResult Minify(JSModuleList modules, string appName)
+		public MinifyResult Minify(JSModuleList modules)
 		{
 			string definejs;
 
@@ -32,7 +32,7 @@ namespace SpruceJS.Core.Minification
 						TermSemicolons = true
 					};
 
-					sourcemap.StartPackage(appName, appName + ".map");
+					sourcemap.StartPackage("test.js", "test.js" + ".map");
 
 					var minifier = new Minifier();
 
