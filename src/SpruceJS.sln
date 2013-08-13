@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Test", "Tests\Spru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Web.Sample", "SpruceJS.Web.Sample\SpruceJS.Web.Sample.csproj", "{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Build", "SpruceJS.Build\SpruceJS.Build.csproj", "{6CDC9AE3-6468-4291-B61D-23DAA2A71789}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

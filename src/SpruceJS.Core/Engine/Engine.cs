@@ -10,10 +10,16 @@ namespace SpruceJS.Core.Engine
 	{
 		readonly JSApp app = new JSApp(new AjaxminMinificator());
 
+		public bool Minify { get; set; }
+
 		private readonly IAppConfig config;
-		public Engine(IAppConfig config)
+		private readonly string configDirectoryPath;
+		private readonly string projectDirectoryPath;
+		public Engine(IAppConfig config, string configDirectoryPath, string projectDirectoryPath)
 		{
 			this.config = config;
+			this.configDirectoryPath = configDirectoryPath;
+			this.projectDirectoryPath = projectDirectoryPath;
 		}
 
 		public IResult Render(string appName)
@@ -25,7 +31,7 @@ namespace SpruceJS.Core.Engine
 				app.Add(createModule(file));
 
 			// Minify?
-			if (SpruceJSConfigurationSection.Instance.Minify)
+			if (Minify)
 				return app.GetMinifiedOutput(appName);
 
 			return new EngineResult {
@@ -33,9 +39,16 @@ namespace SpruceJS.Core.Engine
 			};
 		}
 
-		protected virtual string GetFullPath(string path)
+		private string GetFullPath(string path)
 		{
-			return Path.GetFullPath(path);
+
+			if (path.StartsWith("\\"))
+			{
+				string pathWithoutBeginnningSlash = path.Substring(1, path.Length - 1);
+				return Path.GetFullPath(Path.Combine(projectDirectoryPath, pathWithoutBeginnningSlash));
+			}
+
+			return Path.GetFullPath(Path.Combine(configDirectoryPath, path));
 		}
 
 		private JSModule createModule(string filePath)

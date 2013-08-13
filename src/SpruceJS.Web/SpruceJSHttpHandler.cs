@@ -1,6 +1,6 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using System.Web.SessionState;
-using SpruceJS.Core.Config;
 
 namespace SpruceJS.Web
 {
@@ -22,7 +22,8 @@ namespace SpruceJS.Web
 			var config = new WebAppConfig(configFilePath, context);
 
 			// Create engine instance
-			var engine = new WebEngine(config, context);
+			var engine = new WebEngine(config, context, Path.GetDirectoryName(context.Server.MapPath(configFilePath)), context.Request.PhysicalApplicationPath);
+			engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
 			// Get result
 			var result = engine.Render(filePath);

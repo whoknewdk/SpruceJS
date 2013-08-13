@@ -20,14 +20,18 @@ namespace SpruceJS.Core.Config.Files
 		{
 			foreach (Data data in list)
 			{
+				string pathForFileSystem = data.Path.Replace("/", "\\");
+
 				// A file pattern
 				if (data.Path.Contains("."))
-					Files.Add(getFullPath(data.Path));
-
-				// An directory
+				{
+					Files.Add(getFullPath(pathForFileSystem));
+				}
+				// A directory
 				else
 				{
-					string[] files = Directory.GetFiles(getFullPath(data.Path), "*", data.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+					string[] files = Directory.GetFiles(getFullPath(pathForFileSystem), "*",
+					                                    data.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 					foreach (var file in files)
 						Files.Add(file);
 				}

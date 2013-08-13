@@ -5,7 +5,6 @@ using System.Web;
 using Antlr.Runtime;
 using Antlr.Runtime.Tree;
 using Microsoft.Ajax.Utilities;
-using SpruceJS.Core.Parser;
 
 namespace SpruceJS.Core.Tree
 {

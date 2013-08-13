@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Configuration;
 
-namespace SpruceJS.Core.Config
+namespace SpruceJS.Web
 {
 	public class SpruceJSConfigurationSection : ConfigurationSection
 	{

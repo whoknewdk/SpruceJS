@@ -8,15 +8,10 @@ namespace SpruceJS.Web
 	{
 		readonly HttpContext context;
 
-		public WebEngine(IAppConfig appConfig, HttpContext context)
-			: base(appConfig)
+		public WebEngine(IAppConfig appConfig, HttpContext context, string configDirectoryPath, string projectDirectoryPath)
+			: base(appConfig, configDirectoryPath, projectDirectoryPath)
 		{
 			this.context = context;
-		}
-
-		protected override string GetFullPath(string path)
-		{
-			return context.Server.MapPath(path);
 		}
 
 		protected override string UrlPath(string path)
