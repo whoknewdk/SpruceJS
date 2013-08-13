@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Exceptions.Modules;
 using SpruceJS.Core.Exceptions.Sort;
+using SpruceJS.Core.Script;
 
 namespace SpruceJS.Core.Minification
 {
@@ -12,18 +12,10 @@ namespace SpruceJS.Core.Minification
 	{
 		public MinifyResult Minify(JSModuleList modules)
 		{
-			string definejs;
-
-			// Read embedded JavaScript library
-			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.spruce.js"))
-			using (var reader = new StreamReader(stream))
-				definejs = reader.ReadToEnd();
-			
-			string result;
+			MinifyResult result = new MinifyResult();
 			var sourceMapBuilder = new StringBuilder();
 			using (var sw = new StringWriter(sourceMapBuilder))
 			{
-
 				using(ISourceMap sourcemap = new V3SourceMap(sw))
 				{
 					var settings = new CodeSettings
@@ -40,7 +32,7 @@ namespace SpruceJS.Core.Minification
 
 					// Add definejs
 					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "define.sp.js"));
-					sb.AppendLine(definejs);
+					sb.AppendLine(SpruceLib.Body);
 
 					try
 					{
@@ -56,16 +48,15 @@ namespace SpruceJS.Core.Minification
 						throw new ModuleKeyDoesNotExistException(ex.Name, ex.Item.Url);
 					}
 
-					result = minifier.MinifyJavaScript(sb.ToString(), settings);
+					result.JavaScriptBody = minifier.MinifyJavaScript(sb.ToString(), settings);
 
 					sourcemap.EndPackage();
 				}
 			}
 
-			return new MinifyResult {
-				JavaScriptBody = result,
-				SourceMapBody = sourceMapBuilder.ToString()
-			};
+			result.SourceMapBody = sourceMapBuilder.ToString();
+
+			return result;
 		}
 	}
 }
