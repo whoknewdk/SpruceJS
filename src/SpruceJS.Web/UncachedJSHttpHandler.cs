@@ -1,7 +1,5 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Web;
-using SpruceJS.Core.Config;
 
 namespace SpruceJS.Web
 {

@@ -33,12 +33,6 @@
     <Reference Include="AjaxMin">
       <HintPath>..\..\lib\Microsoft Ajax Minifier\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\..\lib\antlr-dotnet-tool-3.3.1.7705\Antlr3.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="Antlr3.StringTemplate">
-      <HintPath>..\..\lib\antlr-dotnet-tool-3.3.1.7705\Antlr3.StringTemplate.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -76,9 +70,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Script\spruce.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Parser\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

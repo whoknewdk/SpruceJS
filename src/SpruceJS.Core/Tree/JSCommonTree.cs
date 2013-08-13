@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using Antlr.Runtime;
-using Antlr.Runtime.Tree;
+﻿using System.Collections.Generic;
 using Microsoft.Ajax.Utilities;
 
 namespace SpruceJS.Core.Tree
