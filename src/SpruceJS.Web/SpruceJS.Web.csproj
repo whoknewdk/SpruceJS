@@ -45,7 +45,7 @@
     <Compile Include="UncachedJSHttpHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpruceJSHttpHandler.cs" />
-    <Compile Include="WebAppConfig.cs" />
+    <Compile Include="WebSpruceConfig.cs" />
     <Compile Include="WebEngine.cs" />
   </ItemGroup>
   <ItemGroup>

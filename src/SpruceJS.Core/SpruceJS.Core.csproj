@@ -43,10 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\AppConfig.cs" />
+    <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />
     <Compile Include="Config\Files\IFileConfig.cs" />
-    <Compile Include="Config\IAppConfig.cs" />
+    <Compile Include="Config\ISpruceConfig.cs" />
     <Compile Include="Engine\EngineResult.cs" />
     <Compile Include="Engine\IEngine.cs" />
     <Compile Include="Exceptions\Modules\ModuleKeyCircularReferenceException.cs" />

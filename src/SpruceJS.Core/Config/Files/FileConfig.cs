@@ -8,7 +8,7 @@ namespace SpruceJS.Core.Config.Files
 	{
 		public IList<string> Files { get; private set; } 
 
-		public FileConfig(IAppConfig appConfig, Func<string, string> getFullPath)
+		public FileConfig(ISpruceConfig appConfig, Func<string, string> getFullPath)
 		{
 			Files = new List<string>();
 

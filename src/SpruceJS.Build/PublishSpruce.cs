@@ -27,7 +27,7 @@ namespace SpruceJS.Build
 			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.config", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
 			{
 				Log.LogWarning(file);
-				var config = new AppConfig(file);
+				var config = new SpruceConfig(file);
 				var engine = new Engine(config, Path.GetDirectoryName(file), ProjectDir);
 				engine.Minify = true;
 				var output = engine.Render();

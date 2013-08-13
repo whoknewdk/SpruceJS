@@ -5,14 +5,14 @@ using System.Xml;
 
 namespace SpruceJS.Core.Config
 {
-	public class AppConfig : IAppConfig
+	public class SpruceConfig : ISpruceConfig
 	{
 		public IList<Data> Externals { get; private set; }
 		public IList<Data> Modules { get; private set; }
 
-		public AppConfig() { }
+		public SpruceConfig() { }
 
-		public AppConfig(string path)
+		public SpruceConfig(string path)
 		{
 			Load(path);
 		}

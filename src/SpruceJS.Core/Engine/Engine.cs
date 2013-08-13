@@ -12,10 +12,10 @@ namespace SpruceJS.Core.Engine
 
 		public bool Minify { get; set; }
 
-		private readonly IAppConfig config;
+		private readonly ISpruceConfig config;
 		private readonly string configDirectoryPath;
 		private readonly string projectDirectoryPath;
-		public Engine(IAppConfig config, string configDirectoryPath, string projectDirectoryPath)
+		public Engine(ISpruceConfig config, string configDirectoryPath, string projectDirectoryPath)
 		{
 			this.config = config;
 			this.configDirectoryPath = configDirectoryPath;

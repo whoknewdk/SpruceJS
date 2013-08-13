@@ -3,7 +3,7 @@ using SpruceJS.Core.Config;
 
 namespace SpruceJS.Web
 {
-	public class WebAppConfig : AppConfig, IAppConfig
+	public class WebAppConfig : SpruceConfig, ISpruceConfig
 	{
 		HttpContext context;
 

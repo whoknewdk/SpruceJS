@@ -17,7 +17,7 @@ namespace SpruceJS.Test
 							</modules>
 						</sprucejs>";
 
-			var appconfig = new AppConfig();
+			var appconfig = new SpruceConfig();
 			appconfig.LoadXml(xml);
 
 			Assert.Equal(3, appconfig.Modules.Count);
@@ -34,7 +34,7 @@ namespace SpruceJS.Test
 							</externals>
 						</sprucejs>";
 
-			var appconfig = new AppConfig();
+			var appconfig = new SpruceConfig();
 			appconfig.LoadXml(xml);
 
 			Assert.Equal(3, appconfig.Externals.Count);
@@ -50,7 +50,7 @@ namespace SpruceJS.Test
 							</modules>
 						</sprucejs>";
 
-			var appconfig = new AppConfig();
+			var appconfig = new SpruceConfig();
 			appconfig.LoadXml(xml);
 
 			Assert.Equal(2, appconfig.Modules.Count);

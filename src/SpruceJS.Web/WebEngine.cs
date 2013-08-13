@@ -8,7 +8,7 @@ namespace SpruceJS.Web
 	{
 		readonly HttpContext context;
 
-		public WebEngine(IAppConfig appConfig, HttpContext context, string configDirectoryPath, string projectDirectoryPath)
+		public WebEngine(ISpruceConfig appConfig, HttpContext context, string configDirectoryPath, string projectDirectoryPath)
 			: base(appConfig, configDirectoryPath, projectDirectoryPath)
 		{
 			this.context = context;
