@@ -50,6 +50,7 @@
     <Compile Include="Content\ExternalItem.cs" />
     <Compile Include="Engine\EngineResult.cs" />
     <Compile Include="Engine\IEngine.cs" />
+    <Compile Include="Exceptions\SpruceException.cs" />
     <Compile Include="Exceptions\Modules\ModuleKeyCircularReferenceException.cs" />
     <Compile Include="Exceptions\Modules\ModuleKeyDoesNotExistException.cs" />
     <Compile Include="Exceptions\Modules\ModuleKeyNotUniqueException.cs" />

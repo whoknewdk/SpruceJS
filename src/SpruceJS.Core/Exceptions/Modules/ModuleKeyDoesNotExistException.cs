@@ -1,11 +1,10 @@
-﻿using System;
-
+﻿
 namespace SpruceJS.Core.Exceptions.Modules
 {
-	public class ModuleKeyDoesNotExistException : Exception
+	public class ModuleKeyDoesNotExistException : SpruceException
 	{
 		public ModuleKeyDoesNotExistException(string name, string url)
-			: base("No module with name (" + name + ", " + url + ") exists")
+			: base("No module named \"" + name + "\" used in \"" + url + "\" exists")
 		{
 			
 		}

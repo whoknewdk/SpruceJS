@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Web;
 using System.Web.SessionState;
+using SpruceJS.Core.Exceptions;
 
 namespace SpruceJS.Web
 {
@@ -21,25 +23,32 @@ namespace SpruceJS.Web
 
 			var config = new WebAppConfig(configFilePath, context);
 
-			// Create engine instance
-			var engine = new WebEngine(config, context, Path.GetDirectoryName(context.Server.MapPath(configFilePath)), context.Request.PhysicalApplicationPath);
-			engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
-
-			// Get result
-			var result = engine.Render();
-
-			context.Application[filePath + ".map"] = result.SourceMapBody;
-
-
-			// no-cache
-			if (!SpruceJSConfigurationSection.Instance.Cache)
+			try
 			{
-				context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-				context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
-				context.Response.AppendHeader("Expires", "0"); // Proxies.	
+				// Create engine instance
+				var engine = new WebEngine(config, context, Path.GetDirectoryName(context.Server.MapPath(configFilePath)), context.Request.PhysicalApplicationPath);
+				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
+
+				// Get result
+				var result = engine.Render();
+
+				context.Application[filePath + ".map"] = result.SourceMapBody;
+
+
+				// no-cache
+				if (!SpruceJSConfigurationSection.Instance.Cache)
+				{
+					context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+					context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
+					context.Response.AppendHeader("Expires", "0"); // Proxies.	
+				}
+				context.Response.AppendHeader("X-SourceMap", filePath + ".map");
+				context.Response.Write(result.JavaScriptBody);
 			}
-			context.Response.AppendHeader("X-SourceMap", filePath + ".map");
-			context.Response.Write(result.JavaScriptBody);
+			catch (SpruceException ex)
+			{
+				context.Response.Write("throw '" + ex.Message + "';");
+			}
 		}
 
 		public bool IsReusable
