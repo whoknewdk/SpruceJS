@@ -9,16 +9,16 @@ namespace SpruceJS.Core
 {
 	public class JSApp
 	{
-		private readonly JSModuleList modules = new JSModuleList();
+		private readonly ModuleItemList modules = new ModuleItemList();
 		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
 
-		readonly IMinificator minificator;
-		public JSApp(IMinificator minificator)
+		readonly IMinifier minificator;
+		public JSApp(IMinifier minificator)
 		{
 			this.minificator = minificator;
 		}
 
-		public void AddModule(JSModule module)
+		public void AddModule(ModuleItem module)
 		{
 			modules.Add(module);
 		}

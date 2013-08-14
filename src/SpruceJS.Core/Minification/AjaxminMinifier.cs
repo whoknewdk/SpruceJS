@@ -10,9 +10,9 @@ using SpruceJS.Core.Script;
 
 namespace SpruceJS.Core.Minification
 {
-	public class AjaxminMinificator : IMinificator
+	public class AjaxminMinifier : IMinifier
 	{
-		public MinifyResult Minify(JSModuleList modules, IEnumerable<ExternalItem> externals)
+		public MinifyResult Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals)
 		{
 			MinifyResult result = new MinifyResult();
 			var sourceMapBuilder = new StringBuilder();
@@ -52,7 +52,7 @@ namespace SpruceJS.Core.Minification
 							sb.AppendLine(module.Content);
 						}
 					}
-					catch (NameNotFoundException<JSModule> ex)
+					catch (NameNotFoundException<ModuleItem> ex)
 					{
 						throw new ModuleKeyDoesNotExistException(ex.Name, ex.Item.Url);
 					}

@@ -12,13 +12,13 @@ namespace SpruceJS.Test.Core
 		[Fact]
 		public void TopologicalSort()
 		{
-			var a = new JSModule { Name = "a" };
-			var b = new JSModule { Name = "b", Dependencies = new[] { "a" } };
-			var c = new JSModule { Name = "c", Dependencies = new[] { "a", "b" } };
-			var d = new JSModule { Name = "d", Dependencies = new[] { "a", "e" } };
-			var e = new JSModule { Name = "e", Dependencies = new[] { "c", "b" } };
+			var a = new ModuleItem { Name = "a" };
+			var b = new ModuleItem { Name = "b", Dependencies = new[] { "a" } };
+			var c = new ModuleItem { Name = "c", Dependencies = new[] { "a", "b" } };
+			var d = new ModuleItem { Name = "d", Dependencies = new[] { "a", "e" } };
+			var e = new ModuleItem { Name = "e", Dependencies = new[] { "c", "b" } };
 
-			IList<JSModule> modules = new List<JSModule>();
+			IList<ModuleItem> modules = new List<ModuleItem>();
 
 			modules.Add(c);
 			modules.Add(d);
@@ -27,10 +27,10 @@ namespace SpruceJS.Test.Core
 			modules.Add(b);
 			modules.Add(e);
 
-			var list = SortingService.Sort(modules, x => x.Name, x => x.Dependencies);
+			var list = TopSort.Sort(modules, x => x.Name, x => x.Dependencies);
 
 			Assert.Equal(5, list.Count());
-			Assert.Equal(new List<JSModule> { a, b, c, e, d }, list);
+			Assert.Equal(new List<ModuleItem> { a, b, c, e, d }, list);
 		}
 	}
 }

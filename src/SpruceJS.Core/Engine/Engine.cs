@@ -9,7 +9,7 @@ namespace SpruceJS.Core.Engine
 {
 	public class Engine : IEngine
 	{
-		readonly JSApp app = new JSApp(new AjaxminMinificator());
+		readonly JSApp app = new JSApp(new AjaxminMinifier());
 
 		public bool Minify { get; set; }
 
@@ -56,7 +56,7 @@ namespace SpruceJS.Core.Engine
 			return Path.GetFullPath(Path.Combine(configDirectoryPath, path));
 		}
 
-		private JSModule createModule(string filePath)
+		private ModuleItem createModule(string filePath)
 		{
 			// Stop if no file exists
 			if (!File.Exists(filePath))
@@ -71,7 +71,7 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Build new module
-			return new JSModule {
+			return new ModuleItem {
 				Name = fileAnalyzer.Name,
 				Dependencies = fileAnalyzer.Dependencies,
 				Content = content,

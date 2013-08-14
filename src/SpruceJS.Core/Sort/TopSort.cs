@@ -6,7 +6,7 @@ using SpruceJS.Core.Exceptions.Sort;
 
 namespace SpruceJS.Core.Sort
 {
-	public static class SortingService
+	public static class TopSort
 	{
 		// Topological sort
 		public static IEnumerable<T> Sort<T>(IList<T> items, Func<T, string> getKey, Func<T, IEnumerable> getImports)

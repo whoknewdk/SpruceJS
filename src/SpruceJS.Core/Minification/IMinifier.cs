@@ -4,8 +4,8 @@ using SpruceJS.Core.Content;
 
 namespace SpruceJS.Core.Minification
 {
-	public interface IMinificator
+	public interface IMinifier
 	{
-		MinifyResult Minify(JSModuleList modules, IEnumerable<ExternalItem> externals);
+		MinifyResult Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals);
 	}
 }

@@ -57,16 +57,16 @@
     <Compile Include="Exceptions\Sort\NotDirectedAcyclicGraphException.cs" />
     <Compile Include="JSApp.cs" />
     <Compile Include="JSFileAnalyzer.cs" />
-    <Compile Include="Content\JSModule.cs" />
-    <Compile Include="Content\JSModuleList.cs" />
-    <Compile Include="Minification\AjaxminMinificator.cs" />
-    <Compile Include="Minification\IMinificator.cs" />
+    <Compile Include="Content\ModuleItem.cs" />
+    <Compile Include="Content\ModuleItemList.cs" />
+    <Compile Include="Minification\AjaxminMinifier.cs" />
+    <Compile Include="Minification\IMinifier.cs" />
     <Compile Include="Minification\MinifyResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Engine\Engine.cs" />
     <Compile Include="Results\IResult.cs" />
     <Compile Include="Script\SpruceLib.cs" />
-    <Compile Include="Sort\SortingService.cs" />
+    <Compile Include="Sort\TopSort.cs" />
     <Compile Include="Tree\JSCommonTree.cs" />
   </ItemGroup>
   <ItemGroup>
