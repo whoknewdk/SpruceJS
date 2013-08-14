@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SpruceJS.Core.Config.Files
 {
-	public class FileConfig : IFileConfig
+	internal class FileConfig : IFileConfig
 	{
 		readonly List<string> files = new List<string>();
 		readonly List<string> externals = new List<string>();
@@ -12,7 +12,7 @@ namespace SpruceJS.Core.Config.Files
 		public IEnumerable<string> Files { get { return files;  } }
 		public IEnumerable<string> Externals { get { return externals; } }
 
-		public FileConfig(ISpruceConfig appConfig, Func<string, string> getFullPath)
+		internal FileConfig(ISpruceConfig appConfig, Func<string, string> getFullPath)
 		{
 			populateFiles(appConfig.Externals, externals, getFullPath);
 			populateFiles(appConfig.Modules, files, getFullPath);
@@ -34,8 +34,7 @@ namespace SpruceJS.Core.Config.Files
 				{
 					string[] filePaths = Directory.GetFiles(getFullPath(pathForFileSystem), "*",
 					                                    data.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
-					foreach (var file in filePaths)
-						list.Add(file);
+					list.AddRange(filePaths);
 				}
 			}
 		}
