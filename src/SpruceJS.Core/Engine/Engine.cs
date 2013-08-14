@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
+using SpruceJS.Core.Content;
 using SpruceJS.Core.Minification;
 using SpruceJS.Core.Results;
 
@@ -26,9 +27,13 @@ namespace SpruceJS.Core.Engine
 		{
 			var fileConfig = new FileConfig(config, GetFullPath);
 
+			// Add externals
+			foreach (var externalFile in fileConfig.Externals)
+				app.AddExternal(createExternal(externalFile));
+
 			// Add files
 			foreach (var file in fileConfig.Files)
-				app.Add(createModule(file));
+				app.AddModule(createModule(file));
 
 			// Minify?
 			if (Minify)
@@ -70,7 +75,23 @@ namespace SpruceJS.Core.Engine
 				Name = fileAnalyzer.Name,
 				Dependencies = fileAnalyzer.Dependencies,
 				Content = content,
+				Url = UrlPath(filePath)
+			};
+		}
 
+		private ExternalItem createExternal(string filePath)
+		{
+			// Stop if no file exists
+			if (!File.Exists(filePath))
+				return null;
+
+			// Read/Analyse file
+			string content = File.ReadAllText(filePath);
+
+			// Build new module
+			return new ExternalItem
+			{
+				Content = content,
 				Url = UrlPath(filePath)
 			};
 		}

@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using Microsoft.Ajax.Utilities;
+using SpruceJS.Core.Content;
 using SpruceJS.Core.Exceptions.Modules;
 using SpruceJS.Core.Exceptions.Sort;
 using SpruceJS.Core.Script;
@@ -10,7 +12,7 @@ namespace SpruceJS.Core.Minification
 {
 	public class AjaxminMinificator : IMinificator
 	{
-		public MinifyResult Minify(JSModuleList modules)
+		public MinifyResult Minify(JSModuleList modules, IEnumerable<ExternalItem> externals)
 		{
 			MinifyResult result = new MinifyResult();
 			var sourceMapBuilder = new StringBuilder();
@@ -37,10 +39,17 @@ namespace SpruceJS.Core.Minification
 					try
 					{
 						// Add each file
-						foreach (var file in modules)
+						foreach (var external in externals)
 						{
-							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", file.Url));
-							sb.AppendLine(file.Content);
+							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", external.Url));
+							sb.AppendLine(external.Content);
+						}
+
+						// Add each file
+						foreach (var module in modules)
+						{
+							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", module.Url));
+							sb.AppendLine(module.Content);
 						}
 					}
 					catch (NameNotFoundException<JSModule> ex)

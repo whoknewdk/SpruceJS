@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using SpruceJS.Core;
+using SpruceJS.Core.Content;
 using SpruceJS.Core.Sort;
 using Xunit;
 

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using SpruceJS.Core.Content;
 using SpruceJS.Core.Sort;
 
 namespace SpruceJS.Core

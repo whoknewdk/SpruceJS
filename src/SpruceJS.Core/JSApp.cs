@@ -1,6 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Reflection;
 using System.Text;
+using SpruceJS.Core.Content;
 using SpruceJS.Core.Minification;
 
 namespace SpruceJS.Core
@@ -8,6 +10,7 @@ namespace SpruceJS.Core
 	public class JSApp
 	{
 		private readonly JSModuleList modules = new JSModuleList();
+		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
 
 		readonly IMinificator minificator;
 		public JSApp(IMinificator minificator)
@@ -15,14 +18,19 @@ namespace SpruceJS.Core
 			this.minificator = minificator;
 		}
 
-		public void Add(JSModule module)
+		public void AddModule(JSModule module)
 		{
 			modules.Add(module);
 		}
 
+		public void AddExternal(ExternalItem external)
+		{
+			externals.Add(external);
+		}
+
 		public MinifyResult GetMinifiedOutput()
 		{
-			return minificator.Minify(modules);
+			return minificator.Minify(modules, externals);
 		}
 
 		public string GetOutput()
@@ -34,6 +42,9 @@ namespace SpruceJS.Core
 				definejs = reader.ReadToEnd();
 
 			var sb = new StringBuilder(definejs);
+
+			foreach (var external in externals)
+				sb.Append(external.Content);
 
 			foreach (var module in modules)
 				sb.Append(module.Content);

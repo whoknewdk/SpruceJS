@@ -47,6 +47,7 @@
     <Compile Include="Config\Files\FileConfig.cs" />
     <Compile Include="Config\Files\IFileConfig.cs" />
     <Compile Include="Config\ISpruceConfig.cs" />
+    <Compile Include="Content\ExternalItem.cs" />
     <Compile Include="Engine\EngineResult.cs" />
     <Compile Include="Engine\IEngine.cs" />
     <Compile Include="Exceptions\Modules\ModuleKeyCircularReferenceException.cs" />
@@ -56,8 +57,8 @@
     <Compile Include="Exceptions\Sort\NotDirectedAcyclicGraphException.cs" />
     <Compile Include="JSApp.cs" />
     <Compile Include="JSFileAnalyzer.cs" />
-    <Compile Include="JSModule.cs" />
-    <Compile Include="JSModuleList.cs" />
+    <Compile Include="Content\JSModule.cs" />
+    <Compile Include="Content\JSModuleList.cs" />
     <Compile Include="Minification\AjaxminMinificator.cs" />
     <Compile Include="Minification\IMinificator.cs" />
     <Compile Include="Minification\MinifyResult.cs" />

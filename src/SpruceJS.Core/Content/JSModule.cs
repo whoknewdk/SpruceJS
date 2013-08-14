@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 
-namespace SpruceJS.Core
+namespace SpruceJS.Core.Content
 {
-	public class JSModule
+	public class JSModule : ExternalItem
 	{
 		public string Name { get; set; }
-		public string Url { get; set; }
-		public string Content { get; set; }
 		public IList<string> Dependencies = new List<string>();
 	}
 }
