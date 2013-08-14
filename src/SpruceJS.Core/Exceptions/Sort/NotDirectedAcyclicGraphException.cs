@@ -4,11 +4,11 @@ namespace SpruceJS.Core.Exceptions.Sort
 {
 	public class NotDirectedAcyclicGraphException<T> : Exception
 	{
-		public T Item;
+		public T[] Items;
 
-		public NotDirectedAcyclicGraphException(T item)
+		public NotDirectedAcyclicGraphException(T[] items)
 		{
-			Item = item;
+			Items = items;
 		}
 	}
 }

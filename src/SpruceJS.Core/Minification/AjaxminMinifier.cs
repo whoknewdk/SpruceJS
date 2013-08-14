@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Content;
@@ -58,7 +59,7 @@ namespace SpruceJS.Core.Minification
 					}
 					catch (NotDirectedAcyclicGraphException<ModuleItem> ex)
 					{
-						throw new ModuleKeyCircularReferenceException(ex.Item.Url);
+						throw new ModuleKeyCircularReferenceException(ex.Items.Select(x => x.Url).ToArray());
 					}
 
 					result.JavaScriptBody = minifier.MinifyJavaScript(sb.ToString(), settings);
