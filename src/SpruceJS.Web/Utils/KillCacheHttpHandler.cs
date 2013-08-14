@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Web;
 
-namespace SpruceJS.Web
+namespace SpruceJS.Web.Utils
 {
-	public class UncachedJSHttpHandler : IHttpHandler
+	public class KillCacheHttpHandler : IHttpHandler
 	{
 		public void ProcessRequest(HttpContext context)
 		{
