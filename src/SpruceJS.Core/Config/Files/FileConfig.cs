@@ -18,9 +18,9 @@ namespace SpruceJS.Core.Config.Files
 			populateFiles(appConfig.Modules, files, getFullPath);
 		}
 
-		private void populateFiles(IEnumerable<Data> dataList, List<string> list, Func<string, string> getFullPath)
+		private void populateFiles(IEnumerable<ConfigElement> dataList, List<string> list, Func<string, string> getFullPath)
 		{
-			foreach (Data data in dataList)
+			foreach (ConfigElement data in dataList)
 			{
 				string pathForFileSystem = data.Path.Replace("/", "\\");
 

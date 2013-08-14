@@ -1,4 +1,5 @@
-﻿using SpruceJS.Core;
+﻿using System.Linq;
+using SpruceJS.Core;
 using SpruceJS.Core.Config;
 using Xunit;
 
@@ -20,7 +21,7 @@ namespace SpruceJS.Test
 			var appconfig = new SpruceConfig();
 			appconfig.LoadXml(xml);
 
-			Assert.Equal(3, appconfig.Modules.Count);
+			Assert.Equal(3, appconfig.Modules.Count());
 		}
 
 		[Fact]
@@ -37,7 +38,7 @@ namespace SpruceJS.Test
 			var appconfig = new SpruceConfig();
 			appconfig.LoadXml(xml);
 
-			Assert.Equal(3, appconfig.Externals.Count);
+			Assert.Equal(3, appconfig.Externals.Count());
 		}
 
 		[Fact]
@@ -53,9 +54,9 @@ namespace SpruceJS.Test
 			var appconfig = new SpruceConfig();
 			appconfig.LoadXml(xml);
 
-			Assert.Equal(2, appconfig.Modules.Count);
-			Assert.False(appconfig.Modules[0].Recursive);
-			Assert.True(appconfig.Modules[1].Recursive);
+			Assert.Equal(2, appconfig.Modules.Count());
+			Assert.False(appconfig.Modules.ElementAt(0).Recursive);
+			Assert.True(appconfig.Modules.ElementAt(1).Recursive);
 		}
 	}
 }

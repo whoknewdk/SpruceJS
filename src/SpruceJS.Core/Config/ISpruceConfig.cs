@@ -4,7 +4,7 @@ namespace SpruceJS.Core.Config
 {
 	public interface ISpruceConfig
 	{
-		IList<Data> Externals { get; }
-		IList<Data> Modules { get; }
+		IEnumerable<ConfigElement> Externals { get; }
+		IEnumerable<ConfigElement> Modules { get; }
 	}
 }

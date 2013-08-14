@@ -7,8 +7,8 @@ namespace SpruceJS.Core.Config
 {
 	public class SpruceConfig : ISpruceConfig
 	{
-		public IList<Data> Externals { get; private set; }
-		public IList<Data> Modules { get; private set; }
+		public IEnumerable<ConfigElement> Externals { get; private set; }
+		public IEnumerable<ConfigElement> Modules { get; private set; }
 
 		public SpruceConfig() { }
 
@@ -29,46 +29,38 @@ namespace SpruceJS.Core.Config
 
 		private void loadDirectoriesAndFile(Action<XmlDocument> loadDocument)
 		{
-			Modules = new List<Data>();
-			Externals = new List<Data>();
-
 			var doc = new XmlDocument();
 			loadDocument(doc);
 
-			// File references
-			foreach (XmlNode node in doc.SelectNodes("//add[ancestor::modules]"))
-			{
-				var data = new Data { Path = node.Attributes["path"].Value };
-
-				if (node.Attributes["recursive"] != null)
-					data.Recursive = Convert.ToBoolean(node.Attributes["recursive"].Value);
-				else
-					data.Recursive = false;
-
-				Modules.Add(data);
-			}
-
-			// Directory references
-			foreach (XmlNode node in doc.SelectNodes("//add[ancestor::externals]"))
-			{
-				var data = new Data { Path = node.Attributes["path"].Value };
-
-				if (node.Attributes["recursive"] != null)
-					data.Recursive = Convert.ToBoolean(node.Attributes["recursive"].Value);
-				else
-					data.Recursive = false;
-
-				Externals.Add(data);
-			}
+			Modules = build(doc.SelectNodes("//add[ancestor::modules]"));
+			Externals = build(doc.SelectNodes("//add[ancestor::externals]"));
 		}
 
 		protected virtual string GetFullPath(string path)
 		{
 			return Path.GetFullPath(path);
 		}
+
+		private IEnumerable<ConfigElement> build(XmlNodeList nodes)
+		{
+			var list = new List<ConfigElement>();
+
+			foreach (XmlNode node in nodes)
+			{
+				var data = new ConfigElement
+					{
+						Path = node.Attributes["path"].Value,
+						Recursive = node.Attributes["recursive"] != null && Convert.ToBoolean(node.Attributes["recursive"].Value)
+					};
+
+				list.Add(data);
+			}
+
+			return list;
+		}
 	}
 
-	public struct Data
+	public struct ConfigElement
 	{
 		public string Path;
 		public bool Recursive;
