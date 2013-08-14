@@ -1,6 +1,4 @@
-﻿using System.IO;
-using SpruceJS.Core.Config;
-using SpruceJS.Core.Config.Files;
+﻿using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Minification;
 using SpruceJS.Core.Results;
@@ -12,12 +10,15 @@ namespace SpruceJS.Core.Engine
 		readonly JSApp app = new JSApp(new AjaxminMinifier());
 
 		public bool Minify { get; set; }
+		public bool ExcludeJsLib { get; set; }
 
 		private readonly IFileConfig fileConfig;
+		private readonly IContentLoader loader;
 
-		public Engine(IFileConfig fileConfig)
+		public Engine(IFileConfig fileConfig, IContentLoader loader)
 		{
 			this.fileConfig = fileConfig;
+			this.loader = loader;
 		}
 
 		public IResult Render()
@@ -41,12 +42,13 @@ namespace SpruceJS.Core.Engine
 
 		private ModuleItem createModule(string filePath)
 		{
+			string content = loader.GetContent(filePath);
+			
 			// Stop if no file exists
-			if (!File.Exists(filePath))
+			if (content == null)
 				return null;
 
 			// Read/Analyse file
-			string content = File.ReadAllText(filePath);
 			var fileAnalyzer = new JSFileAnalyzer(content);
 
 			// Stop if content is not valid
@@ -64,12 +66,11 @@ namespace SpruceJS.Core.Engine
 
 		private ExternalItem createExternal(string filePath)
 		{
-			// Stop if no file exists
-			if (!File.Exists(filePath))
-				return null;
+			string content = loader.GetContent(filePath);
 
-			// Read/Analyse file
-			string content = File.ReadAllText(filePath);
+			// Stop if no file exists
+			if (content == null)
+				return null;
 
 			// Build new module
 			return new ExternalItem

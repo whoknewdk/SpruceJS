@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
 using System.Text;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Minification;
+using SpruceJS.Core.Script;
 
 namespace SpruceJS.Core
 {
@@ -36,12 +35,7 @@ namespace SpruceJS.Core
 		public string GetOutput()
 		{
 			// Read embedded JavaScript library
-			string definejs;
-			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.spruce.js"))
-			using (var reader = new StreamReader(stream))
-				definejs = reader.ReadToEnd();
-
-			var sb = new StringBuilder(definejs);
+			var sb = new StringBuilder(SpruceLib.Body);
 
 			foreach (var external in externals)
 				sb.Append(external.Content);

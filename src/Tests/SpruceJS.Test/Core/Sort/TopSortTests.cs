@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SpruceJS.Core.Content;
 using SpruceJS.Core.Sort;
 using Xunit;
 
@@ -8,28 +7,27 @@ namespace SpruceJS.Test.Core.Sort
 {
 	public class TopSortTests
 	{
+		internal struct DataObj
+		{
+			public string Key;
+			public string[] References;
+		}
+
 		[Fact]
 		public void SortTest()
 		{
-			var a = new ModuleItem { Name = "a" };
-			var b = new ModuleItem { Name = "b", Dependencies = new[] { "a" } };
-			var c = new ModuleItem { Name = "c", Dependencies = new[] { "a", "b" } };
-			var d = new ModuleItem { Name = "d", Dependencies = new[] { "a", "e" } };
-			var e = new ModuleItem { Name = "e", Dependencies = new[] { "c", "b" } };
+			var a = new DataObj { Key = "a", References = new string[0] };
+			var b = new DataObj { Key = "b", References = new[] { "a" } };
+			var c = new DataObj { Key = "c", References = new[] { "a", "b" } };
+			var d = new DataObj { Key = "d", References = new[] { "a", "e" } };
+			var e = new DataObj { Key = "e", References = new[] { "c", "b" } };
 
-			IList<ModuleItem> modules = new List<ModuleItem>();
+			IList<DataObj> modules = new List<DataObj> { c, d, a, b, e };
 
-			modules.Add(c);
-			modules.Add(d);
-
-			modules.Add(a);
-			modules.Add(b);
-			modules.Add(e);
-
-			var list = TopSort.Sort(modules, x => x.Name, x => x.Dependencies);
+			var list = TopSort.Sort(modules, x => x.Key, x => x.References);
 
 			Assert.Equal(5, list.Count());
-			Assert.Equal(new List<ModuleItem> { a, b, c, e, d }, list);
+			Assert.Equal(new List<DataObj> { a, b, c, e, d }, list);
 		}
 	}
 }

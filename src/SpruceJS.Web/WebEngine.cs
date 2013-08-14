@@ -9,8 +9,8 @@ namespace SpruceJS.Web
 	{
 		readonly HttpContext context;
 
-		public WebEngine(IFileConfig fileConfig, HttpContext context)
-			: base(fileConfig)
+		public WebEngine(IFileConfig fileConfig, ContentLoader loader, HttpContext context)
+			: base(fileConfig, loader)
 		{
 			this.context = context;
 		}

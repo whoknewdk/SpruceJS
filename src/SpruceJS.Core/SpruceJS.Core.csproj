@@ -48,6 +48,7 @@
     <Compile Include="Config\Files\IFileConfig.cs" />
     <Compile Include="Config\ISpruceConfig.cs" />
     <Compile Include="Content\ExternalItem.cs" />
+    <Compile Include="Engine\ContentLoader.cs" />
     <Compile Include="Engine\EngineResult.cs" />
     <Compile Include="Engine\IEngine.cs" />
     <Compile Include="Exceptions\SpruceException.cs" />

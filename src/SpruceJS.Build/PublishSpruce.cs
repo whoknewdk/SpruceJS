@@ -32,8 +32,8 @@ namespace SpruceJS.Build
 				config.Load(file);
 
 				var fileConfig = new FileConfig(config, Path.GetDirectoryName(file), ProjectDir);
-
-				var engine = new Engine(fileConfig) { Minify = true };
+				var loader = new ContentLoader();
+				var engine = new Engine(fileConfig, loader) { Minify = true };
 				var output = engine.Render();
 
 				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".config", ".js");

@@ -66,6 +66,8 @@
   <ItemGroup>
     <Compile Include="Build\PathUtilTests.cs" />
     <Compile Include="Core\Config\SpruceConfigTests.cs" />
+    <Compile Include="Core\Content\ModuleItemListTests.cs" />
+    <Compile Include="Core\Engine\EngineTests.cs" />
     <Compile Include="Core\Sort\TopSortTests.cs" />
     <Compile Include="Core\JSAppTest.cs" />
     <Compile Include="Core\JSFileAnalyzerTest.cs" />
