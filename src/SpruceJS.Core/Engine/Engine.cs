@@ -50,10 +50,10 @@ namespace SpruceJS.Core.Engine
 			if (path.StartsWith("\\"))
 			{
 				string pathWithoutBeginnningSlash = path.Substring(1, path.Length - 1);
-				return Path.GetFullPath(Path.Combine(projectDirectoryPath, pathWithoutBeginnningSlash));
+				return Path.Combine(projectDirectoryPath, pathWithoutBeginnningSlash);
 			}
 
-			return Path.GetFullPath(Path.Combine(configDirectoryPath, path));
+			return Path.Combine(configDirectoryPath, path);
 		}
 
 		private ModuleItem createModule(string filePath)

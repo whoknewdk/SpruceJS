@@ -23,17 +23,20 @@ namespace SpruceJS.Core.Config.Files
 			foreach (ConfigElement data in dataList)
 			{
 				string pathForFileSystem = data.Path.Replace("/", "\\");
+				string fullPath = getFullPath(pathForFileSystem);
+				var option = data.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
 
-				// A file pattern
-				if (data.Path.Contains("."))
+				if (Directory.Exists(fullPath))
 				{
-					list.Add(getFullPath(pathForFileSystem));
+					string[] filePaths = Directory.GetFiles(fullPath, "*", option);
+					list.AddRange(filePaths);
 				}
-				// A directory
 				else
 				{
-					string[] filePaths = Directory.GetFiles(getFullPath(pathForFileSystem), "*",
-					                                    data.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
+					string directoryName = Path.GetDirectoryName(fullPath);
+					string fileName = Path.GetFileName(fullPath);
+
+					string[] filePaths = Directory.GetFiles(directoryName, fileName, option);
 					list.AddRange(filePaths);
 				}
 			}
