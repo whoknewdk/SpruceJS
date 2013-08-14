@@ -56,6 +56,10 @@ namespace SpruceJS.Core.Minification
 					{
 						throw new ModuleKeyDoesNotExistException(ex.Name, ex.Item.Url);
 					}
+					catch (NotDirectedAcyclicGraphException<ModuleItem> ex)
+					{
+						throw new ModuleKeyCircularReferenceException(ex.Item.Url);
+					}
 
 					result.JavaScriptBody = minifier.MinifyJavaScript(sb.ToString(), settings);
 

@@ -26,7 +26,7 @@ namespace SpruceJS.Core.Sort
 		static IEnumerable<T> visit<T>(SortItem<T> item, IList<SortItem<T>> items, Func<T, string> getKey, Func<T, IEnumerable> getImports)
 		{
 			if (item.TempMarked)
-				throw new NotDirectedAcyclicGraphException();
+				throw new NotDirectedAcyclicGraphException<T>(item.Item);
 
 			if (!item.Marked)
 			{
