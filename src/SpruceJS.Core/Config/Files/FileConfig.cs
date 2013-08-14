@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace SpruceJS.Core.Config.Files
 {
-	internal class FileConfig : IFileConfig
+	public class FileConfig : IFileConfig
 	{
 		readonly List<string> files = new List<string>();
 		readonly List<string> externals = new List<string>();
@@ -12,13 +11,19 @@ namespace SpruceJS.Core.Config.Files
 		public IEnumerable<string> Files { get { return files;  } }
 		public IEnumerable<string> Externals { get { return externals; } }
 
-		internal FileConfig(ISpruceConfig appConfig, Func<string, string> getFullPath)
+		private readonly string projectDirectoryPath;
+		private readonly string configDirectoryPath;
+
+		public FileConfig(ISpruceConfig appConfig, string configDirectoryPath, string projectDirectoryPath)
 		{
-			populateFiles(appConfig.Externals, externals, getFullPath);
-			populateFiles(appConfig.Modules, files, getFullPath);
+			this.projectDirectoryPath = projectDirectoryPath;
+			this.configDirectoryPath = configDirectoryPath;
+
+			populateFiles(appConfig.Externals, externals);
+			populateFiles(appConfig.Modules, files);
 		}
 
-		private void populateFiles(IEnumerable<ConfigElement> dataList, List<string> list, Func<string, string> getFullPath)
+		private void populateFiles(IEnumerable<ConfigElement> dataList, List<string> list)
 		{
 			foreach (ConfigElement data in dataList)
 			{
@@ -40,6 +45,18 @@ namespace SpruceJS.Core.Config.Files
 					list.AddRange(filePaths);
 				}
 			}
+		}
+
+		private string getFullPath(string path)
+		{
+
+			if (path.StartsWith("\\"))
+			{
+				string pathWithoutBeginnningSlash = path.Substring(1, path.Length - 1);
+				return Path.Combine(projectDirectoryPath, pathWithoutBeginnningSlash);
+			}
+
+			return Path.Combine(configDirectoryPath, path);
 		}
 	}
 }

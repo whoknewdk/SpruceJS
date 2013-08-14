@@ -1,14 +1,13 @@
 ﻿using System.Linq;
-using SpruceJS.Core;
 using SpruceJS.Core.Config;
 using Xunit;
 
-namespace SpruceJS.Test
+namespace SpruceJS.Test.Core.Config
 {
-	public class AppConfigTest
+	public class SpruceConfigTests
 	{
 		[Fact]
-		public void ModulesCanBeRead()
+		public void ModulesCanBeReadTest()
 		{
 			string xml = @"<sprucejs>
 							<modules>
@@ -25,7 +24,7 @@ namespace SpruceJS.Test
 		}
 
 		[Fact]
-		public void ExternalsCanBeRead()
+		public void ExternalsCanBeReadTest()
 		{
 			string xml = @"<sprucejs>
 							<externals>
@@ -42,7 +41,7 @@ namespace SpruceJS.Test
 		}
 
 		[Fact]
-		public void RecursiveDirectoriesCanBeRead()
+		public void RecursiveDirectoriesCanBeReadTest()
 		{
 			string xml = @"<sprucejs>
 							<modules>

@@ -1,10 +1,10 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using SpruceJS.Core.Config;
+using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Build
@@ -28,11 +28,15 @@ namespace SpruceJS.Build
 
 			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.config", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
 			{
-				var config = new SpruceConfig(file);
-				var engine = new Engine(config, Path.GetDirectoryName(file), ProjectDir) { Minify = true };
+				var config = new SpruceConfig();
+				config.Load(file);
+
+				var fileConfig = new FileConfig(config, Path.GetDirectoryName(file), ProjectDir);
+
+				var engine = new Engine(fileConfig) { Minify = true };
 				var output = engine.Render();
 
-				string outputFile = relativePath(ProjectDir, file).Replace(".config", ".js");
+				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".config", ".js");
 
 				string completeOutputFile = Path.Combine(tempDir, outputFile);
 				string completeOutputDirectory = Path.GetDirectoryName(completeOutputFile);
@@ -45,20 +49,6 @@ namespace SpruceJS.Build
 			OutputFiles = tempDir.Replace("\\", "/");
 			
 			return true;
-		}
-
-		private string relativePath(string folderPath, string filePath)
-		{
-			var file = new Uri(filePath);
-
-			// Must end in a slash to indicate folder
-			var folder = new Uri(folderPath);
-
-			return Uri.UnescapeDataString(
-				folder.MakeRelativeUri(file)
-					.ToString()
-					.Replace('/', Path.DirectorySeparatorChar)
-				);
 		}
 	}
 }

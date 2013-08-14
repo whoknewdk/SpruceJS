@@ -3,14 +3,13 @@ using SpruceJS.Core.Config;
 
 namespace SpruceJS.Web
 {
-	public class WebAppConfig : SpruceConfig, ISpruceConfig
+	public class WebSpruceConfig : SpruceConfig, ISpruceConfig
 	{
-		HttpContext context;
+		readonly HttpContextBase context;
 
-		public WebAppConfig(string path, HttpContext context)
+		public WebSpruceConfig(HttpContextBase context)
 		{
 			this.context = context;
-			Load(path);
 		}
 
 		protected override string GetFullPath(string path)

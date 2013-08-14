@@ -13,20 +13,15 @@ namespace SpruceJS.Core.Engine
 
 		public bool Minify { get; set; }
 
-		private readonly ISpruceConfig config;
-		private readonly string configDirectoryPath;
-		private readonly string projectDirectoryPath;
-		public Engine(ISpruceConfig config, string configDirectoryPath, string projectDirectoryPath)
+		private readonly IFileConfig fileConfig;
+
+		public Engine(IFileConfig fileConfig)
 		{
-			this.config = config;
-			this.configDirectoryPath = configDirectoryPath;
-			this.projectDirectoryPath = projectDirectoryPath;
+			this.fileConfig = fileConfig;
 		}
 
 		public IResult Render()
 		{
-			var fileConfig = new FileConfig(config, GetFullPath);
-
 			// Add externals
 			foreach (var externalFile in fileConfig.Externals)
 				app.AddExternal(createExternal(externalFile));
@@ -42,18 +37,6 @@ namespace SpruceJS.Core.Engine
 			return new EngineResult {
 				JavaScriptBody = app.GetOutput()
 			};
-		}
-
-		private string GetFullPath(string path)
-		{
-
-			if (path.StartsWith("\\"))
-			{
-				string pathWithoutBeginnningSlash = path.Substring(1, path.Length - 1);
-				return Path.Combine(projectDirectoryPath, pathWithoutBeginnningSlash);
-			}
-
-			return Path.Combine(configDirectoryPath, path);
 		}
 
 		private ModuleItem createModule(string filePath)

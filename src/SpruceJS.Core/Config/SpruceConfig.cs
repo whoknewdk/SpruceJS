@@ -10,13 +10,6 @@ namespace SpruceJS.Core.Config
 		public IEnumerable<ConfigElement> Externals { get; private set; }
 		public IEnumerable<ConfigElement> Modules { get; private set; }
 
-		public SpruceConfig() { }
-
-		public SpruceConfig(string path)
-		{
-			Load(path);
-		}
-
 		public void LoadXml(string content)
 		{
 			loadDirectoriesAndFile(doc => doc.LoadXml(content));

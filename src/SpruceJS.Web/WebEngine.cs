@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using SpruceJS.Core.Config;
+using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Web
@@ -8,8 +9,8 @@ namespace SpruceJS.Web
 	{
 		readonly HttpContext context;
 
-		public WebEngine(ISpruceConfig appConfig, HttpContext context, string configDirectoryPath, string projectDirectoryPath)
-			: base(appConfig, configDirectoryPath, projectDirectoryPath)
+		public WebEngine(IFileConfig fileConfig, HttpContext context)
+			: base(fileConfig)
 		{
 			this.context = context;
 		}

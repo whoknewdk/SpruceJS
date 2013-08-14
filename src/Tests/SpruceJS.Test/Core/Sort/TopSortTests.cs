@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SpruceJS.Core;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Sort;
 using Xunit;
 
-namespace SpruceJS.Test.Core
+namespace SpruceJS.Test.Core.Sort
 {
-	public class SortingServiceTest
+	public class TopSortTests
 	{
 		[Fact]
-		public void TopologicalSort()
+		public void SortTest()
 		{
 			var a = new ModuleItem { Name = "a" };
 			var b = new ModuleItem { Name = "b", Dependencies = new[] { "a" } };
