@@ -3,12 +3,11 @@
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <CopyAllFilesToSingleFolderForPackageDependsOn>
-    CustomCollectFiles;
+    PublishSpruceFiles;
     $(CopyAllFilesToSingleFolderForPackageDependsOn);
-	MyDone;
   </CopyAllFilesToSingleFolderForPackageDependsOn>
     <CopyAllFilesToSingleFolderForMsdeployDependsOn>
-    CustomCollectFiles;
+    PublishSpruceFiles;
     $(CopyAllFilesToSingleFolderForPackageDependsOn);
   </CopyAllFilesToSingleFolderForMsdeployDependsOn>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -66,13 +65,11 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SpruceBuild.xml">
-      <SubType>Designer</SubType>
-    </Content>
     <Content Include="libs\mylib.js" />
     <Content Include="platform\desktop\Default.htm" />
     <Content Include="platform\desktop\views\main.js" />
     <Content Include="platform\desktop\views\overview.js" />
+    <Content Include="Read Before Publishing.txt" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -127,21 +124,17 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <PropertyGroup>
-    <PrebuildProject>$(ProjectDir)SpruceBuild.xml</PrebuildProject>
-  </PropertyGroup>
-  <Target Name="CustomCollectFiles">
-    <Exec WorkingDirectory="$(ProjectDir)" Command="$(MSBuildToolsPath)\msbuild.exe &quot;$(PrebuildProject)&quot; /p:SolutionDir=&quot;$(SolutionDir)" />
+  <!-- Please use this in you project -->
+  <UsingTask TaskName="PublishSpruce" AssemblyFile="$(SolutionDir)SpruceJS.Build\bin\debug\SpruceJS.Build.dll" />
+  <Target Name="PublishSpruceFiles">
+    <PublishSpruce ProjectDir="$(ProjectDir)">
+      <Output TaskParameter="OutputFiles" PropertyName="SpruceFiles" />
+    </PublishSpruce>
     <ItemGroup>
-      <_CustomFiles Include="$(BaseIntermediateOutputPath)/SpruceTemp/**/*.spruce.js" />
-      <FilesForPackagingFromProject Include="%(_CustomFiles.Identity)">
+      <_SpruceFiles Include="$(SpruceFiles)/**/*.spruce.js" />
+      <FilesForPackagingFromProject Include="%(_SpruceFiles.Identity)">
         <DestinationRelativePath>%(RecursiveDir)%(Filename)%(Extension)</DestinationRelativePath>
       </FilesForPackagingFromProject>
     </ItemGroup>
-  </Target>
-  <Target Name="AfterPublish" AfterTargets="MSDeployPublish">
-    <Delete Files="looo.txt" />
-  </Target>
-  <Target Name="MyDone">
   </Target>
 </Project>

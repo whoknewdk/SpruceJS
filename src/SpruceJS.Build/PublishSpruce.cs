@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Engine;
@@ -11,14 +12,15 @@ namespace SpruceJS.Build
 	public class PublishSpruce : AppDomainIsolatedTask
 	{
 		public string ProjectDir { get; set; }
-		public string BaseIntermediateOutputPath { get; set; }
 
-		private const string spruceKey = "SpruceTemp";
+		[Output]
+		public string OutputFiles { get; set; }
+
+		private const string spruceTempRootDir = "SpruceTemp";
 
 		public override bool Execute()
 		{
-			BaseIntermediateOutputPath = @"D:\Web\SpruceJS\src\SpruceJS.Web.Sample\obj\";
-			string tempDir = Path.Combine(BaseIntermediateOutputPath, spruceKey);
+			string tempDir = Path.Combine(ProjectDir, "obj", spruceTempRootDir);
 
 			// Create temp directory
 			if (Directory.Exists(tempDir))
@@ -27,8 +29,7 @@ namespace SpruceJS.Build
 			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.config", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
 			{
 				var config = new SpruceConfig(file);
-				var engine = new Engine(config, Path.GetDirectoryName(file), ProjectDir);
-				engine.Minify = true;
+				var engine = new Engine(config, Path.GetDirectoryName(file), ProjectDir) { Minify = true };
 				var output = engine.Render();
 
 				string outputFile = relativePath(ProjectDir, file).Replace(".config", ".js");
@@ -40,6 +41,8 @@ namespace SpruceJS.Build
 
 				File.WriteAllText(completeOutputFile, output.JavaScriptBody, Encoding.UTF8);
 			}
+
+			OutputFiles = tempDir.Replace("\\", "/");
 			
 			return true;
 		}

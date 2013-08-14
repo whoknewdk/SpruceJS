@@ -1,0 +1,12 @@
+﻿Important!
+
+Want to Publish?
+Should you choose to publish this Project you will have to manually run the following command from the windows Command Prompt:
+"taskkill /im msbuild.exe /f /t"
+
+Why?
+This sample project uses the MSBuild Task defined in SpruceJS.Build. When MSBuild loads this dll into memory it will NOT release it again until killed.
+This means you will not be able to build SpruceJS.Build as long MSBuild.exe is running!
+
+Note: this issue is only a problem for this solution since SpruceJS.Build is a work in progress. 
+When using release DLL these will be static DLL with everything working fine.
