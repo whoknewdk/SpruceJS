@@ -3,8 +3,6 @@ using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
-using SpruceJS.Core.Config;
-using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Build
@@ -28,12 +26,8 @@ namespace SpruceJS.Build
 
 			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.config", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
 			{
-				var config = new SpruceConfig();
-				config.Load(file);
-
-				var fileConfig = new FileConfig(config, Path.GetDirectoryName(file), ProjectDir);
-				var loader = new ContentLoader();
-				var engine = new Engine(fileConfig, loader) { Minify = true };
+				var engine = Engine.Create(file, ProjectDir);
+				engine.Minify = true;
 				var output = engine.Render();
 
 				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".config", ".js");

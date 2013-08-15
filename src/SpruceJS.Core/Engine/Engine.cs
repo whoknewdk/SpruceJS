@@ -1,10 +1,11 @@
-﻿using System.Linq;
+﻿using System.IO;
+using System.Linq;
+using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Exceptions.Modules;
 using SpruceJS.Core.Exceptions.Sort;
 using SpruceJS.Core.Minification;
-using SpruceJS.Core.Results;
 
 namespace SpruceJS.Core.Engine
 {
@@ -97,6 +98,15 @@ namespace SpruceJS.Core.Engine
 		protected virtual string UrlPath(string path)
 		{
 			return path;
+		}
+
+		public static IEngine Create(string configFilePath, string projecyDirPath)
+		{
+			var config = new SpruceConfig();
+			config.Load(configFilePath);
+
+			var fileConfig = new FileConfig(config, Path.GetDirectoryName(configFilePath), projecyDirPath);
+			return new Engine(fileConfig, new ContentLoader());
 		}
 	}
 }

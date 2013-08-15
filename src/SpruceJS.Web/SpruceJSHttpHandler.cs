@@ -1,9 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Web;
+﻿using System.Web;
 using System.Web.SessionState;
-using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Engine;
 using SpruceJS.Core.Exceptions;
 
 namespace SpruceJS.Web
@@ -23,16 +19,9 @@ namespace SpruceJS.Web
 
 			string configFilePath = filePath.Replace(".spruce.js", ".spruce.config").Replace(".map", "");
 
-			var config = new WebSpruceConfig(new HttpContextWrapper(context));
-			config.Load(configFilePath);
-
 			try
 			{
-				var fileConfig = new FileConfig(config, Path.GetDirectoryName(context.Server.MapPath(configFilePath)), context.Request.PhysicalApplicationPath);
-				var loader = new ContentLoader();
-
-				// Create engine instance
-				var engine = new WebEngine(fileConfig, loader, context);
+				var engine = WebEngine.Create(configFilePath, context);
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
 				// Get result

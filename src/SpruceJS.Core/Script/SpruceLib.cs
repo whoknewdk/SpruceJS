@@ -3,11 +3,11 @@ using System.Reflection;
 
 namespace SpruceJS.Core.Script
 {
-	internal static class SpruceLib
+	public static class SpruceLib
 	{
 		private static string body;
 
-		internal static string Body
+		public static string Body
 		{
 			get
 			{

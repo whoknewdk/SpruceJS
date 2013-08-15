@@ -69,6 +69,7 @@
     <Compile Include="Core\Content\ModuleItemListTests.cs" />
     <Compile Include="Core\Engine\EngineSpruceExceptionTests.cs" />
     <Compile Include="Core\Engine\EngineOutputTests.cs" />
+    <Compile Include="Core\Script\ScriptLibTests.cs" />
     <Compile Include="Core\Sort\TopSortExceptionTests.cs" />
     <Compile Include="Core\Sort\TopSortTests.cs" />
     <Compile Include="Core\SpruceApplicationTest.cs" />

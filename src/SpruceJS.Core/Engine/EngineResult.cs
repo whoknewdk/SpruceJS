@@ -1,5 +1,4 @@
-﻿using SpruceJS.Core.Results;
-
+﻿
 namespace SpruceJS.Core.Engine
 {
 	public struct EngineResult : IResult

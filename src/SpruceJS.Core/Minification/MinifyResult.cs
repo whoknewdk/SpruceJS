@@ -1,4 +1,4 @@
-﻿using SpruceJS.Core.Results;
+﻿using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Core.Minification
 {
