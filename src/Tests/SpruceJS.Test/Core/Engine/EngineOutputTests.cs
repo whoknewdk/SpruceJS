@@ -2,6 +2,7 @@
 using Moq;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Engine;
+using SpruceJS.Core.Script;
 using Xunit;
 using E = SpruceJS.Core.Engine;
 
@@ -29,6 +30,7 @@ namespace SpruceJS.Test.Core.Engine
 
 			Assert.Contains(fileval1, output.JavaScriptBody);
 			Assert.Contains(fileval2, output.JavaScriptBody);
+			Assert.Contains(SpruceLib.Body, output.JavaScriptBody);
 		}
 
 		[Fact]
@@ -75,6 +77,7 @@ namespace SpruceJS.Test.Core.Engine
 
 			Assert.DoesNotContain(fileval1, output.JavaScriptBody);
 			Assert.DoesNotContain(fileval2, output.JavaScriptBody);
+			Assert.Contains(SpruceLib.Body, output.JavaScriptBody);
 		}
 
 		[Fact]
@@ -98,6 +101,7 @@ namespace SpruceJS.Test.Core.Engine
 
 			Assert.Contains(fileval2, output.JavaScriptBody);
 			Assert.Contains(fileval2, output.JavaScriptBody);
+			Assert.Contains(SpruceLib.Body, output.JavaScriptBody);
 		}
 	}
 }

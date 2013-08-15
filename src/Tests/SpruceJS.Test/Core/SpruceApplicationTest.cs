@@ -3,6 +3,7 @@ using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Minification;
+using SpruceJS.Core.Script;
 using Xunit;
 
 namespace SpruceJS.Test.Core
@@ -57,6 +58,7 @@ namespace SpruceJS.Test.Core
 			jsapp.AddExternal(new ExternalItem { Content = "JSBody" });
 
 			Assert.Contains("JSBody", jsapp.GetOutput());
+			Assert.Contains(SpruceLib.Body, jsapp.GetOutput());
 		}
 	}
 }

@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SpruceJS.Core.Script;
-using SpruceJS.Core.Sort;
+﻿using SpruceJS.Core.Script;
 using Xunit;
 
 namespace SpruceJS.Test.Core.Sort
