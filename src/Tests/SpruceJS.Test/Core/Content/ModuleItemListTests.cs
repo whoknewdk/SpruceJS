@@ -8,7 +8,7 @@ namespace SpruceJS.Test.Core.Content
 	public class ModuleItemListTests
 	{
 		[Fact]
-		public void AddAndEnumerateTest()
+		public void CanAddAndEnumerateModules()
 		{
 			var a = new ModuleItem { Name = "a" };
 			var b = new ModuleItem { Name = "b", Dependencies = new[] { "a" } };

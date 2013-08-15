@@ -37,29 +37,18 @@ namespace SpruceJS.Core.Minification
 					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "define.sp.js"));
 					sb.AppendLine(SpruceLib.Body);
 
-					try
+					// Add each file
+					foreach (var external in externals)
 					{
-						// Add each file
-						foreach (var external in externals)
-						{
-							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", external.Url));
-							sb.AppendLine(external.Content);
-						}
+						sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", external.Url));
+						sb.AppendLine(external.Content);
+					}
 
-						// Add each file
-						foreach (var module in modules)
-						{
-							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", module.Url));
-							sb.AppendLine(module.Content);
-						}
-					}
-					catch (NameNotFoundException<ModuleItem> ex)
+					// Add each file
+					foreach (var module in modules)
 					{
-						throw new ModuleKeyDoesNotExistException(ex.Name, ex.Item.Url);
-					}
-					catch (NotDirectedAcyclicGraphException<ModuleItem> ex)
-					{
-						throw new ModuleKeyCircularReferenceException(ex.Items.Select(x => x.Url).ToArray());
+						sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", module.Url));
+						sb.AppendLine(module.Content);
 					}
 
 					result.JavaScriptBody = minifier.MinifyJavaScript(sb.ToString(), settings);

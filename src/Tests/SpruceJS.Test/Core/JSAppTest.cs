@@ -1,4 +1,8 @@
-﻿using SpruceJS.Core;
+﻿using System.Collections.Generic;
+using Moq;
+using SpruceJS.Core;
+using SpruceJS.Core.Content;
+using SpruceJS.Core.Minification;
 using Xunit;
 
 namespace SpruceJS.Test.Core
@@ -6,16 +10,53 @@ namespace SpruceJS.Test.Core
 	public class JSAppTest
 	{
 		[Fact]
-		public void ModulesCountTest()
+		public void CanAddModules()
 		{
-			//var jsapp = new JSApp();
+			var fileconfigMock = new Mock<IMinifier>();
 
-			//jsapp.Add(new JSModule { Name = "a" });
-			//jsapp.Add(new JSModule { Name = "b" });
-			//jsapp.Add(new JSModule { Name = "c" });
-			//jsapp.Add(new JSModule { Name = "d" });
+			var jsapp = new JSApp(fileconfigMock.Object);
 
-			//Assert.Equal(4, jsapp.Count);
+			jsapp.AddModule(new ModuleItem { Name = "a" });
+			jsapp.AddModule(new ModuleItem { Name = "b" });
+			jsapp.AddModule(new ModuleItem { Name = "c" });
+			jsapp.AddModule(new ModuleItem { Name = "d" });
+		}
+
+		[Fact]
+		public void CanAddExternals()
+		{
+			var fileconfigMock = new Mock<IMinifier>();
+
+			var jsapp = new JSApp(fileconfigMock.Object);
+
+			jsapp.AddExternal(new ExternalItem());
+			jsapp.AddExternal(new ExternalItem());
+			jsapp.AddExternal(new ExternalItem());
+			jsapp.AddExternal(new ExternalItem());
+		}
+
+		[Fact]
+		public void CanGetMinifiedOutput()
+		{
+			var fileconfigMock = new Mock<IMinifier>();
+			fileconfigMock
+				.Setup(i => i.Minify(It.IsAny<ModuleItemList>(), It.IsAny<IEnumerable<ExternalItem>>()))
+				.Returns(new MinifyResult { JavaScriptBody = "JSBody"});
+
+			var jsapp = new JSApp(fileconfigMock.Object);
+
+			Assert.Equal("JSBody", jsapp.GetMinifiedOutput().JavaScriptBody);
+		}
+
+		[Fact]
+		public void CanGetOutput()
+		{
+			var fileconfigMock = new Mock<IMinifier>();
+			var jsapp = new JSApp(fileconfigMock.Object);
+
+			jsapp.AddExternal(new ExternalItem { Content = "JSBody" });
+
+			Assert.Contains("JSBody", jsapp.GetOutput());
 		}
 	}
 }

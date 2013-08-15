@@ -1,5 +1,8 @@
-﻿using SpruceJS.Core.Config.Files;
+﻿using System.Linq;
+using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
+using SpruceJS.Core.Exceptions.Modules;
+using SpruceJS.Core.Exceptions.Sort;
 using SpruceJS.Core.Minification;
 using SpruceJS.Core.Results;
 
@@ -31,13 +34,24 @@ namespace SpruceJS.Core.Engine
 			foreach (var file in fileConfig.Files)
 				app.AddModule(createModule(file));
 
-			// Minify?
-			if (Minify)
-				return app.GetMinifiedOutput();
+			try
+			{
+				// Minify?
+				if (Minify)
+					return app.GetMinifiedOutput();
 
-			return new EngineResult {
-				JavaScriptBody = app.GetOutput()
-			};
+				return new EngineResult {
+					JavaScriptBody = app.GetOutput()
+				};
+			}
+			catch (NameNotFoundException<ModuleItem> ex)
+			{
+				throw new ModuleKeyDoesNotExistException(ex.Name, ex.Item.Url);
+			}
+			catch (NotDirectedAcyclicGraphException<ModuleItem> ex)
+			{
+				throw new ModuleKeyCircularReferenceException(ex.Items.Select(x => x.Url).ToArray());
+			}
 		}
 
 		private ModuleItem createModule(string filePath)

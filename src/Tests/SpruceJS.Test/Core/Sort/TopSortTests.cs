@@ -14,7 +14,7 @@ namespace SpruceJS.Test.Core.Sort
 		}
 
 		[Fact]
-		public void SortTest()
+		public void CanSort()
 		{
 			var a = new DataObj { Key = "a", References = new string[0] };
 			var b = new DataObj { Key = "b", References = new[] { "a" } };

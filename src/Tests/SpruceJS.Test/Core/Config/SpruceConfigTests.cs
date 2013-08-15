@@ -7,7 +7,7 @@ namespace SpruceJS.Test.Core.Config
 	public class SpruceConfigTests
 	{
 		[Fact]
-		public void ModulesCanBeReadTest()
+		public void CanReadModules()
 		{
 			string xml = @"<sprucejs>
 							<modules>
@@ -24,7 +24,7 @@ namespace SpruceJS.Test.Core.Config
 		}
 
 		[Fact]
-		public void ExternalsCanBeReadTest()
+		public void CanReadExternals()
 		{
 			string xml = @"<sprucejs>
 							<externals>
@@ -41,7 +41,7 @@ namespace SpruceJS.Test.Core.Config
 		}
 
 		[Fact]
-		public void RecursiveDirectoriesCanBeReadTest()
+		public void CanReadRecursiveDirectories()
 		{
 			string xml = @"<sprucejs>
 							<modules>

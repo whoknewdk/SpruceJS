@@ -6,7 +6,7 @@ namespace SpruceJS.Test.Build
 	public class PathUtilTests
 	{
 		[Fact]
-		public void GetPathDifferenceTest()
+		public void CanGetPathDifference()
 		{
 			Assert.Equal("file.txt", PathUtil.GetPathDifference(@"D:\first\", @"D:\first\file.txt"));
 			Assert.Equal("file.txt", PathUtil.GetPathDifference(@"D:\first\second\", @"D:\first\second\file.txt"));
