@@ -25,8 +25,8 @@ namespace SpruceJS.Test.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns(fileval2);
 
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
-			
-			var output = engine.Render();
+
+			var output = engine.GetOutput();
 
 			Assert.Contains(fileval1, output.JavaScriptBody);
 			Assert.Contains(fileval2, output.JavaScriptBody);
@@ -49,7 +49,7 @@ namespace SpruceJS.Test.Core.Engine
 
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
-			var output = engine.Render();
+			var output = engine.GetOutput();
 
 			Assert.DoesNotContain(fileval1, output.JavaScriptBody);
 			Assert.DoesNotContain(fileval1, output.JavaScriptBody);
@@ -73,7 +73,7 @@ namespace SpruceJS.Test.Core.Engine
 
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
-			var output = engine.Render();
+			var output = engine.GetOutput();
 
 			Assert.DoesNotContain(fileval1, output.JavaScriptBody);
 			Assert.DoesNotContain(fileval2, output.JavaScriptBody);
@@ -97,7 +97,7 @@ namespace SpruceJS.Test.Core.Engine
 
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
-			var output = engine.Render();
+			var output = engine.GetOutput();
 
 			Assert.Contains(fileval2, output.JavaScriptBody);
 			Assert.Contains(fileval2, output.JavaScriptBody);

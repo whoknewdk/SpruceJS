@@ -3,6 +3,6 @@ namespace SpruceJS.Core.Engine
 {
 	public interface IEngine
 	{
-		IResult Render();
+		IOutput GetOutput();
 		bool Minify { get; set; }	}
 }

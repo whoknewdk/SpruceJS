@@ -5,17 +5,15 @@ using System.Linq;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Content;
-using SpruceJS.Core.Exceptions.Modules;
-using SpruceJS.Core.Exceptions.Sort;
 using SpruceJS.Core.Script;
 
 namespace SpruceJS.Core.Minification
 {
 	public class AjaxminMinifier : IMinifier
 	{
-		public MinifyResult Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals)
+		public MinifyOutput Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals)
 		{
-			MinifyResult result = new MinifyResult();
+			MinifyOutput result = new MinifyOutput();
 			var sourceMapBuilder = new StringBuilder();
 			using (var sw = new StringWriter(sourceMapBuilder))
 			{

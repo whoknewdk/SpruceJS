@@ -27,7 +27,7 @@ namespace SpruceJS.Core
 			externals.Add(external);
 		}
 
-		public MinifyResult GetMinifiedOutput()
+		public MinifyOutput GetMinifiedOutput()
 		{
 			return minificator.Minify(modules, externals);
 		}

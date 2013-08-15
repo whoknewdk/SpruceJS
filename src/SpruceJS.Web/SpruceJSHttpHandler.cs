@@ -10,6 +10,7 @@ namespace SpruceJS.Web
 		{
 			string filePath = context.Request.FilePath;
 
+			// Output SourceMap
 			context.Response.ContentType = "text/javascript";
 			if (filePath.Contains(".map"))
 			{
@@ -17,6 +18,7 @@ namespace SpruceJS.Web
 				return;
 			}
 
+			// Output JavaScript
 			string configFilePath = filePath.Replace(".spruce.js", ".spruce.config").Replace(".map", "");
 
 			try
@@ -25,10 +27,9 @@ namespace SpruceJS.Web
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
 				// Get result
-				var result = engine.Render();
+				var result = engine.GetOutput();
 
 				context.Application[filePath + ".map"] = result.SourceMapBody;
-
 
 				// no-cache
 				if (!SpruceJSConfigurationSection.Instance.Cache)

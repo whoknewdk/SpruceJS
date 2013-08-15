@@ -24,7 +24,7 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			Assert.Throws<ModuleKeyDoesNotExistException>(
-				() => { engine.Render(); }
+				() => { engine.GetOutput(); }
 			);
 		}
 
@@ -42,7 +42,7 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.Throws<ModuleKeyDoesNotExistException>(
-				() => { engine.Render(); }
+				() => { engine.GetOutput(); }
 			);
 		}
 
@@ -60,7 +60,7 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			Assert.Throws<ModuleKeyNotUniqueException>(
-				() => { engine.Render(); }
+				() => { engine.GetOutput(); }
 			);
 		}
 
@@ -78,7 +78,7 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.Throws<ModuleKeyNotUniqueException>(
-				() => { engine.Render(); }
+				() => { engine.GetOutput(); }
 			);
 		}
 
@@ -96,7 +96,7 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			Assert.Throws<ModuleKeyCircularReferenceException>(
-				() => { engine.Render(); }
+				() => { engine.GetOutput(); }
 			);
 		}
 
@@ -114,7 +114,7 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.Throws<ModuleKeyCircularReferenceException>(
-				() => { engine.Render(); }
+				() => { engine.GetOutput(); }
 			);
 		}
 
@@ -132,7 +132,7 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.DoesNotThrow(
-				() => { engine.Render(); }
+				() => { engine.GetOutput(); }
 			);
 		}
 	}

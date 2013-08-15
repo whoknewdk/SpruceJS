@@ -28,7 +28,7 @@ namespace SpruceJS.Build
 			{
 				var engine = Engine.Create(file, ProjectDir);
 				engine.Minify = true;
-				var output = engine.Render();
+				var output = engine.GetOutput();
 
 				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".config", ".js");
 

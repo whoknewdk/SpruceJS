@@ -42,7 +42,7 @@ namespace SpruceJS.Test.Core
 			var fileconfigMock = new Mock<IMinifier>();
 			fileconfigMock
 				.Setup(i => i.Minify(It.IsAny<ModuleItemList>(), It.IsAny<IEnumerable<ExternalItem>>()))
-				.Returns(new MinifyResult { JavaScriptBody = "JSBody"});
+				.Returns(new MinifyOutput { JavaScriptBody = "JSBody"});
 
 			var jsapp = new SpruceApplication(fileconfigMock.Object);
 

@@ -25,7 +25,7 @@ namespace SpruceJS.Core.Engine
 			this.loader = loader;
 		}
 
-		public IResult Render()
+		public IOutput GetOutput()
 		{
 			// Add externals
 			foreach (var externalFile in fileConfig.Externals)
@@ -41,7 +41,7 @@ namespace SpruceJS.Core.Engine
 				if (Minify)
 					return app.GetMinifiedOutput();
 
-				return new EngineResult {
+				return new EngineOutput {
 					JavaScriptBody = app.GetOutput()
 				};
 			}

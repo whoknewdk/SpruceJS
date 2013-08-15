@@ -1,6 +1,6 @@
 ﻿namespace SpruceJS.Core.Engine
 {
-	public interface IResult
+	public interface IOutput
 	{
 		string JavaScriptBody { get; }
 		string SourceMapBody { get; }

@@ -6,6 +6,6 @@ namespace SpruceJS.Core.Minification
 {
 	public interface IMinifier
 	{
-		MinifyResult Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals);
+		MinifyOutput Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals);
 	}
 }
