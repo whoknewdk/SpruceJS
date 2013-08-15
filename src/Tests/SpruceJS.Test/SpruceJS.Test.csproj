@@ -71,9 +71,9 @@
     <Compile Include="Core\Engine\EngineOutputTests.cs" />
     <Compile Include="Core\Sort\TopSortExceptionTests.cs" />
     <Compile Include="Core\Sort\TopSortTests.cs" />
-    <Compile Include="Core\JSAppTest.cs" />
-    <Compile Include="Core\JSFileAnalyzerTest.cs" />
-    <Compile Include="Core\Tree\JSCommenTreeTest.cs" />
+    <Compile Include="Core\SpruceApplicationTest.cs" />
+    <Compile Include="Core\ModuleStrutureAnalyzerTest.cs" />
+    <Compile Include="Core\Tree\SpruceModuleTreeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\WebSpruceConfigTests.cs" />
   </ItemGroup>

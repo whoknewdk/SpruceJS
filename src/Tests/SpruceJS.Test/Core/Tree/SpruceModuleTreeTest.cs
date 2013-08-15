@@ -4,12 +4,12 @@ using Xunit;
 
 namespace SpruceJS.Test.Core.Tree
 {
-	public class JSCommenTreeTest
+	public class SpruceModuleTreeTest
 	{
 		[Fact]
 		public void NoChildrenPresentWhenContentNotLoaded()
 		{
-			var tree = new JSCommonTree();
+			var tree = new SpruceModuleTree();
 			Assert.Throws<NullReferenceException>(
 				() => { var c = tree.Children; }
 			);
@@ -18,7 +18,7 @@ namespace SpruceJS.Test.Core.Tree
 		[Fact]
 		public void ChildrenPresentWhenContentLoaded()
 		{
-			var tree = new JSCommonTree();
+			var tree = new SpruceModuleTree();
 
 			tree.Load("");
 

@@ -10,7 +10,7 @@ namespace SpruceJS.Core.Engine
 {
 	public class Engine : IEngine
 	{
-		readonly JSApp app = new JSApp(new AjaxminMinifier());
+		readonly SpruceApplication app = new SpruceApplication(new AjaxminMinifier());
 
 		public bool Minify { get; set; }
 		public bool ExcludeJsLib { get; set; }
@@ -63,7 +63,7 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			var fileAnalyzer = new JSFileAnalyzer(content);
+			var fileAnalyzer = new ModuleStrutureAnalyzer(content);
 
 			// Stop if content is not valid
 			if (!fileAnalyzer.IsValid) 

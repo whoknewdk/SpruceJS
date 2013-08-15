@@ -6,13 +6,13 @@ using SpruceJS.Core.Script;
 
 namespace SpruceJS.Core
 {
-	public class JSApp
+	public class SpruceApplication
 	{
 		private readonly ModuleItemList modules = new ModuleItemList();
 		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
 
 		readonly IMinifier minificator;
-		public JSApp(IMinifier minificator)
+		public SpruceApplication(IMinifier minificator)
 		{
 			this.minificator = minificator;
 		}

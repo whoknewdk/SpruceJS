@@ -7,14 +7,14 @@ using Xunit;
 
 namespace SpruceJS.Test.Core
 {
-	public class JSAppTest
+	public class SpruceApplicationTest
 	{
 		[Fact]
 		public void CanAddModules()
 		{
 			var fileconfigMock = new Mock<IMinifier>();
 
-			var jsapp = new JSApp(fileconfigMock.Object);
+			var jsapp = new SpruceApplication(fileconfigMock.Object);
 
 			jsapp.AddModule(new ModuleItem { Name = "a" });
 			jsapp.AddModule(new ModuleItem { Name = "b" });
@@ -27,7 +27,7 @@ namespace SpruceJS.Test.Core
 		{
 			var fileconfigMock = new Mock<IMinifier>();
 
-			var jsapp = new JSApp(fileconfigMock.Object);
+			var jsapp = new SpruceApplication(fileconfigMock.Object);
 
 			jsapp.AddExternal(new ExternalItem());
 			jsapp.AddExternal(new ExternalItem());
@@ -43,7 +43,7 @@ namespace SpruceJS.Test.Core
 				.Setup(i => i.Minify(It.IsAny<ModuleItemList>(), It.IsAny<IEnumerable<ExternalItem>>()))
 				.Returns(new MinifyResult { JavaScriptBody = "JSBody"});
 
-			var jsapp = new JSApp(fileconfigMock.Object);
+			var jsapp = new SpruceApplication(fileconfigMock.Object);
 
 			Assert.Equal("JSBody", jsapp.GetMinifiedOutput().JavaScriptBody);
 		}
@@ -52,7 +52,7 @@ namespace SpruceJS.Test.Core
 		public void CanGetOutput()
 		{
 			var fileconfigMock = new Mock<IMinifier>();
-			var jsapp = new JSApp(fileconfigMock.Object);
+			var jsapp = new SpruceApplication(fileconfigMock.Object);
 
 			jsapp.AddExternal(new ExternalItem { Content = "JSBody" });
 

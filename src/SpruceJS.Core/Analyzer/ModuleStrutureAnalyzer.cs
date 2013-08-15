@@ -5,9 +5,9 @@ using SpruceJS.Core.Tree;
 
 namespace SpruceJS.Core
 {
-	public class JSFileAnalyzer
+	public class ModuleStrutureAnalyzer
 	{
-		JSCommonTree tree = new JSCommonTree();
+		readonly SpruceModuleTree tree = new SpruceModuleTree();
 
 		public string Name { get; private set; }
 
@@ -16,7 +16,7 @@ namespace SpruceJS.Core
 
 		public bool IsValid { get; private set; }
 
-		public JSFileAnalyzer(string content)
+		public ModuleStrutureAnalyzer(string content)
 		{
 			tree.Load(content);
 

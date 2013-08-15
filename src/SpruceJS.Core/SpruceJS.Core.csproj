@@ -57,8 +57,8 @@
     <Compile Include="Exceptions\Modules\ModuleKeyNotUniqueException.cs" />
     <Compile Include="Exceptions\Sort\NameNotFoundException.cs" />
     <Compile Include="Exceptions\Sort\NotDirectedAcyclicGraphException.cs" />
-    <Compile Include="JSApp.cs" />
-    <Compile Include="JSFileAnalyzer.cs" />
+    <Compile Include="SpruceApplication.cs" />
+    <Compile Include="Analyzer\ModuleStrutureAnalyzer.cs" />
     <Compile Include="Content\ModuleItem.cs" />
     <Compile Include="Content\ModuleItemList.cs" />
     <Compile Include="Minification\AjaxminMinifier.cs" />
@@ -69,12 +69,14 @@
     <Compile Include="Results\IResult.cs" />
     <Compile Include="Script\SpruceLib.cs" />
     <Compile Include="Sort\TopSort.cs" />
-    <Compile Include="Tree\JSCommonTree.cs" />
+    <Compile Include="Analyzer\SpruceModuleTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Script\spruce.js" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tree\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

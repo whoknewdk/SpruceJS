@@ -3,52 +3,52 @@ using Xunit;
 
 namespace SpruceJS.Test.Core
 {
-	public class JSFileAnalyzerTest
+	public class ModuleStrutureAnalyzerTest
 	{
 		[Fact]
 		public void CanValidate()
 		{
 			// Leafs
-			var a = new JSFileAnalyzer("define('myid', ['id1', 'id2'], function (id1, id2) { var test = 123; });");
+			var a = new ModuleStrutureAnalyzer("define('myid', ['id1', 'id2'], function (id1, id2) { var test = 123; });");
 			Assert.True(a.IsValid);
 			Assert.Equal("myid", a.Name);
 
-			var b = new JSFileAnalyzer("define(['id1','id2'], function (id1, id2) { var test = {}; });");
+			var b = new ModuleStrutureAnalyzer("define(['id1','id2'], function (id1, id2) { var test = {}; });");
 			Assert.True(b.IsValid);
 
-			var c = new JSFileAnalyzer("define(function () { var test = {}; });");
+			var c = new ModuleStrutureAnalyzer("define(function () { var test = {}; });");
 			Assert.True(c.IsValid);
 
-			var d = new JSFileAnalyzer("define('myid', function (id1, id2) { var test = {}; });");
+			var d = new ModuleStrutureAnalyzer("define('myid', function (id1, id2) { var test = {}; });");
 			Assert.True(d.IsValid);
 
 			// Node
-			var e = new JSFileAnalyzer("define('myid', ['id1','id2'], function (id1, id2) { return {}; });");
+			var e = new ModuleStrutureAnalyzer("define('myid', ['id1','id2'], function (id1, id2) { return {}; });");
 			Assert.True(e.IsValid);
 
-			var f = new JSFileAnalyzer("define(['id1','id2'], function (id1, id2) { return {}; });");
+			var f = new ModuleStrutureAnalyzer("define(['id1','id2'], function (id1, id2) { return {}; });");
 			Assert.True(f.IsValid);
 
-			var g = new JSFileAnalyzer("define(function () { return {}; });");
+			var g = new ModuleStrutureAnalyzer("define(function () { return {}; });");
 			Assert.True(g.IsValid);
 
-			var h = new JSFileAnalyzer("define('myid', function (id1, id2) { return {}; });");
+			var h = new ModuleStrutureAnalyzer("define('myid', function (id1, id2) { return {}; });");
 			Assert.True(h.IsValid);
 		}
 
 		[Fact]
 		public void CanNotValidate()
 		{
-			var a = new JSFileAnalyzer("define();");
+			var a = new ModuleStrutureAnalyzer("define();");
 			Assert.False(a.IsValid);
 
-			var b = new JSFileAnalyzer("define('id1');");
+			var b = new ModuleStrutureAnalyzer("define('id1');");
 			Assert.False(b.IsValid);
 
-			var c = new JSFileAnalyzer("define('id1', ['id2', 'id3']);");
+			var c = new ModuleStrutureAnalyzer("define('id1', ['id2', 'id3']);");
 			Assert.False(c.IsValid);
 
-			var d = new JSFileAnalyzer("define(['id2', 'id3']);");
+			var d = new ModuleStrutureAnalyzer("define(['id2', 'id3']);");
 			Assert.False(d.IsValid);
 		}
 
@@ -57,7 +57,7 @@ namespace SpruceJS.Test.Core
 		{
 			string text = "define('myid', function () { var abc; });";
 
-			var fileanalyser = new JSFileAnalyzer(text);
+			var fileanalyser = new ModuleStrutureAnalyzer(text);
 
 			Assert.Equal("myid", fileanalyser.Name);
 		}
@@ -67,7 +67,7 @@ namespace SpruceJS.Test.Core
 		{
 			string text = "define('myid', ['oneid', 'twoid','threeid'], function () { var abc; });";
 
-			var fileanalyser = new JSFileAnalyzer(text);
+			var fileanalyser = new ModuleStrutureAnalyzer(text);
 
 			Assert.DoesNotThrow(
 				() => { var d = fileanalyser.Dependencies; }

@@ -3,7 +3,7 @@ using Microsoft.Ajax.Utilities;
 
 namespace SpruceJS.Core.Tree
 {
-	public class JSCommonTree
+	public class SpruceModuleTree
 	{
 		private Block block;
 
