@@ -117,5 +117,23 @@ namespace SpruceJS.Test.Core.Engine
 				() => { engine.Render(); }
 			);
 		}
+
+		[Fact]
+		public void NamelessModulesNotThrowsException()
+		{
+			var fileconfigMock = new Mock<IFileConfig>();
+			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
+
+			var contentLoaderMock = new Mock<IContentLoader>();
+			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
+			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define(function () { var enginetests1 = 123; });");
+			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define([], function () { var enginetests2 = 456; });");
+
+			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+
+			Assert.DoesNotThrow(
+				() => { engine.Render(); }
+			);
+		}
 	}
 }

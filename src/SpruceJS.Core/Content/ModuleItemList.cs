@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using SpruceJS.Core.Exceptions.Modules;
@@ -18,7 +19,8 @@ namespace SpruceJS.Core.Content
 
 		public IEnumerator<ModuleItem> GetEnumerator()
 		{
-			string[] duplicateKeys = modules.GroupBy(x => x.Name).Where(x => x.Count() > 1).Select(x => x.Key).ToArray();
+			// Throw exception if duplicate keys exist
+			string[] duplicateKeys = modules.GroupBy(x => x.Name).Where(x => x.Count() > 1 && !String.IsNullOrEmpty(x.Key)).Select(x => x.Key).ToArray();
 			if (duplicateKeys.Length > 0)
 			{
 				string[] urls = modules.Where(x => duplicateKeys.Contains(x.Name)).Select(x => x.Url).ToArray();
