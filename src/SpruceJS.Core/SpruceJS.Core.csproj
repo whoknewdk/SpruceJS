@@ -58,7 +58,7 @@
     <Compile Include="Exceptions\Sort\NameNotFoundException.cs" />
     <Compile Include="Exceptions\Sort\NotDirectedAcyclicGraphException.cs" />
     <Compile Include="SpruceApplication.cs" />
-    <Compile Include="Analyzer\ModuleStrutureAnalyzer.cs" />
+    <Compile Include="Analyzer\AMDStructureAnalyzer.cs" />
     <Compile Include="Content\ModuleItem.cs" />
     <Compile Include="Content\ModuleItemList.cs" />
     <Compile Include="Minification\AjaxminMinifier.cs" />

@@ -5,7 +5,7 @@ using SpruceJS.Core.Tree;
 
 namespace SpruceJS.Core
 {
-	public class ModuleStrutureAnalyzer
+	public class AMDStructureAnalyzer
 	{
 		readonly SpruceModuleTree tree = new SpruceModuleTree();
 
@@ -16,7 +16,7 @@ namespace SpruceJS.Core
 
 		public bool IsValid { get; private set; }
 
-		public ModuleStrutureAnalyzer(string content)
+		public AMDStructureAnalyzer(string content)
 		{
 			tree.Load(content);
 
