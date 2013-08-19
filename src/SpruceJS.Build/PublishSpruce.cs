@@ -40,6 +40,7 @@ namespace SpruceJS.Build
 				File.WriteAllText(completeOutputFile, output.JavaScriptBody, Encoding.UTF8);
 			}
 
+			// Expose destionation path
 			OutputFiles = tempDir.Replace("\\", "/");
 			
 			return true;

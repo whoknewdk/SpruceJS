@@ -1,6 +1,7 @@
 ﻿using System.Web;
 using System.Web.SessionState;
 using SpruceJS.Core.Exceptions;
+using SpruceJS.Core.Script;
 
 namespace SpruceJS.Web
 {
@@ -10,35 +11,46 @@ namespace SpruceJS.Web
 		{
 			string filePath = context.Request.FilePath;
 
-			// Output SourceMap
+			// Response Headers
 			context.Response.ContentType = "text/javascript";
+			context.Response.AppendHeader("X-SourceMap", filePath + ".map");
+			
+			// no-cache
+			if (!SpruceJSConfigurationSection.Instance.Cache)
+			{
+				context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
+				context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
+				context.Response.AppendHeader("Expires", "0"); // Proxies.	
+			}
+			context.Response.Flush();
+
+			// Output SourceMap
 			if (filePath.Contains(".map"))
 			{
 				context.Response.Write(context.Application[filePath]);
 				return;
 			}
 
-			// Output JavaScript
-			string configFilePath = filePath.Replace(".spruce.js", ".spruce.config").Replace(".map", "");
+			// Spruce library
+			if (filePath.Contains("spruce-define.spruce.js"))
+			{
+				context.Response.Write(SpruceLib.Body);
+				return;
+			}
 
 			try
 			{
+				string configFilePath = filePath.Replace(".spruce.js", ".spruce.config");
 				var engine = WebEngine.Create(configFilePath, context);
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
 				// Get result
 				var result = engine.GetOutput();
 
+				// Save SourceMap for next request
 				context.Application[filePath + ".map"] = result.SourceMapBody;
 
-				// no-cache
-				if (!SpruceJSConfigurationSection.Instance.Cache)
-				{
-					context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-					context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
-					context.Response.AppendHeader("Expires", "0"); // Proxies.	
-				}
-				context.Response.AppendHeader("X-SourceMap", filePath + ".map");
+				// Write JavaScript
 				context.Response.Write(result.JavaScriptBody);
 			}
 			catch (SpruceException ex)

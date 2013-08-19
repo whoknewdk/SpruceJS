@@ -32,7 +32,7 @@ namespace SpruceJS.Core.Minification
 					var sb = new StringBuilder();
 
 					// Add definejs
-					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "define.sp.js"));
+					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "spruce-define.spruce.js"));
 					sb.AppendLine(SpruceLib.Body);
 
 					// Add each file
