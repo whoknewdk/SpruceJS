@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
+using SpruceJS.Core.Analyzer;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;

@@ -1,7 +1,7 @@
-﻿using SpruceJS.Core;
+﻿using SpruceJS.Core.Analyzer;
 using Xunit;
 
-namespace SpruceJS.Test.Core
+namespace SpruceJS.Test.Core.Analyzer
 {
 	public class ModuleStrutureAnalyzerTest
 	{

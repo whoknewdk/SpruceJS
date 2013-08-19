@@ -3,7 +3,7 @@ using System.Linq;
 using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Tree;
 
-namespace SpruceJS.Core
+namespace SpruceJS.Core.Analyzer
 {
 	public class AMDStructureAnalyzer
 	{
