@@ -3,7 +3,7 @@ using System.Web;
 
 namespace SpruceJS.Web.Utils
 {
-	public class KillCacheHttpHandler : IHttpHandler
+	public class NoCacheHttpHandler : IHttpHandler
 	{
 		public void ProcessRequest(HttpContext context)
 		{
