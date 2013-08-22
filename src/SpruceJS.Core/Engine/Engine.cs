@@ -65,7 +65,8 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			var fileAnalyzer = new AMDStructureAnalyzer(content);
+			var fileAnalyzer = new AmdVisitor();
+			fileAnalyzer.Load(content);
 
 			// Stop if content is not valid
 			if (!fileAnalyzer.IsValid) 
@@ -73,7 +74,7 @@ namespace SpruceJS.Core.Engine
 
 			// Build new module
 			return new ModuleItem {
-				Name = fileAnalyzer.Name,
+				Name = fileAnalyzer.Indentifier,
 				Dependencies = fileAnalyzer.Dependencies,
 				Content = content,
 				Url = UrlPath(filePath)

@@ -5,11 +5,11 @@ namespace SpruceJS.Core.Tree
 {
 	public class SpruceModuleTree
 	{
-		private Block block;
+		public Block Block;
 
 		public IEnumerable<AstNode> Children
 		{
-			get { return block.Children; }
+			get { return Block.Children; }
 		}
 
 		public void Load(string content)
@@ -21,7 +21,7 @@ namespace SpruceJS.Core.Tree
 			CodeSettings settings = new CodeSettings();
 			settings.AddKnownGlobal("define");
 
-			block = parser.Parse(settings);
+			Block = parser.Parse(settings);
 		}
 
 		static void ErrorHandler(object source, JScriptExceptionEventArgs ea)

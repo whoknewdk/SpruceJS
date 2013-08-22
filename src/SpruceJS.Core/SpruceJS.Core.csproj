@@ -43,6 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Analyzer\CommonJsVisitor.cs" />
+    <Compile Include="Analyzer\AmdVisitor.cs" />
+    <Compile Include="Analyzer\SpruceVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />
     <Compile Include="Config\Files\IFileConfig.cs" />
@@ -58,7 +61,6 @@
     <Compile Include="Exceptions\Sort\NameNotFoundException.cs" />
     <Compile Include="Exceptions\Sort\NotDirectedAcyclicGraphException.cs" />
     <Compile Include="SpruceApplication.cs" />
-    <Compile Include="Analyzer\AMDStructureAnalyzer.cs" />
     <Compile Include="Content\ModuleItem.cs" />
     <Compile Include="Content\ModuleItemList.cs" />
     <Compile Include="Minification\AjaxminMinifier.cs" />
