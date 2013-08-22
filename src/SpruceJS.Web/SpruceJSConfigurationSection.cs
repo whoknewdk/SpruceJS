@@ -8,10 +8,16 @@ namespace SpruceJS.Web
 		private static SpruceJSConfigurationSection instance;
 		public static SpruceJSConfigurationSection Instance
 		{
-			get { return instance ?? (instance = (SpruceJSConfigurationSection)ConfigurationManager.GetSection("SpruceJS")); }
+			get
+			{
+				if (instance != null)
+					return instance;
+
+				return instance = ConfigurationManager.GetSection("SpruceJS") as SpruceJSConfigurationSection ?? new SpruceJSConfigurationSection();
+			}
 		}
 
-		[ConfigurationProperty("minify", DefaultValue = "false", IsRequired = false)]
+		[ConfigurationProperty("minify", DefaultValue = "true", IsRequired = false)]
 		public Boolean Minify
 		{
 			get
