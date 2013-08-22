@@ -135,5 +135,22 @@ namespace SpruceJS.Test.Core.Engine
 				() => { engine.GetOutput(); }
 			);
 		}
+
+		[Fact]
+		public void OutputThrowNotValidModuleException()
+		{
+			var fileconfigMock = new Mock<IFileConfig>();
+			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
+
+			var contentLoaderMock = new Mock<IContentLoader>();
+			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define(function () { var enginetests1 = 123; });");
+			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define();");
+
+			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+
+			Assert.Throws<ModuleNotValidException>(
+				() => { engine.GetOutput(); }
+			);
+		}
 	}
 }

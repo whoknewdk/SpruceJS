@@ -43,9 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Analyzer\CommonJsVisitor.cs" />
-    <Compile Include="Analyzer\AmdVisitor.cs" />
-    <Compile Include="Analyzer\SpruceVisitor.cs" />
+    <Compile Include="Exceptions\Modules\ModuleNotValidException.cs" />
+    <Compile Include="Visitor\CommonJsVisitor.cs" />
+    <Compile Include="Visitor\AmdVisitor.cs" />
+    <Compile Include="Visitor\SpruceVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />
     <Compile Include="Config\Files\IFileConfig.cs" />
@@ -71,7 +72,6 @@
     <Compile Include="Engine\IOutput.cs" />
     <Compile Include="Script\SpruceLib.cs" />
     <Compile Include="Sort\TopSort.cs" />
-    <Compile Include="Analyzer\SpruceModuleTree.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Script\spruce.js" />

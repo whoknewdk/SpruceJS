@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Microsoft.Ajax.Utilities;
 
-namespace SpruceJS.Core.Analyzer
+namespace SpruceJS.Core.Visitor
 {
 	public class AmdVisitor : SpruceVisitor
 	{

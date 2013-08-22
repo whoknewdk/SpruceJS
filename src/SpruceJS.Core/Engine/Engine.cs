@@ -1,6 +1,6 @@
 ﻿using System.IO;
 using System.Linq;
-using SpruceJS.Core.Analyzer;
+using SpruceJS.Core.Visitor;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
@@ -69,8 +69,8 @@ namespace SpruceJS.Core.Engine
 			fileAnalyzer.Load(content);
 
 			// Stop if content is not valid
-			if (!fileAnalyzer.IsValid) 
-				return null;
+			if (!fileAnalyzer.IsValid)
+				throw new ModuleNotValidException(filePath);
 
 			// Build new module
 			return new ModuleItem {

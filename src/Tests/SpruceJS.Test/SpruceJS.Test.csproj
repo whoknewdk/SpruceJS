@@ -65,8 +65,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Build\PathUtilTests.cs" />
-    <Compile Include="Core\Analyzer\CommonJsVisitorTest.cs" />
-    <Compile Include="Core\Analyzer\AmdVisitorTest.cs" />
+    <Compile Include="Core\Visitor\CommonJsVisitorTest.cs" />
+    <Compile Include="Core\Visitor\AmdVisitorTest.cs" />
     <Compile Include="Core\Config\SpruceConfigTests.cs" />
     <Compile Include="Core\Content\ModuleItemListTests.cs" />
     <Compile Include="Core\Engine\EngineSpruceExceptionTests.cs" />
@@ -75,7 +75,6 @@
     <Compile Include="Core\Sort\TopSortExceptionTests.cs" />
     <Compile Include="Core\Sort\TopSortTests.cs" />
     <Compile Include="Core\SpruceApplicationTest.cs" />
-    <Compile Include="Core\Tree\SpruceModuleTreeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Web\WebSpruceConfigTests.cs" />
   </ItemGroup>

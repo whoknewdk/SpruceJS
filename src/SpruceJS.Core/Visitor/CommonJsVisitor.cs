@@ -1,6 +1,6 @@
 ﻿using Microsoft.Ajax.Utilities;
 
-namespace SpruceJS.Core.Analyzer
+namespace SpruceJS.Core.Visitor
 {
 	public class CommonJsVisitor : SpruceVisitor
 	{

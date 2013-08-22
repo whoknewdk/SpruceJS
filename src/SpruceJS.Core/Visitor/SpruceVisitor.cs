@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.Ajax.Utilities;
-using SpruceJS.Core.Tree;
 
-namespace SpruceJS.Core.Analyzer
+namespace SpruceJS.Core.Visitor
 {
 	public abstract class SpruceVisitor : TreeVisitor
 	{
@@ -17,9 +16,19 @@ namespace SpruceJS.Core.Analyzer
 
 		public void Load(string script)
 		{
-			var tree = new SpruceModuleTree();
-			tree.Load(script);
-			Visit(tree.Block);
+			JSParser parser = new JSParser(script);
+
+			parser.CompilerError += ErrorHandler;
+
+			CodeSettings settings = new CodeSettings();
+			settings.AddKnownGlobal("define");
+
+			Visit(parser.Parse(settings));
+		}
+
+		static void ErrorHandler(object source, JScriptExceptionEventArgs ea)
+		{
+			//throw new Exception(ea.Error.ToString());
 		}
 	}
 }
