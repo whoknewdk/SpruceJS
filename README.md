@@ -1,55 +1,66 @@
 SpruceJS
 ========
-SpruceJS is a JavaScript module loader for ASP.NET. It will assemble and resolve dependencies for all your source files, instantly.
+SpruceJS is a JavaScript module loader for ASP.NET. It will assemble your source files and resolve dependencies, instantly.
 
 Features
 ========
 * Module centric JavaScript development.
 * Automatic dependency resolution.
 * Debugging via sourcemaps.
-* Super fast run-time assembling. No build. Edit-save-refresh!
-* < 1 KB JavaScript library required (you can even roll your own).
-* OnPublish static file generation.
-* And best of all... No application/listener running in the background!
+* Minification
+* Super fast run-time assembling. No build, just edit-save-refresh!
+* < 1 KB JavaScript library required
 
 Howto get started
 =================
-You explore the different ways of using SpruceJS by heading over to the [Getting started guide](https://github.com/whoknewdk/SpruceJS/wiki/Getting-started). 
+You can explore the different ways of using SpruceJS by heading over to the [Getting started guide](https://github.com/whoknewdk/SpruceJS/wiki/Getting-started). 
 Basically though, it works as below.
 
-HttpHandler
-	...
-	<handlers>
-		<add name="SpruceJS" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceJSHttpHandler,SpruceJS.Web" />
-		<add name="NoCache" verb="*" path="*.js" type="SpruceJS.Web.Utils.NoCacheHttpHandler,SpruceJS.Web" />
-	</handlers>
-	...
+**app.html**
+```xml
+<html>
+	<body>
+		<p id="msg"></p>
+		<script src="app.spruce.js"></script>
+	</body>
+</html>
+```
 
-app.spruce.config
-	<sprucejs>
+**HttpHandler**
+```xml
+<handlers>
+	<add name="SpruceJS" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceJSHttpHandler,SpruceJS.Web" />
+	<add name="NoCache" verb="*" path="*.js" type="SpruceJS.Web.Utils.NoCacheHttpHandler,SpruceJS.Web" />
+</handlers>
+```
 
-		<modules>
-			<add path="/shared/models/" />
-			<add path="views/" />
-		</modules>
+**app.spruce.config**
+```xml
+<sprucejs>
+	<modules>
+		<add path="/shared/models/" />
+		<add path="views/" />
+	</modules>
+</sprucejs>
+```
 
-	</sprucejs>
+**views/hello.js**
+```javascript
+define("views/hello", ["models/message"], function (message) {
 
-views/hello.js
-	define("views/hello", ["models/hello"], function (hello) {
-		return {
-			say: function () {
-				alert(hello.message);
-			}
-		};
-	});
+	$('#msg').html(message.hello);
 
-/shared/models/hello.js
-	define("models/hello", function () {
-		return {
-			message: 'Hello'
-		};
-	});
+});
+```
+
+**/shared/models/hello.js**
+```javascript
+define("models/message", function () {
+	return {
+		hello: 'Hello'
+	};
+});
+```
 
 Copyright
 =========
