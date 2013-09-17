@@ -1,7 +1,7 @@
 ﻿Important!
 
 Want to Publish?
-Should you choose to publish this Project you will have to manually run the following command from the windows Command Prompt:
+Should you choose to publish this Project you will have to manually run the following command from the Windows Command Prompt:
 "taskkill /im msbuild.exe /f /t"
 
 Why?

@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace SpruceJS.Core.Engine
 {
@@ -11,12 +12,15 @@ namespace SpruceJS.Core.Engine
 	{
 		public string GetContent(string filePath)
 		{
-			// Stop if no file exists
-			if (!File.Exists(filePath))
+			try
+			{
+				// Read/Analyse file
+				return File.ReadAllText(filePath);
+			}
+			catch (FileNotFoundException)
+			{
 				return null;
-
-			// Read/Analyse file
-			return File.ReadAllText(filePath);
+			}
 		}
 	}
 }

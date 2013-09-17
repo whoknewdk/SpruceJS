@@ -65,6 +65,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Build\PathUtilTests.cs" />
+    <Compile Include="Core\Content\ModuleItemTests.cs" />
     <Compile Include="Core\Visitor\CommonJsVisitorTest.cs" />
     <Compile Include="Core\Visitor\AmdVisitorTest.cs" />
     <Compile Include="Core\Config\SpruceConfigTests.cs" />

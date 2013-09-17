@@ -1,5 +1,5 @@
-﻿define('todo', [], function () {
+﻿define('todo', ['./car'], function (car) {
 
-	return { name: 'Yehaaaaa3' };
+	return { name: 'Yehaaaaa3 ' + car };
 
 });

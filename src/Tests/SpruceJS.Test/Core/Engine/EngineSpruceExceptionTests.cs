@@ -132,12 +132,15 @@ namespace SpruceJS.Test.Core.Engine
 			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.DoesNotThrow(
-				() => { engine.GetOutput(); }
+				() =>
+					{
+						engine.GetOutput();
+					}
 			);
 		}
 
 		[Fact]
-		public void OutputThrowNotValidModuleException()
+		public void OutputThrowsNotValidModuleException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });

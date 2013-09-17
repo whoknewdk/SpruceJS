@@ -65,17 +65,18 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			var fileAnalyzer = new AmdVisitor();
-			fileAnalyzer.Load(content);
+			var moduleVisitor = new AmdVisitor();
+			moduleVisitor.Load(content);
 
 			// Stop if content is not valid
-			if (!fileAnalyzer.IsValid)
+			if (!moduleVisitor.IsValid)
 				throw new ModuleNotValidException(filePath);
 
+			// If no name exists, use path
+			string name = moduleVisitor.Indentifier;
+
 			// Build new module
-			return new ModuleItem {
-				Name = fileAnalyzer.Indentifier,
-				Dependencies = fileAnalyzer.Dependencies,
+			return new ModuleItem(name, moduleVisitor.Dependencies) {
 				Content = content,
 				Url = UrlPath(filePath)
 			};
