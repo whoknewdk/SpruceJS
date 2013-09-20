@@ -18,7 +18,6 @@ namespace SpruceJS.Test.Core.Engine
 
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b" });
-			fileconfigMock.Setup(i => i.Files).Returns(new[] { "d", "e", "f", "g" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns(fileval1);
@@ -41,7 +40,6 @@ namespace SpruceJS.Test.Core.Engine
 
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b" });
-			fileconfigMock.Setup(i => i.Files).Returns(new[] { "d", "e", "f", "g" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns(fileval1);

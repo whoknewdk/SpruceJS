@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using SpruceJS.Core.Visitor;
 using SpruceJS.Core.Config;
@@ -32,9 +33,30 @@ namespace SpruceJS.Core.Engine
 			foreach (var externalFile in fileConfig.Externals)
 				app.AddExternal(createExternal(externalFile));
 
+			var dependencies = new HashSet<string>();
+			var keys = new HashSet<string>();
+
 			// Add files
 			foreach (var file in fileConfig.Files)
-				app.AddModule(createModule(file));
+			{
+				var module = createModule(file);
+				app.AddModule(module);
+
+				// Store keys and dependencies
+				keys.Add(module.Name);
+				foreach (var d in module.Dependencies)
+					dependencies.Add(d);
+			}
+
+			// Try 2nd time
+			var unfoundDependencies = dependencies.Except(keys);
+			foreach (var unfoundDependency in unfoundDependencies)
+			{
+				var fileOnDisk = fileConfig.GetFullPath(unfoundDependency.Replace("/", "\\") + ".js");
+				if (File.Exists(fileOnDisk))
+					app.AddModule(createModule(fileOnDisk));
+			}
+
 
 			try
 			{

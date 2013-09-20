@@ -1,20 +1,27 @@
 SpruceJS
 ========
-SpruceJS is a JavaScript module loader for ASP.NET. It will assemble your source files and resolve dependencies, instantly.
+SpruceJS is a JavaScript module assembler for ASP.NET. It will assemble your source files, resolve dependencies, minnify everything and generate corresponding source maps.
 
 Features
 ========
 * Module centric JavaScript development.
 * Automatic dependency resolution.
-* Debugging via sourcemaps.
-* Minification
-* Super fast run-time assembling. No build, just edit-save-refresh!
-* < 1 KB JavaScript library required
+* Debugging via source maps.
+* Minification.
+* No build step. Just edit-save-refresh!
+* < 1 KB JavaScript library required.
 
 Howto get started
 =================
 You can explore the different ways of using SpruceJS by heading over to the [Getting started guide](https://github.com/whoknewdk/SpruceJS/wiki/Getting-started). 
 Basically though, it works as below.
+
+**HttpHandler**
+```xml
+<handlers>
+	<add name="SpruceJS" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceJSHttpHandler,SpruceJS.Web" />
+</handlers>
+```
 
 **app.html**
 ```xml
@@ -26,45 +33,34 @@ Basically though, it works as below.
 </html>
 ```
 
-**HttpHandler**
-```xml
-<handlers>
-	<add name="SpruceJS" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceJSHttpHandler,SpruceJS.Web" />
-	<add name="NoCache" verb="*" path="*.js" type="SpruceJS.Web.Utils.NoCacheHttpHandler,SpruceJS.Web" />
-</handlers>
-```
-
-**app.spruce.config**
-```xml
-<sprucejs>
-	<modules>
-		<add path="/shared/models/" />
-		<add path="views/" />
-	</modules>
-</sprucejs>
+**app.json**
+```javascript
+{
+	modules: [
+		'views/*.js'
+	]
+}
 ```
 
 **views/hello.js**
 ```javascript
-define("views/hello", ["models/message"], function (message) {
+define(function (require) {
+	var message = require('models/message');
 
 	$('#msg').html(message.hello);
-
 });
 ```
 
-**/shared/models/hello.js**
+**models/message.js**
 ```javascript
-define("models/message", function () {
-	return {
-		hello: 'Hello'
-	};
+define(function (require, exports) {
+	exports.hello = 'Hello world!';
 });
 ```
 
 Copyright
 =========
-Copyright (c) 2013 Jacob T. Nielsen and contributors.
+Copyright (c) 2013 Jacob T. Nielsen.
 
 License
 =======

@@ -58,5 +58,10 @@ namespace SpruceJS.Core.Config.Files
 
 			return Path.Combine(configDirectoryPath, path);
 		}
+
+		public string GetFullPath(string path)
+		{
+			return getFullPath(path);
+		}
 	}
 }
