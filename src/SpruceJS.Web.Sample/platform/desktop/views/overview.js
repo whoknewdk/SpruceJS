@@ -1,4 +1,4 @@
-﻿define('overview', ['todo'], function (todo) {
+﻿define(['todo'], function (todo) {
 
 	window.$('Happy 2 Jazz');
 

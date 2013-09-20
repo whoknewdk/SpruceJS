@@ -5,6 +5,8 @@ namespace SpruceJS.Core.Visitor
 {
 	public class AmdVisitor : SpruceVisitor
 	{
+		private CodeSettings settings = new CodeSettings();
+
 		public override void Visit(CallNode node)
 		{
 			Lookup lookup = node.Function as Lookup;
@@ -23,7 +25,7 @@ namespace SpruceJS.Core.Visitor
 							if (imports[0] is AstNodeList)
 							{
 								foreach (var depend in (AstNodeList)imports[0])
-									Dependencies.Add(depend.ToCode().Replace("\"", ""));
+									Dependencies.Add(OutputVisitor.Apply(depend, settings).Replace("\"", ""));
 							}
 						}
 					}

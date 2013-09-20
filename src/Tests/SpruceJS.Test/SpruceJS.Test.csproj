@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxMin">
-      <HintPath>..\..\..\lib\Microsoft Ajax Minifier\AjaxMin.dll</HintPath>
+      <HintPath>..\..\..\lib\Microsoft Ajax Minifier 5.1\AjaxMin.dll</HintPath>
     </Reference>
     <Reference Include="Antlr3.Runtime">
       <HintPath>..\..\..\lib\antlr-dotnet-tool-3.3.1.7705\Antlr3.Runtime.dll</HintPath>

@@ -27,7 +27,7 @@ namespace SpruceJS.Core.Visitor
 
 			// Get "require" parem name
 			if (requireParam == null && node.ParameterDeclarations.Count > 0)
-				requireParam = (node.ParameterDeclarations[0] as ParameterDeclaration).IfNotNull(p => p.VariableField);
+				requireParam = (node.ParameterDeclarations[0] as ParameterDeclaration).IfNotNull(p => (p.Binding as BindingIdentifier).VariableField);
 
 			base.Visit(node);
 		}

@@ -16,19 +16,13 @@ namespace SpruceJS.Core.Visitor
 
 		public void Load(string script)
 		{
-			JSParser parser = new JSParser(script);
-
-			parser.CompilerError += ErrorHandler;
-
 			CodeSettings settings = new CodeSettings();
 			settings.AddKnownGlobal("define");
 
-			Visit(parser.Parse(settings));
-		}
+			JSParser parser = new JSParser();
+			parser.Settings = settings;
 
-		static void ErrorHandler(object source, JScriptExceptionEventArgs ea)
-		{
-			//throw new Exception(ea.Error.ToString());
+			Visit(parser.Parse(script));
 		}
 	}
 }
