@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using SpruceJS.Core.Visitor;
+using System.Text.RegularExpressions;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Exceptions.Modules;
 using SpruceJS.Core.Exceptions.Sort;
 using SpruceJS.Core.Minification;
+using SpruceJS.Core.Visitor;
 
 namespace SpruceJS.Core.Engine
 {
@@ -48,15 +50,22 @@ namespace SpruceJS.Core.Engine
 					dependencies.Add(d);
 			}
 
-			// Try 2nd time
+			// Try to locate module on disk
 			var unfoundDependencies = dependencies.Except(keys);
 			foreach (var unfoundDependency in unfoundDependencies)
 			{
 				var fileOnDisk = fileConfig.GetFullPath(unfoundDependency.Replace("/", "\\") + ".js");
 				if (File.Exists(fileOnDisk))
-					app.AddModule(createModule(fileOnDisk));
-			}
+				{
+					var m = createModule(fileOnDisk);
+					m.Name = unfoundDependency;
 
+					var regex = new Regex(Regex.Escape("define("));
+					m.Content = regex.Replace(m.Content, String.Format("define('{0}',", m.Name), 1);
+
+					app.AddModule(m);
+				}
+			}
 
 			try
 			{

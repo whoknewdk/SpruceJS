@@ -68,7 +68,7 @@
     <Content Include="libs\mylib.js" />
     <Content Include="platform\desktop\Default.htm" />
     <Content Include="platform\desktop\views\main.js" />
-    <Content Include="platform\desktop\views\overview.js" />
+    <Content Include="platform\desktop\help\overview.js" />
     <Content Include="Read Before Publishing.txt" />
     <Content Include="shared\models\car.js" />
     <Content Include="Web.config">

@@ -11,17 +11,10 @@ Features
 * No build step. Just edit-save-refresh!
 * < 1 KB JavaScript library required.
 
-Howto get started
+How it works
 =================
 You can explore the different ways of using SpruceJS by heading over to the [Getting started guide](https://github.com/whoknewdk/SpruceJS/wiki/Getting-started). 
 Basically though, it works as below.
-
-**HttpHandler**
-```xml
-<handlers>
-	<add name="SpruceJS" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceJSHttpHandler,SpruceJS.Web" />
-</handlers>
-```
 
 **app.html**
 ```xml
@@ -56,6 +49,13 @@ define(function (require) {
 define(function (require, exports) {
 	exports.hello = 'Hello world!';
 });
+```
+
+**HttpHandler**
+```xml
+<handlers>
+	<add name="Spruce" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceJSHandler,SpruceJS.Web" />
+</handlers>
 ```
 
 Copyright
