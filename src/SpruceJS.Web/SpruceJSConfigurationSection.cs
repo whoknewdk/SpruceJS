@@ -42,5 +42,18 @@ namespace SpruceJS.Web
 				this["cache"] = value;
 			}
 		}
+
+		[ConfigurationProperty("mode", DefaultValue = "cjs", IsRequired = false)]
+		public String Mode
+		{
+			get
+			{
+				return (String)this["mode"];
+			}
+			set
+			{
+				this["mode"] = value;
+			}
+		}
 	}
 }

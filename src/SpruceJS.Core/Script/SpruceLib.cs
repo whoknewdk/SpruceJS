@@ -7,20 +7,17 @@ namespace SpruceJS.Core.Script
 	{
 		private static string body;
 
-		public static string Body
+		public static string GetBody(string mode)
 		{
-			get
-			{
 				// Read embedded JavaScript library
 				if (body == null)
 				{
-					using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.spruce.js"))
+					using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.spruce-common.js"))
 					using (var reader = new StreamReader(stream))
 						body = reader.ReadToEnd();
 				}
 
 				return body;
-			}
 		}
 	}
 }

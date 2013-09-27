@@ -96,7 +96,7 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			var moduleVisitor = new AmdVisitor();
+			var moduleVisitor = new CommonJsVisitor();
 			moduleVisitor.Load(content);
 
 			// Stop if content is not valid

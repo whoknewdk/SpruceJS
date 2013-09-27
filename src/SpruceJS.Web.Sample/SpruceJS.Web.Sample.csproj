@@ -66,9 +66,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="libs\mylib.js" />
-    <Content Include="platform\desktop\Default.htm" />
-    <Content Include="platform\desktop\views\main.js" />
-    <Content Include="platform\desktop\help\overview.js" />
+    <Content Include="cjs\Default.htm" />
+    <Content Include="cjs\views\main.js" />
+    <Content Include="cjs\help\overview.js" />
     <Content Include="Read Before Publishing.txt" />
     <Content Include="shared\models\car.js" />
     <Content Include="Web.config">
@@ -80,7 +80,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="platform\desktop\demo.spruce.config" />
+    <Content Include="cjs\demo.spruce.config" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -99,7 +99,9 @@
       <Name>SpruceJS.Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="amd\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
