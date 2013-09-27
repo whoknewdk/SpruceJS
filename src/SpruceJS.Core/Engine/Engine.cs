@@ -13,12 +13,19 @@ using SpruceJS.Core.Visitor;
 
 namespace SpruceJS.Core.Engine
 {
+	public enum ModuleMode
+	{
+		Amd = 0,
+		CommonJS = 1
+	}
+
 	public class Engine : IEngine
 	{
 		readonly SpruceApplication app = new SpruceApplication(new AjaxminMinifier());
 
 		public bool Minify { get; set; }
 		public bool ExcludeJsLib { get; set; }
+		public ModuleMode Mode { get; set; }
 
 		private readonly IFileConfig fileConfig;
 		private readonly IContentLoader loader;
@@ -27,6 +34,8 @@ namespace SpruceJS.Core.Engine
 		{
 			this.fileConfig = fileConfig;
 			this.loader = loader;
+
+			Mode = ModuleMode.CommonJS;
 		}
 
 		public IOutput GetOutput()
@@ -96,7 +105,10 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			var moduleVisitor = new CommonJsVisitor();
+			SpruceVisitor moduleVisitor = new CommonJsVisitor();
+			if (Mode == ModuleMode.Amd)
+				moduleVisitor = new AmdVisitor();
+
 			moduleVisitor.Load(content);
 
 			// Stop if content is not valid

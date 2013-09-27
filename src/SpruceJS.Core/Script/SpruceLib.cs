@@ -5,19 +5,24 @@ namespace SpruceJS.Core.Script
 {
 	public static class SpruceLib
 	{
-		private static string body;
-
-		public static string GetBody(string mode)
+		private static string amdBody;
+		public static string Body
 		{
-				// Read embedded JavaScript library
-				if (body == null)
-				{
-					using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script.spruce-common.js"))
-					using (var reader = new StreamReader(stream))
-						body = reader.ReadToEnd();
-				}
+			get { return amdBody ?? (amdBody = load("spruce.js")); }
+		}
 
-				return body;
+		private static string cjsBody;
+		public static string CjsBody
+		{
+			get { return cjsBody ?? (cjsBody = load("spruce-common.js")); }
+		}
+
+		private static string load(string filename)
+		{
+			// Read embedded JavaScript library
+			using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("SpruceJS.Core.Script." + filename))
+			using (var reader = new StreamReader(stream))
+				return reader.ReadToEnd();
 		}
 	}
 }

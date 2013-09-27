@@ -1,6 +1,6 @@
 SpruceJS
 ========
-SpruceJS is a JavaScript module assembler for ASP.NET. It will assemble module your source files, resolve dependencies, minify the result and generate corresponding source maps. All in a single request.
+SpruceJS is a JavaScript module assembler for ASP.NET. It will assemble your source files, resolve dependencies, minify the result and generate corresponding source maps. All in a single request.
 
 This allows you to structure your JavaScript using AMD/CommonJS style modules all served to the browser in a single request.
 

@@ -1,11 +1,12 @@
 ﻿using System.Web;
 using System.Web.SessionState;
+using SpruceJS.Core.Engine;
 using SpruceJS.Core.Exceptions;
 using SpruceJS.Core.Script;
 
 namespace SpruceJS.Web
 {
-	public class SpruceJSHttpHandler : IRequiresSessionState, IHttpHandler
+	public class SpruceHandler : IRequiresSessionState, IHttpHandler
 	{
 		public void ProcessRequest(HttpContext context)
 		{
@@ -43,6 +44,7 @@ namespace SpruceJS.Web
 				string configFilePath = filePath.Replace(".spruce.js", ".spruce.config");
 				var engine = WebEngine.Create(configFilePath, context);
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
+				engine.Mode = ModuleMode.CommonJS;
 
 				// Get result
 				var result = engine.GetOutput();
