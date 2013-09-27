@@ -41,7 +41,7 @@ namespace SpruceJS.Web
 
 			try
 			{
-				string configFilePath = filePath.Replace(".spruce.js", ".spruce.config");
+				string configFilePath = filePath.Replace(".spruce.js", ".spruce.json");
 				var engine = WebEngine.Create(configFilePath, context);
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 				engine.Mode = ModuleMode.CommonJS;

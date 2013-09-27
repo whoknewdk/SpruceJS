@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Xml;
+using System.Linq;
+using System.Web.Script.Serialization;
 
 namespace SpruceJS.Core.Config
 {
@@ -10,46 +11,29 @@ namespace SpruceJS.Core.Config
 		public IEnumerable<ConfigElement> Externals { get; private set; }
 		public IEnumerable<ConfigElement> Modules { get; private set; }
 
-		public void LoadXml(string content)
+		JavaScriptSerializer serializer = new JavaScriptSerializer();
+
+		public void LoadJson(string json)
 		{
-			loadDirectoriesAndFile(doc => doc.LoadXml(content));
+			loadDirectoriesAndFile(json);
 		}
 
-		public void Load(string path)
+		public void Load(string json)
 		{
-			loadDirectoriesAndFile(doc => doc.Load(GetFullPath(path)));
+			loadDirectoriesAndFile(GetFullPathContent(json));
 		}
 
-		private void loadDirectoriesAndFile(Action<XmlDocument> loadDocument)
+		private void loadDirectoriesAndFile(string json)
 		{
-			var doc = new XmlDocument();
-			loadDocument(doc);
+			var result = serializer.Deserialize<JsonObj>(json);
 
-			Modules = build(doc.SelectNodes("//add[ancestor::modules]"));
-			Externals = build(doc.SelectNodes("//add[ancestor::externals]"));
+			Modules = (result.modules ?? new string[0]).Select(x => new ConfigElement { Path = x, Recursive = x.Contains("**/*") });
+			Externals = (result.externals ?? new string[0]).Select(x => new ConfigElement { Path = x });
 		}
 
-		protected virtual string GetFullPath(string path)
+		protected virtual string GetFullPathContent(string path)
 		{
-			return Path.GetFullPath(path);
-		}
-
-		private IEnumerable<ConfigElement> build(XmlNodeList nodes)
-		{
-			var list = new List<ConfigElement>();
-
-			foreach (XmlNode node in nodes)
-			{
-				var data = new ConfigElement
-					{
-						Path = node.Attributes["path"].Value,
-						Recursive = node.Attributes["recursive"] != null && Convert.ToBoolean(node.Attributes["recursive"].Value)
-					};
-
-				list.Add(data);
-			}
-
-			return list;
+			return File.ReadAllText(Path.GetFullPath(path));
 		}
 	}
 

@@ -9,16 +9,16 @@ namespace SpruceJS.Test.Core.Config
 		[Fact]
 		public void CanReadModules()
 		{
-			string xml = @"<sprucejs>
-							<modules>
-								<add path='abc.js' />
-								<add path='def.js' />
-								<add path='def.js' />
-							</modules>
-						</sprucejs>";
+			string json = @"{
+								modules: [ 
+									'abc.js',
+									'def.js',
+									'def.js'
+								]
+							}";
 
 			var appconfig = new SpruceConfig();
-			appconfig.LoadXml(xml);
+			appconfig.LoadJson(json);
 
 			Assert.Equal(3, appconfig.Modules.Count());
 		}
@@ -26,16 +26,16 @@ namespace SpruceJS.Test.Core.Config
 		[Fact]
 		public void CanReadExternals()
 		{
-			string xml = @"<sprucejs>
-							<externals>
-								<add path='/abc' />
-								<add path='/def/' />
-								<add path='/def' />
-							</externals>
-						</sprucejs>";
+			string json = @"{
+								externals: [ 
+									'abc.js',
+									'def.js',
+									'/**/*.js'
+								]
+							}";
 
 			var appconfig = new SpruceConfig();
-			appconfig.LoadXml(xml);
+			appconfig.LoadJson(json);
 
 			Assert.Equal(3, appconfig.Externals.Count());
 		}
@@ -43,15 +43,15 @@ namespace SpruceJS.Test.Core.Config
 		[Fact]
 		public void CanReadRecursiveDirectories()
 		{
-			string xml = @"<sprucejs>
-							<modules>
-								<add path='abc' />
-								<add path='def' recursive='true' />
-							</modules>
-						</sprucejs>";
+			string json = @"{
+								modules: [ 
+									'abc.js',
+									'/**/*.js'
+								]
+							}";
 
 			var appconfig = new SpruceConfig();
-			appconfig.LoadXml(xml);
+			appconfig.LoadJson(json);
 
 			Assert.Equal(2, appconfig.Modules.Count());
 			Assert.False(appconfig.Modules.ElementAt(0).Recursive);

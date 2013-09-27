@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using SpruceJS.Core.Config;
 
 namespace SpruceJS.Web
@@ -12,9 +13,9 @@ namespace SpruceJS.Web
 			this.context = context;
 		}
 
-		protected override string GetFullPath(string path)
+		protected override string GetFullPathContent(string path)
 		{
-			return context.Server.MapPath(path);
+			return File.ReadAllText(context.Server.MapPath(path));
 		}
 	}
 }

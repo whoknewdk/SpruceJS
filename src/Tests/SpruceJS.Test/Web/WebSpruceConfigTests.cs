@@ -35,20 +35,20 @@ namespace SpruceJS.Test.Build
 
 			// Config
 			var config = new WebSpruceConfig(contextMock.Object);
-			config.LoadXml(@"<sprucejs>
+			config.LoadJson(@"{
 
-								<externals>
-									<add path='/libs/mylib.js' />
-								</externals>
+								externals: [
+									'/libs/mylib.js'
+								],
 
-								<modules>
-									<add path='/shared/models/main.js' />
-									<add path='/shared/models/*.js' />
-									<add path='/shared/models/' />
-									<add path='views/' />
-								</modules>
+								modules: [
+									'/shared/models/main.js',
+									'/shared/models/*.js',
+									'/shared/models/',
+									'views/'
+								]
 
-							</sprucejs>");
+							}");
 
 			Assert.Equal(1, config.Externals.Count());
 			Assert.Equal(4, config.Modules.Count());
