@@ -8,7 +8,7 @@ namespace SpruceJS.Core.Script
 		private static string amdBody;
 		public static string Body
 		{
-			get { return amdBody ?? (amdBody = load("spruce.js")); }
+			get { return amdBody ?? (amdBody = load("spruce-common.js")); }
 		}
 
 		private static string cjsBody;

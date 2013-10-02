@@ -50,4 +50,5 @@
 
 	keys[key || ""] = body.call(this, require);
 }
+define.amd = {};
 define.keys = {};

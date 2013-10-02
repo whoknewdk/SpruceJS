@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using System.Web.SessionState;
 using SpruceJS.Core.Engine;
 using SpruceJS.Core.Exceptions;
@@ -39,10 +40,25 @@ namespace SpruceJS.Web
 				return;
 			}
 
+			if (context.Request.RawUrl.Contains("?source"))
+			{
+				context.Response.WriteFile(filePath);
+				return;
+			}
+
 			try
 			{
-				string configFilePath = filePath.Replace(".spruce.js", ".spruce.json");
-				var engine = WebEngine.Create(configFilePath, context);
+				IEngine engine;
+
+				if (File.Exists(context.Server.MapPath(filePath)))
+				{
+					engine = WebEngine.CreateFile(context.Server.MapPath(filePath), context);
+				}
+				else
+				{
+					string configFilePath = filePath.Replace(".spruce.js", ".spruce.json");
+					engine = WebEngine.Create(configFilePath, context);
+				}
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 				engine.Mode = ModuleMode.CommonJS;
 

@@ -21,14 +21,26 @@ namespace SpruceJS.Core.Engine
 
 	public class Engine : IEngine
 	{
+		readonly Regex regex = new Regex(Regex.Escape("define("));
+		HashSet<string> keys = new HashSet<string>();
+
 		readonly SpruceApplication app = new SpruceApplication(new AjaxminMinifier());
 
 		public bool Minify { get; set; }
 		public bool ExcludeJsLib { get; set; }
 		public ModuleMode Mode { get; set; }
 
+		private readonly string filePath;
 		private readonly IFileConfig fileConfig;
 		private readonly IContentLoader loader;
+
+		public Engine(string filePath, IContentLoader loader)
+		{
+			this.filePath = filePath;
+			this.loader = loader;
+
+			Mode = ModuleMode.CommonJS;
+		}
 
 		public Engine(IFileConfig fileConfig, IContentLoader loader)
 		{
@@ -40,40 +52,35 @@ namespace SpruceJS.Core.Engine
 
 		public IOutput GetOutput()
 		{
-			// Add externals
-			foreach (var externalFile in fileConfig.Externals)
-				app.AddExternal(createExternal(externalFile));
-
-			var dependencies = new HashSet<string>();
-			var keys = new HashSet<string>();
-
-			// Add files
-			foreach (var file in fileConfig.Files)
+			if (fileConfig != null)
 			{
-				var module = createModule(file);
-				app.AddModule(module);
+				// Add externals
+				foreach (var externalFile in fileConfig.Externals)
+					app.AddExternal(createExternal(externalFile));
 
-				// Store keys and dependencies
-				keys.Add(module.Name);
-				foreach (var d in module.Dependencies)
-					dependencies.Add(d);
-			}
+				var dependencies = new HashSet<string>();
 
-			// Try to locate module on disk
-			var unfoundDependencies = dependencies.Except(keys);
-			foreach (var unfoundDependency in unfoundDependencies)
-			{
-				var fileOnDisk = fileConfig.GetFullPath(unfoundDependency.Replace("/", "\\") + ".js");
-				if (File.Exists(fileOnDisk))
+				// Add files
+				foreach (var file in fileConfig.Files)
 				{
-					var m = createModule(fileOnDisk);
-					m.Name = unfoundDependency;
+					var module = createModule(file);
+					app.AddModule(module);
 
-					var regex = new Regex(Regex.Escape("define("));
-					m.Content = regex.Replace(m.Content, String.Format("define('{0}',", m.Name), 1);
-
-					app.AddModule(m);
+					// Store keys and dependencies
+					keys.Add(module.Name);
+					foreach (var d in module.Dependencies)
+						dependencies.Add(d);
 				}
+
+				// Try to locate module on disk
+				fetchModulesOnDisk(dependencies.Except(keys));
+			}
+			else
+			{
+				var module = createModule(filePath, "demo1/main");
+				module.Content = regex.Replace(module.Content, String.Format("define('{0}',", module.Name), 1);
+				app.AddModule(module);
+				fetchModulesOnDisk(module.Dependencies);
 			}
 
 			try
@@ -94,6 +101,53 @@ namespace SpruceJS.Core.Engine
 			{
 				throw new ModuleKeyCircularReferenceException(ex.Items.Select(x => x.Url).ToArray());
 			}
+		}
+
+		private void fetchModulesOnDisk(IEnumerable<string> unfoundDependencies)
+		{
+			foreach (var unfoundDependency in unfoundDependencies)
+			{
+				var fileOnDisk = loader.GetFullPath(unfoundDependency.Replace("/", "\\") + ".js");
+				if (File.Exists(fileOnDisk))
+				{
+					var module = createModule(fileOnDisk);
+					module.Name = unfoundDependency;
+					module.Content = regex.Replace(module.Content, String.Format("define('{0}',", module.Name), 1);
+
+					app.AddModule(module);
+
+					// Add
+					keys.Add(module.Name);
+					fetchModulesOnDisk(module.Dependencies.Except(keys));
+				}
+			}
+		}
+
+		private ModuleItem createModule(string filePath, string name)
+		{
+			string content = loader.GetContent(filePath);
+
+			// Stop if no file exists
+			if (content == null)
+				return null;
+
+			// Read/Analyse file
+			SpruceVisitor moduleVisitor = new CommonJsVisitor();
+			if (Mode == ModuleMode.Amd)
+				moduleVisitor = new AmdVisitor();
+
+			moduleVisitor.Load(content);
+
+			// Stop if content is not valid
+			if (!moduleVisitor.IsValid)
+				throw new ModuleNotValidException(filePath);
+
+			// Build new module
+			return new ModuleItem(name, moduleVisitor.Dependencies)
+			{
+				Content = content,
+				Url = UrlPath(filePath)
+			};
 		}
 
 		private ModuleItem createModule(string filePath)
@@ -151,8 +205,9 @@ namespace SpruceJS.Core.Engine
 			var config = new SpruceConfig();
 			config.Load(configFilePath);
 
-			var fileConfig = new FileConfig(config, Path.GetDirectoryName(configFilePath), projecyDirPath);
-			return new Engine(fileConfig, new ContentLoader());
+			var loader = new ContentLoader(Path.GetDirectoryName(configFilePath), projecyDirPath);
+			var fileConfig = new FileConfig(config, loader);
+			return new Engine(fileConfig, loader);
 		}
 	}
 }

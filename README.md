@@ -1,6 +1,6 @@
 SpruceJS
 ========
-SpruceJS is a JavaScript module assembler for ASP.NET. It will assemble your source files, resolve dependencies, minify the result and generate corresponding source maps. All in a single request.
+SpruceJS is a JavaScript module assembler for ASP.NET. It will assemble your source files, resolve dependencies, minify the result and generate corresponding source maps.
 
 This allows you to structure your JavaScript using AMD/CommonJS style modules all served to the browser in a single request.
 
@@ -22,18 +22,9 @@ Basically though, it works as below.
 <html>
 	<body>
 		<p id="msg"></p>
-		<script src="my-custom-name.spruce.js"></script>
+		<script src="hello.spruce.js"></script>
 	</body>
 </html>
-```
-
-**my-custom-name.json**
-```javascript
-{
-	modules: [
-		'views/hello.js'
-	]
-}
 ```
 
 **views/hello.js**
@@ -52,7 +43,7 @@ define(function (require, exports) {
 });
 ```
 
-**HttpHandler**
+**Http Handler**
 ```xml
 <handlers>
 	<add name="Spruce" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceHandler,SpruceJS.Web" />

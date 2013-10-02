@@ -6,6 +6,5 @@ namespace SpruceJS.Core.Config.Files
 	{
 		IEnumerable<string> Files { get; }
 		IEnumerable<string> Externals { get; }
-		string GetFullPath(string path);
 	}
 }

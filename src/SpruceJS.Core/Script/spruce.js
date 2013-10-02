@@ -57,4 +57,5 @@
 
 	keys[key || ""] = body.apply(this, imports);
 }
+define.amd = {};
 define.keys = {};
