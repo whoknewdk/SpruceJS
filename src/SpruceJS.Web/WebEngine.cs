@@ -29,7 +29,7 @@ namespace SpruceJS.Web
 		public static IEngine CreateFile(string filePath, HttpContext context)
 		{
 			// Create engine instance
-			return new WebEngine(filePath, new ContentLoader(Path.GetDirectoryName(filePath), context.Request.PhysicalApplicationPath), context);
+			return new WebEngine(filePath, new ContentLoader(context.Request.PhysicalApplicationPath, Path.GetDirectoryName(filePath)), context);
 		}
 
 		public static IEngine Create(string configFilePath, HttpContext context)
@@ -37,7 +37,7 @@ namespace SpruceJS.Web
 			var config = new WebSpruceConfig(new HttpContextWrapper(context));
 			config.Load(configFilePath);
 
-			var loader = new ContentLoader(Path.GetDirectoryName(context.Server.MapPath(configFilePath)), context.Request.PhysicalApplicationPath);
+			var loader = new ContentLoader(context.Request.PhysicalApplicationPath, Path.GetDirectoryName(context.Server.MapPath(configFilePath)));
 			var fileConfig = new FileConfig(config, loader);
 
 			// Create engine instance

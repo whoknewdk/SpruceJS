@@ -39,9 +39,9 @@
 					// Double dot
 					if (_import.indexOf('../') === 0) {
 						var dependencyParts = _import.split('../'),
-							parts = nameParts.splice(0, dependencyParts.length);
+							parts = nameParts.splice(0, dependencyParts.length-1);
 
-						parts.push(_import.replace('./', ''));
+						parts.push(_import.replace('../', ''));
 						_import = parts.join('/');
 					}
 				}

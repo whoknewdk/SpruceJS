@@ -33,7 +33,7 @@ namespace SpruceJS.Core.Content
 
 					if (dependency.StartsWith("../"))
 					{
-						var dependencyParts = Regex.Split(dependency, "../");
+						var dependencyParts = Regex.Split(dependency, Regex.Escape("../"));
 						var listWithoutLast = nameParts.Take(nameParts.Length - dependencyParts.Length).ToList();
 						listWithoutLast.Add(dependencyParts[dependencyParts.Length - 1]);
 						dependencies[i] = string.Join("/", listWithoutLast);

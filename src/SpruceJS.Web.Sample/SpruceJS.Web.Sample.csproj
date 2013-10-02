@@ -65,25 +65,31 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="demo1\Default.htm" />
-    <Content Include="demo1\main.spruce.js" />
-    <Content Include="demo1\hello.js" />
+    <Content Include="amd-demo1\Default.htm" />
+    <Content Include="amd-demo1\hello.js" />
+    <Content Include="amd-demo1\main.spruce.js" />
+    <Content Include="cjs-demo1\Default.htm" />
+    <Content Include="cjs-demo1\main.spruce.js" />
+    <Content Include="cjs-demo1\hello.js" />
+    <Content Include="cjs-demo2\Default.htm" />
+    <Content Include="cjs-demo2\help\output.js" />
+    <Content Include="cjs-demo2\views\main.js" />
     <Content Include="libs\mylib.js" />
-    <Content Include="demo2\cjs\Default.htm" />
-    <Content Include="demo2\cjs\views\main.js" />
-    <Content Include="demo2\cjs\help\overview.js" />
+    <Content Include="amd-demo2\Default.htm" />
+    <Content Include="amd-demo2\views\main.js" />
+    <Content Include="amd-demo2\help\overview.js" />
     <Content Include="Read Before Publishing.txt" />
-    <Content Include="shared\models\car.js" />
+    <Content Include="shared\car.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="shared\models\todo.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="demo2\cjs\demo.spruce.json" />
+    <None Include="amd-demo2\demo.spruce.json" />
+    <Content Include="cjs-demo2\demo.spruce.json" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -102,9 +108,7 @@
       <Name>SpruceJS.Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="demo2\amd\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

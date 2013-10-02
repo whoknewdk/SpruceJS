@@ -1,0 +1,12 @@
+﻿{
+
+	externals: [
+		"/libs/mylib.js"
+	],
+
+	modules: [
+		"/shared/*.js",
+		"views/*.js"
+	]
+
+}

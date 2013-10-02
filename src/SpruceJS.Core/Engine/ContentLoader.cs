@@ -7,6 +7,7 @@ namespace SpruceJS.Core.Engine
 	{
 		string GetContent(string filePath);
 		string GetFullPath(string path);
+		string GetFullPathForKey(string path);
 	}
 
 	public class ContentLoader : IContentLoader
@@ -43,6 +44,11 @@ namespace SpruceJS.Core.Engine
 			}
 
 			return Path.Combine(configDirectoryPath, path);
+		}
+
+		public string GetFullPathForKey(string path)
+		{
+			return Path.Combine(projectDirectoryPath, path);
 		}
 	}
 }

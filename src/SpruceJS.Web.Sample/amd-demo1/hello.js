@@ -1,3 +1,3 @@
 ﻿define(function () {
-	return 'Hello5!';
+	return 'Hello AMD!';
 });

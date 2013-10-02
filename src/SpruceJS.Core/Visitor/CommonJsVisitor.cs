@@ -11,7 +11,7 @@ namespace SpruceJS.Core.Visitor
 			Lookup lookup = node.Function as Lookup;
 			if (lookup != null)
 			{
-				if (lookup.Name == "define" && node.Arguments.Count > 0)
+				if (lookup.Name == "define" && node.Arguments.Count > 0 && node.Arguments[0] is ConstantWrapper)
 					Indentifier = node.Arguments[0].ToString();
 
 				if (lookup.VariableField.IsSameField(requireParam) && node.Arguments.SingleConstantArgument != null)
@@ -23,7 +23,7 @@ namespace SpruceJS.Core.Visitor
 
 		public override void Visit(FunctionObject node)
 		{
-			IsValid = !string.IsNullOrEmpty(Indentifier);
+			IsValid = true;
 
 			// Get "require" parem name
 			if (requireParam == null && node.ParameterDeclarations.Count > 0)
