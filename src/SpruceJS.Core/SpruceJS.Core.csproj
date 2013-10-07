@@ -49,6 +49,7 @@
     <Compile Include="Exceptions\Modules\ModuleNotValidException.cs" />
     <Compile Include="Visitor\CommonJsVisitor.cs" />
     <Compile Include="Visitor\AmdVisitor.cs" />
+    <Compile Include="Visitor\NewVisitor.cs" />
     <Compile Include="Visitor\SpruceVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />
@@ -81,6 +82,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Script\spruce-common.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Script\test\define_amd_tests.js" />
+    <Content Include="Script\test\define_cjs_tests.js" />
+    <Content Include="Script\test\jasmine\jasmine.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Script\test\jasmine\MIT.LICENSE" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

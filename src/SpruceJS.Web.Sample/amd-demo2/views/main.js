@@ -1,8 +1,3 @@
-﻿define(function (require) {
-	var todo = require('todo'),
-		overview = require('help/overview');
-
-	console.log(todo.name);
-	console.log(overview);
-
+﻿define(['../help/overview'], function (output) {
+	output('TEST');
 });

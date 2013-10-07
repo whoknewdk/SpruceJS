@@ -5,16 +5,10 @@ namespace SpruceJS.Core.Script
 {
 	public static class SpruceLib
 	{
-		private static string amdBody;
+		private static string body;
 		public static string Body
 		{
-			get { return amdBody ?? (amdBody = load("spruce-common.js")); }
-		}
-
-		private static string cjsBody;
-		public static string CjsBody
-		{
-			get { return cjsBody ?? (cjsBody = load("spruce-common.js")); }
+			get { return body ?? (body = load("spruce.js")); }
 		}
 
 		private static string load(string filename)

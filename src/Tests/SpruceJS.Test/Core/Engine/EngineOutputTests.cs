@@ -51,7 +51,8 @@ namespace SpruceJS.Test.Core.Engine
 
 			Assert.DoesNotContain(fileval1, output.JavaScriptBody);
 			Assert.DoesNotContain(fileval1, output.JavaScriptBody);
-			Assert.Contains("var enginetests1=123,enginetests2=456;", output.JavaScriptBody);
+			Assert.Contains("enginetests1=123", output.JavaScriptBody);
+			Assert.Contains("enginetests2=456", output.JavaScriptBody);
 		}
 
 		[Fact]

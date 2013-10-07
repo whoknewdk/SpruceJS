@@ -5,7 +5,7 @@
 	],
 
 	modules: [
-		"/shared/models/*.js",
+		"/shared/*.js",
 		"views/"
 	]
 

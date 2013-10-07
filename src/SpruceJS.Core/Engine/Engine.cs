@@ -128,9 +128,7 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			SpruceVisitor moduleVisitor = new CommonJsVisitor();
-			if (Mode == ModuleMode.Amd)
-				moduleVisitor = new AmdVisitor();
+			SpruceVisitor moduleVisitor = new NewVisitor();
 
 			moduleVisitor.Load(content);
 
