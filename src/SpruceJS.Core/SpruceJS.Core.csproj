@@ -81,9 +81,6 @@
     <EmbeddedResource Include="Script\spruce.js" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Script\spruce-common.js" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Script\test\define_amd_tests.js" />
     <Content Include="Script\test\define_cjs_tests.js" />
     <Content Include="Script\test\jasmine\jasmine.js" />

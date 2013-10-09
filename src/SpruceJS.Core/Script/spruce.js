@@ -28,7 +28,15 @@
 				body = val;
 		}
 
-		keys[key || ""] = imports.length > 0 ? body.apply(this, imports) : body.call(this, function (_import) { return require(key, _import); });
+		if (imports.length > 0) {
+			keys[key || ""] = body.apply(this, imports);
+		} else {
+			var exp = keys[key || ""] = {};
+			
+			var result = body.call(this, function (_import) { return require(key, _import); }, exp);
+			if (result)
+				keys[key || ""] = result;
+		}
 	};
 	define.amd = {};
 	

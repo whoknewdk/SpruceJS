@@ -9,11 +9,11 @@ describe('define commonjs', function() {
 	});
 	
 	it('can reference object', function () {
-		define('a/b', function () { return 'ab!'; });
+		define('a/b', function (require, exports) { exports.msg = 'ab!'; });
 
 		define(function(require) {
 			var ab = require('a/b');
-			expect(ab).toBe('ab!');
+			expect(ab.msg).toBe('ab!');
 		});
 	});
 	
