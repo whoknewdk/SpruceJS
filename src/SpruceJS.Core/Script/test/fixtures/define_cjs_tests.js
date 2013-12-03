@@ -1,7 +1,7 @@
-﻿/// <reference path="jasmine/jasmine.js"/>
-/// <reference path="../spruce.js"/>
+﻿/// <reference path="../jasmine/jasmine.js"/>
+/// <reference path="../../spruce.js"/>
 
-describe('define amd', function() {
+describe('define commonjs', function() {
 	it('can define object', function () {
 		define('a', function () { return 'a!'; });
 		define('a/b', function () { return 'a/b!'; });
@@ -9,17 +9,19 @@ describe('define amd', function() {
 	});
 	
 	it('can reference object', function () {
-		define('a/b', function () { return 'ab!'; });
+		define('a/b', function (require, exports) { exports.msg = 'ab!'; });
 
-		define(['a/b'], function (ab) {
-			expect(ab).toBe('ab!');
+		define(function(require) {
+			var ab = require('a/b');
+			expect(ab.msg).toBe('ab!');
 		});
 	});
 	
 	it('can reference relative object', function () {
 		define('a/b', function () { return 'ab!'; });
 
-		define('a/c', ['./b'], function (ab) {
+		define('a/c', function (require) {
+			var ab = require('./b');
 			expect(ab).toBe('ab!');
 		});
 	});
@@ -27,7 +29,8 @@ describe('define amd', function() {
 	it('can reference step out object', function () {
 		define('a/b', function () { return 'ab!'; });
 
-		define('a/c/d', ['../b'], function (ab) {
+		define('a/c/d', function (require) {
+			var ab = require('../b');
 			expect(ab).toBe('ab!');
 		});
 	});
