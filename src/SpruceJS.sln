@@ -9,9 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0FB6BFB8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Test", "Tests\SpruceJS.Test\SpruceJS.Test.csproj", "{89FDA79F-8C4D-48C7-A3C6-2A35E47DA0DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Web.Sample", "SpruceJS.Web.Sample\SpruceJS.Web.Sample.csproj", "{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Build", "SpruceJS.Build\SpruceJS.Build.csproj", "{6CDC9AE3-6468-4291-B61D-23DAA2A71789}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{6CADFE1E-6C7A-418E-BB2B-6864ED82E2DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Web.Sample", "Samples\SpruceJS.Web.Sample\SpruceJS.Web.Sample.csproj", "{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,19 +33,20 @@ Global
 		{89FDA79F-8C4D-48C7-A3C6-2A35E47DA0DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89FDA79F-8C4D-48C7-A3C6-2A35E47DA0DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89FDA79F-8C4D-48C7-A3C6-2A35E47DA0DA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6CDC9AE3-6468-4291-B61D-23DAA2A71789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{89FDA79F-8C4D-48C7-A3C6-2A35E47DA0DA} = {0FB6BFB8-0E93-40C6-B81D-D2F7CA57BC11}
+		{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6} = {6CADFE1E-6C7A-418E-BB2B-6864ED82E2DA}
 	EndGlobalSection
 EndGlobal
