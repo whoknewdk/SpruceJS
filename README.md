@@ -13,7 +13,12 @@ Features
 * Minification.
 
 How it works
-=================
+============
+SpruceJS supports the following module signatures.
+
+* [CommonJS style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
+* [AMD style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
+
 You can explore the different ways of using SpruceJS by heading over to the [Documentation](https://github.com/whoknewdk/SpruceJS/wiki). 
 Basically though, it works as below.
 
