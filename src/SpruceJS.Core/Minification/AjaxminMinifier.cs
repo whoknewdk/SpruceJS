@@ -45,10 +45,7 @@ namespace SpruceJS.Core.Minification
 					// Add each file
 					foreach (var module in modules)
 					{
-						if (module.Url.Contains(".spruce.js"))
-							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", module.Url + "?source"));
-						else
-							sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", module.Url));
+						sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", module.Url));
 						sb.AppendLine(module.Content);
 					}
 

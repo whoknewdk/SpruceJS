@@ -17,10 +17,10 @@ namespace SpruceJS.Test.Core
 
 			var jsapp = new SpruceApplication(fileconfigMock.Object);
 
-			jsapp.AddModule(new ModuleItem { Name = "a" });
-			jsapp.AddModule(new ModuleItem { Name = "b" });
-			jsapp.AddModule(new ModuleItem { Name = "c" });
-			jsapp.AddModule(new ModuleItem { Name = "d" });
+			jsapp.AddModule(new ModuleItem("a", "", "a"));
+			jsapp.AddModule(new ModuleItem("b", "", "b"));
+			jsapp.AddModule(new ModuleItem("c", "", "c"));
+			jsapp.AddModule(new ModuleItem("d", "", "d"));
 		}
 
 		[Fact]
@@ -30,10 +30,10 @@ namespace SpruceJS.Test.Core
 
 			var jsapp = new SpruceApplication(fileconfigMock.Object);
 
-			jsapp.AddExternal(new ExternalItem());
-			jsapp.AddExternal(new ExternalItem());
-			jsapp.AddExternal(new ExternalItem());
-			jsapp.AddExternal(new ExternalItem());
+			jsapp.AddExternal(new ExternalItem("", ""));
+			jsapp.AddExternal(new ExternalItem("", ""));
+			jsapp.AddExternal(new ExternalItem("", ""));
+			jsapp.AddExternal(new ExternalItem("", ""));
 		}
 
 		[Fact]
@@ -55,7 +55,7 @@ namespace SpruceJS.Test.Core
 			var fileconfigMock = new Mock<IMinifier>();
 			var jsapp = new SpruceApplication(fileconfigMock.Object);
 
-			jsapp.AddExternal(new ExternalItem { Content = "JSBody" });
+			jsapp.AddExternal(new ExternalItem("", "JSBody"));
 
 			Assert.Contains("JSBody", jsapp.GetOutput());
 			Assert.Contains(SpruceLib.Body, jsapp.GetOutput());

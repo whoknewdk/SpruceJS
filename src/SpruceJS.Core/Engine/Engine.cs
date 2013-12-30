@@ -137,13 +137,13 @@ namespace SpruceJS.Core.Engine
 				throw new ModuleNotValidException(filePath);
 
 			string n = moduleVisitor.Indentifier ?? name;
+			string c = moduleVisitor.Indentifier != null
+				                 ? content
+				                 : regex.Replace(content, String.Format("define('{0}',", n), 1);
+			string url = UrlPath(filePath);
 
 			// Build new module
-			return new ModuleItem(n, moduleVisitor.Dependencies)
-			{
-				Content = moduleVisitor.Indentifier != null ? content : regex.Replace(content, String.Format("define('{0}',", n), 1),
-				Url = UrlPath(filePath)
-			};
+			return new ModuleItem(url, c, n, moduleVisitor.Dependencies);
 		}
 
 		private ExternalItem createExternal(string filePath)
@@ -154,12 +154,10 @@ namespace SpruceJS.Core.Engine
 			if (content == null)
 				return null;
 
+			string url = UrlPath(filePath);
+
 			// Build new module
-			return new ExternalItem
-			{
-				Content = content,
-				Url = UrlPath(filePath)
-			};
+			return new ExternalItem(url, content);
 		}
 
 		protected virtual string UrlPath(string path)

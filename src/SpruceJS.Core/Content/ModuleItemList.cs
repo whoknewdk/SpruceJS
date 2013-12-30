@@ -9,7 +9,7 @@ namespace SpruceJS.Core.Content
 {
 	public class ModuleItemList : IEnumerable<ModuleItem>
 	{
-		private readonly IList<ModuleItem> modules = new List<ModuleItem>();
+		private readonly HashSet<ModuleItem> modules = new HashSet<ModuleItem>();
 
 		public void Add(ModuleItem module)
 		{

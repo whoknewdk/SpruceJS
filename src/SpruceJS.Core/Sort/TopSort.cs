@@ -9,7 +9,7 @@ namespace SpruceJS.Core.Sort
 	public static class TopSort
 	{
 		// Topological sort
-		public static IEnumerable<T> Sort<T>(IList<T> items, Func<T, string> getKey, Func<T, IEnumerable> getImports)
+		public static IEnumerable<T> Sort<T>(IEnumerable<T> items, Func<T, string> getKey, Func<T, IEnumerable> getImports)
 		{
 			//var decoratedModules = Modules.ToDictionary(getKey, x => new SortItem<T>(x));
 			var decoratedModules = items.Select(x => new SortItem<T>(x)).ToList();

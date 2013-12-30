@@ -7,11 +7,17 @@ namespace SpruceJS.Core.Content
 {
 	public class ModuleItem : ExternalItem
 	{
-		public string Name { get; set; }
-		public IList<string> Dependencies { get; set; }
+		public string Name { get; private set; }
+		public IList<string> Dependencies { get; private set; }
 
-		public ModuleItem() { }
-		public ModuleItem(string name, IList<string> dependencies)
+		public ModuleItem(string url, string content, string name)
+			: this(url, content, name, new string[0])
+		{
+			
+		}
+
+		public ModuleItem(string url, string content, string name, IList<string> dependencies) 
+			: base(url, content)
 		{
 			Name = name;
 			Dependencies = dependencies;
