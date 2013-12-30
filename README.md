@@ -26,12 +26,24 @@ The basic way of using SpruceJS uses a single JavaScript module as entry point.
 <html>
 	<body>
 		<p id="msg"></p>
-		<script src="hello.spruce.js"></script>
+		<script src="app.spruce.js"></script>
 	</body>
 </html>
 ```
 
-**hello.js**
+**app.spruce.config**
+```json
+{
+	externals: [
+		"path/to/jquery.js"
+	],
+	modules: [
+		"views/*.js"
+	]
+}
+```
+
+**views/hello.js**
 ```javascript
 define(function (require) {
 	var message = require('models/message');
@@ -47,12 +59,24 @@ define(function (require, exports) {
 });
 ```
 
+Setup
+=====
 **Http Handler**
 ```xml
 <handlers>
 	<add name="Spruce" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceHandler,SpruceJS.Web" />
 </handlers>
 ```
+
+**ASP.NET MVC**
+```csharp
+routes.IgnoreRoute("{*spruce}", new { spruce = @".*\.spruce\.js" });
+```
+
+Publishing
+==========
+...
+
 
 Documentation
 =============
