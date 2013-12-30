@@ -19,8 +19,7 @@ SpruceJS supports the following module signatures.
 * [CommonJS style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
 * [AMD style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
 
-You can explore the different ways of using SpruceJS by heading over to the [Documentation](https://github.com/whoknewdk/SpruceJS/wiki). 
-Basically though, it works as below.
+The basic way of using SpruceJS uses a single JavaScript module as entry point.
 
 **app.html**
 ```xml
@@ -32,7 +31,7 @@ Basically though, it works as below.
 </html>
 ```
 
-**views/hello.js**
+**hello.js**
 ```javascript
 define(function (require) {
 	var message = require('models/message');
@@ -54,6 +53,12 @@ define(function (require, exports) {
 	<add name="Spruce" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceHandler,SpruceJS.Web" />
 </handlers>
 ```
+
+Documentation
+=============
+* [Using SpruceJS](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
+* [Publishing SpruceJS](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
+* Entire [Documentation](https://github.com/whoknewdk/SpruceJS/wiki).
 
 Copyright
 =========
