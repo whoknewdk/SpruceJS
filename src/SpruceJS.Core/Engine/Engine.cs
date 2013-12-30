@@ -128,7 +128,7 @@ namespace SpruceJS.Core.Engine
 				return null;
 
 			// Read/Analyse file
-			SpruceVisitor moduleVisitor = new ModuleVisitor();
+			var moduleVisitor = new ModuleVisitor();
 
 			moduleVisitor.Load(content);
 

@@ -48,7 +48,6 @@
     <Compile Include="Config\JsonObj.cs" />
     <Compile Include="Exceptions\Modules\ModuleNotValidException.cs" />
     <Compile Include="Visitor\ModuleVisitor.cs" />
-    <Compile Include="Visitor\SpruceVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />
     <Compile Include="Config\Files\IFileConfig.cs" />
