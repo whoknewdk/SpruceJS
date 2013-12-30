@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Microsoft.Ajax.Utilities;
 
 namespace SpruceJS.Core.Visitor
 {
-	public class NewVisitor : SpruceVisitor
+	public class ModuleVisitor : SpruceVisitor
 	{
 		private JSVariableField requireParam;
 
-		private bool isAMD = false;
+		private bool isAMD;
 		private CodeSettings settings = new CodeSettings();
 
 		public override void Visit(CallNode node)

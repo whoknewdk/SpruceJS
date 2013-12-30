@@ -47,9 +47,7 @@
   <ItemGroup>
     <Compile Include="Config\JsonObj.cs" />
     <Compile Include="Exceptions\Modules\ModuleNotValidException.cs" />
-    <Compile Include="Visitor\CommonJsVisitor.cs" />
-    <Compile Include="Visitor\AmdVisitor.cs" />
-    <Compile Include="Visitor\NewVisitor.cs" />
+    <Compile Include="Visitor\ModuleVisitor.cs" />
     <Compile Include="Visitor\SpruceVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />

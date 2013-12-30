@@ -5,12 +5,12 @@ namespace SpruceJS.Test.Core.Visitor
 {
 	public class AmdVisitorTest
 	{
-		private AmdVisitor getVisitor(string script)
+		private ModuleVisitor getVisitor(string script)
 		{
-			var amdVisitor = new AmdVisitor();
-			amdVisitor.Load(script);
+			var moduleVisitor = new ModuleVisitor();
+			moduleVisitor.Load(script);
 
-			return amdVisitor;
+			return moduleVisitor;
 		}
 
 		[Fact]

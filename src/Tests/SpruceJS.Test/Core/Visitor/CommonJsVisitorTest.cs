@@ -5,9 +5,9 @@ namespace SpruceJS.Test.Core.Visitor
 {
 	public class CommonJsVisitorTest
 	{
-		private CommonJsVisitor getVisitor(string script)
+		private ModuleVisitor getVisitor(string script)
 		{
-			var commonJsVisitor = new CommonJsVisitor();
+			var commonJsVisitor = new ModuleVisitor();
 			commonJsVisitor.Load(script);
 
 			return commonJsVisitor;
