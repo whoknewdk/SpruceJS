@@ -57,5 +57,18 @@ namespace SpruceJS.Test.Core.Config
 			Assert.False(appconfig.Modules.ElementAt(0).Recursive);
 			Assert.True(appconfig.Modules.ElementAt(1).Recursive);
 		}
+
+		[Fact]
+		public void CanReadConfigIncludeTrue()
+		{
+			string json = @"{
+								config: { include: true }
+							}";
+
+			var appconfig = new SpruceConfig();
+			appconfig.LoadJson(json);
+
+			Assert.True(appconfig.IncludeScript);
+		}
 	}
 }

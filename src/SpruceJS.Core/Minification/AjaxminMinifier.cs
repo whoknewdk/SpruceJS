@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Content;
@@ -11,7 +10,7 @@ namespace SpruceJS.Core.Minification
 {
 	public class AjaxminMinifier : IMinifier
 	{
-		public MinifyOutput Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals)
+		public MinifyOutput Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals, bool includeScript)
 		{
 			MinifyOutput result = new MinifyOutput();
 			var sourceMapBuilder = new StringBuilder();
@@ -32,8 +31,11 @@ namespace SpruceJS.Core.Minification
 					var sb = new StringBuilder();
 
 					// Add definejs
-					sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "spruce-define.spruce.js"));
-					sb.AppendLine(SpruceLib.Body);
+					if (includeScript)
+					{
+						sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", "spruce-define.spruce.js"));
+						sb.AppendLine(SpruceLib.Body);
+					}
 
 					// Add each file
 					foreach (var external in externals)

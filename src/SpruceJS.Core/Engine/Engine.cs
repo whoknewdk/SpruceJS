@@ -13,12 +13,6 @@ using SpruceJS.Core.Visitor;
 
 namespace SpruceJS.Core.Engine
 {
-	public enum ModuleMode
-	{
-		Amd = 0,
-		CommonJS = 1
-	}
-
 	public class Engine : IEngine
 	{
 		readonly Regex regex = new Regex(Regex.Escape("define("));
@@ -27,28 +21,27 @@ namespace SpruceJS.Core.Engine
 		readonly SpruceApplication app = new SpruceApplication(new AjaxminMinifier());
 
 		public bool Minify { get; set; }
-		public bool ExcludeJsLib { get; set; }
-		public ModuleMode Mode { get; set; }
 
 		private readonly string filePath;
 		private readonly IFileConfig fileConfig;
 		private readonly IContentLoader loader;
 
+		// Single file entry constructor
 		public Engine(string filePath, IContentLoader loader)
 		{
 			this.filePath = filePath;
 			this.loader = loader;
-
-			Mode = ModuleMode.CommonJS;
 		}
 
-		public Engine(IFileConfig fileConfig, IContentLoader loader)
+		// Config file entry contructor
+		public Engine(IFileConfig fileConfig, IContentLoader loader, bool includeScript)
 		{
 			this.fileConfig = fileConfig;
 			this.loader = loader;
-
-			Mode = ModuleMode.CommonJS;
+			app.IncludeScript = includeScript;
 		}
+		public Engine(IFileConfig fileConfig, IContentLoader loader)
+			: this(fileConfig, loader, true) { }
 
 		public IOutput GetOutput()
 		{
@@ -172,7 +165,7 @@ namespace SpruceJS.Core.Engine
 
 			var loader = new ContentLoader(projecyDirPath, Path.GetDirectoryName(configFilePath));
 			var fileConfig = new FileConfig(config, loader);
-			return new Engine(fileConfig, loader);
+			return new Engine(fileConfig, loader, config.IncludeScript);
 		}
 	}
 }

@@ -74,9 +74,46 @@ namespace SpruceJS.Test.Core.Engine
 
 			var output = engine.GetOutput();
 
-			Assert.Contains(fileval2, output.JavaScriptBody);
+			Assert.Contains(fileval1, output.JavaScriptBody);
 			Assert.Contains(fileval2, output.JavaScriptBody);
 			Assert.Contains(SpruceLib.Body, output.JavaScriptBody);
+		}
+
+		[Fact]
+		public void OutputNotContainsLibrary()
+		{
+			const string fileval1 = "define('e', function () { var enginetests1 = 123; });";
+
+			var fileconfigMock = new Mock<IFileConfig>();
+			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b", "c", "d" });
+			fileconfigMock.Setup(i => i.Files).Returns(new[] { "e" });
+
+			var contentLoaderMock = new Mock<IContentLoader>();
+			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
+			contentLoaderMock.Setup(i => i.GetContent("e")).Returns(fileval1);
+
+			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = false };
+
+			var output = engine.GetOutput();
+
+			Assert.Contains(fileval1, output.JavaScriptBody);
+			Assert.DoesNotContain(SpruceLib.Body, output.JavaScriptBody);
+		}
+
+		[Fact]
+		public void MinifiedOutputNotContainsLibrary()
+		{
+			//const string fileval1 = "define('e', function () { var enginetests1 = 123; });";
+
+			var fileconfigMock = new Mock<IFileConfig>();
+
+			var contentLoaderMock = new Mock<IContentLoader>();
+
+			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = true };
+
+			var output = engine.GetOutput();
+
+			Assert.DoesNotContain("var define", output.JavaScriptBody);
 		}
 	}
 }

@@ -45,7 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config\JsonObj.cs" />
+    <Compile Include="Config\ConfigJson.cs" />
     <Compile Include="Exceptions\Modules\ModuleNotValidException.cs" />
     <Compile Include="Visitor\ModuleVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />

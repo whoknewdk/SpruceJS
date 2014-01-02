@@ -5,6 +5,5 @@ namespace SpruceJS.Core.Engine
 	{
 		IOutput GetOutput();
 		bool Minify { get; set; }
-		ModuleMode Mode { get; set; }
 	}
 }

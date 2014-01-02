@@ -10,8 +10,9 @@ namespace SpruceJS.Core.Config
 	{
 		public IEnumerable<ConfigElement> Externals { get; private set; }
 		public IEnumerable<ConfigElement> Modules { get; private set; }
+		public bool IncludeScript { get; private set; } 
 
-		JavaScriptSerializer serializer = new JavaScriptSerializer();
+		readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
 		public void LoadJson(string json)
 		{
@@ -25,10 +26,12 @@ namespace SpruceJS.Core.Config
 
 		private void loadDirectoriesAndFile(string json)
 		{
-			var result = serializer.Deserialize<JsonObj>(json);
+			var result = serializer.Deserialize<ConfigJson>(json);
 
 			Modules = (result.modules ?? new string[0]).Select(x => new ConfigElement { Path = x, Recursive = x.Contains("**/*") });
 			Externals = (result.externals ?? new string[0]).Select(x => new ConfigElement { Path = x });
+
+			IncludeScript = result.config.includescript;
 		}
 
 		protected virtual string GetFullPathContent(string path)

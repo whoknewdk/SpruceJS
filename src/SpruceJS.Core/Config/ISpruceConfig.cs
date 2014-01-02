@@ -6,5 +6,6 @@ namespace SpruceJS.Core.Config
 	{
 		IEnumerable<ConfigElement> Externals { get; }
 		IEnumerable<ConfigElement> Modules { get; }
+		bool IncludeScript { get; }
 	}
 }

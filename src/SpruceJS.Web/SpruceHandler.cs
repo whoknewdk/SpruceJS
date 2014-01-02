@@ -60,7 +60,6 @@ namespace SpruceJS.Web
 					engine = WebEngine.Create(configFilePath, context);
 				}
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
-				engine.Mode = ModuleMode.CommonJS;
 
 				// Get result
 				var result = engine.GetOutput();

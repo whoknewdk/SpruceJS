@@ -16,7 +16,7 @@ namespace SpruceJS.Web
 			this.context = context;
 		}
 
-		public WebEngine(IFileConfig fileConfig, ContentLoader loader, HttpContext context) : base(fileConfig, loader)
+		public WebEngine(IFileConfig fileConfig, ContentLoader loader, HttpContext context, bool includeScript) : base(fileConfig, loader, includeScript)
 		{
 			this.context = context;
 		}
@@ -41,7 +41,7 @@ namespace SpruceJS.Web
 			var fileConfig = new FileConfig(config, loader);
 
 			// Create engine instance
-			return new WebEngine(fileConfig, loader, context);
+			return new WebEngine(fileConfig, loader, context, config.IncludeScript);
 		}
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text;
+using SpruceJS.Core.Config;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Minification;
 using SpruceJS.Core.Script;
@@ -11,10 +12,13 @@ namespace SpruceJS.Core
 		private readonly ModuleItemList modules = new ModuleItemList();
 		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
 
+		public bool IncludeScript { get; set; }
+
 		readonly IMinifier minificator;
 		public SpruceApplication(IMinifier minificator)
 		{
 			this.minificator = minificator;
+			IncludeScript = true;
 		}
 
 		public void AddModule(ModuleItem module)
@@ -29,13 +33,16 @@ namespace SpruceJS.Core
 
 		public MinifyOutput GetMinifiedOutput()
 		{
-			return minificator.Minify(modules, externals);
+			return minificator.Minify(modules, externals, IncludeScript);
 		}
 
 		public string GetOutput()
 		{
+			var sb = new StringBuilder();
+
 			// Read embedded JavaScript library
-			var sb = new StringBuilder(SpruceLib.Body);
+			if (IncludeScript)
+				sb.Append(SpruceLib.Body);
 
 			foreach (var external in externals)
 				sb.Append(external.Content);
