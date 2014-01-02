@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Build", "SpruceJS.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Samples", "Samples", "{6CADFE1E-6C7A-418E-BB2B-6864ED82E2DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Web.Sample", "Samples\SpruceJS.Web.Sample\SpruceJS.Web.Sample.csproj", "{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpruceJS.Web.Sample", "..\samples\SpruceJS.Web.Sample\SpruceJS.Web.Sample.csproj", "{69DE167C-91D6-4B9A-A6BA-6FC4DD1946E6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
