@@ -6,8 +6,8 @@
     <ProjectGuid>{89FDA79F-8C4D-48C7-A3C6-2A35E47DA0DA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpruceJS.Test</RootNamespace>
-    <AssemblyName>SpruceJS.Test</AssemblyName>
+    <RootNamespace>SpruceJS.Tests</RootNamespace>
+    <AssemblyName>SpruceJS.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -38,9 +38,6 @@
     <Reference Include="AjaxMin">
       <HintPath>..\..\..\lib\Microsoft Ajax Minifier 5.1\AjaxMin.dll</HintPath>
     </Reference>
-    <Reference Include="Antlr3.Runtime">
-      <HintPath>..\..\..\lib\antlr-dotnet-tool-3.3.1.7705\Antlr3.Runtime.dll</HintPath>
-    </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\..\lib\Moq.4.0.10827\NET40\Moq.dll</HintPath>
     </Reference>
@@ -57,11 +54,7 @@
         <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
       </ItemGroup>
     </When>
-    <Otherwise>
-      <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
-      </ItemGroup>
-    </Otherwise>
+    <Otherwise />
   </Choose>
   <ItemGroup>
     <Compile Include="Build\PathUtilTests.cs" />

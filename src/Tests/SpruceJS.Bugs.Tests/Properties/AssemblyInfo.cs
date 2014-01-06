@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SpruceJS.Core")]
+[assembly: AssemblyTitle("SpruceJS.Bugs.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SpruceJS.Core")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyProduct("SpruceJS.Bugs.Tests")]
+[assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -19,10 +19,8 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
-[assembly: InternalsVisibleTo("SpruceJS.Tests")]
-
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("d65f3982-a89f-42dc-98c5-a22b9c51fddc")]
+[assembly: Guid("0d500de6-d916-4825-9eae-0f26639df338")]
 
 // Version information for an assembly consists of the following four values:
 //

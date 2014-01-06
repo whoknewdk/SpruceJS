@@ -3,7 +3,7 @@ using System.Linq;
 using SpruceJS.Core.Content;
 using Xunit;
 
-namespace SpruceJS.Test.Core.Content
+namespace SpruceJS.Tests.Core.Content
 {
 	public class ModuleItemTests
 	{

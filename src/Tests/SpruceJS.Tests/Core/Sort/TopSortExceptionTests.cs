@@ -4,7 +4,7 @@ using SpruceJS.Core.Exceptions.Sort;
 using SpruceJS.Core.Sort;
 using Xunit;
 
-namespace SpruceJS.Test.Core.Sort
+namespace SpruceJS.Tests.Core.Sort
 {
 	public class TopSortExceptionTests
 	{

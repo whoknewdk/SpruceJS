@@ -6,7 +6,7 @@ using SpruceJS.Core.Exceptions.Modules;
 using Xunit;
 using E = SpruceJS.Core.Engine;
 
-namespace SpruceJS.Test.Core.Engine
+namespace SpruceJS.Tests.Core.Engine
 {
 	public class EngineSpruceExceptionTests
 	{

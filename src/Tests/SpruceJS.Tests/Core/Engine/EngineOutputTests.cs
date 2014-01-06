@@ -6,7 +6,7 @@ using SpruceJS.Core.Script;
 using Xunit;
 using E = SpruceJS.Core.Engine;
 
-namespace SpruceJS.Test.Core.Engine
+namespace SpruceJS.Tests.Core.Engine
 {
 	public class EngineOutputTests
 	{

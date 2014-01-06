@@ -1,7 +1,7 @@
 ﻿using SpruceJS.Core.Visitor;
 using Xunit;
 
-namespace SpruceJS.Test.Core.Visitor
+namespace SpruceJS.Tests.Core.Visitor
 {
 	public class CommonJsVisitorTest
 	{

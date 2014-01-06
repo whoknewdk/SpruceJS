@@ -2,7 +2,7 @@
 using SpruceJS.Core.Config;
 using Xunit;
 
-namespace SpruceJS.Test.Core.Config
+namespace SpruceJS.Tests.Core.Config
 {
 	public class SpruceConfigTests
 	{
@@ -59,16 +59,16 @@ namespace SpruceJS.Test.Core.Config
 		}
 
 		[Fact]
-		public void CanReadConfigIncludeTrue()
+		public void CanReadConfigIncludeFalse()
 		{
 			string json = @"{
-								config: { include: true }
+								config: { includescript: false }
 							}";
 
 			var appconfig = new SpruceConfig();
 			appconfig.LoadJson(json);
 
-			Assert.True(appconfig.IncludeScript);
+			Assert.False(appconfig.IncludeScript);
 		}
 	}
 }

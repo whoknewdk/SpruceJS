@@ -56,7 +56,7 @@ namespace SpruceJS.Core.Engine
 				// Add files
 				foreach (var file in fileConfig.Files)
 				{
-					var module = createModule(file, UrlPath(file).Substring(1).Replace(".js", ""));
+					var module = createModule(file, trimToName(UrlPath(file)));
 					app.AddModule(module);
 
 					// Store keys and dependencies
@@ -70,7 +70,7 @@ namespace SpruceJS.Core.Engine
 			}
 			else
 			{
-				var module = createModule(filePath, UrlPath(filePath).Substring(1).Replace(".js", ""));
+				var module = createModule(filePath, trimToName(UrlPath(filePath)));
 				app.AddModule(module);
 				fetchModulesOnDisk(module.Dependencies);
 			}
@@ -93,6 +93,11 @@ namespace SpruceJS.Core.Engine
 			{
 				throw new ModuleKeyCircularReferenceException(ex.Items.Select(x => x.Url).ToArray());
 			}
+		}
+
+		private string trimToName(string name)
+		{
+			return name.Substring(1).Replace(".spruce.js", "").Replace(".js", "");
 		}
 
 		private void fetchModulesOnDisk(IEnumerable<string> unfoundDependencies)

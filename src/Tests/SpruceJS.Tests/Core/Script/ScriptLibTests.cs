@@ -1,7 +1,7 @@
 ﻿using SpruceJS.Core.Script;
 using Xunit;
 
-namespace SpruceJS.Test.Core.Sort
+namespace SpruceJS.Tests.Core.Script
 {
 	public class ScriptLibTests
 	{

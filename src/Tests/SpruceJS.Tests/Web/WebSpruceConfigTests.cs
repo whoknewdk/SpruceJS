@@ -6,7 +6,7 @@ using Moq;
 using SpruceJS.Web;
 using Xunit;
 
-namespace SpruceJS.Test.Build
+namespace SpruceJS.Tests.Web
 {
 	public class WebSpruceConfigTests
 	{

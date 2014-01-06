@@ -6,7 +6,7 @@ using SpruceJS.Core.Minification;
 using SpruceJS.Core.Script;
 using Xunit;
 
-namespace SpruceJS.Test.Core
+namespace SpruceJS.Tests.Core
 {
 	public class SpruceApplicationTest
 	{

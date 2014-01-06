@@ -1,7 +1,7 @@
 ﻿using SpruceJS.Build;
 using Xunit;
 
-namespace SpruceJS.Test.Build
+namespace SpruceJS.Tests.Build
 {
 	public class PathUtilTests
 	{
