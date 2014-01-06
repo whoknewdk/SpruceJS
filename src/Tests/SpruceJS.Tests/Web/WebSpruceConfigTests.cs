@@ -24,7 +24,7 @@ namespace SpruceJS.Tests.Web
 			
 			// We only want to test that it gets to the point of trying to load this file (and fails)
 			var config = new WebSpruceConfig(contextMock.Object);
-			Assert.Throws<FileNotFoundException>(() => config.Load("doesnotexits.spruce.config"));
+			Assert.Throws<FileNotFoundException>(() => config.Load("doesnotexits.spruce.json"));
 		}
 
 		[Fact]

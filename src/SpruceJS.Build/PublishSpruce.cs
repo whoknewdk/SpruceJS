@@ -24,13 +24,13 @@ namespace SpruceJS.Build
 			if (Directory.Exists(tempDir))
 				Directory.Delete(tempDir, true);
 
-			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.config", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
+			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.json", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
 			{
 				var engine = Engine.Create(file, ProjectDir);
 				engine.Minify = true;
 				var output = engine.GetOutput();
 
-				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".config", ".js");
+				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".json", ".js");
 
 				string completeOutputFile = Path.Combine(tempDir, outputFile);
 				string completeOutputDirectory = Path.GetDirectoryName(completeOutputFile);
