@@ -59,8 +59,8 @@
   <ItemGroup>
     <Compile Include="Build\PathUtilTests.cs" />
     <Compile Include="Core\Content\ModuleItemTests.cs" />
-    <Compile Include="Core\Visitor\CommonJsVisitorTest.cs" />
-    <Compile Include="Core\Visitor\AmdVisitorTest.cs" />
+    <Compile Include="Core\Visitor\CommonJsTests.cs" />
+    <Compile Include="Core\Visitor\AmdTests.cs" />
     <Compile Include="Core\Config\SpruceConfigTests.cs" />
     <Compile Include="Core\Content\ModuleItemListTests.cs" />
     <Compile Include="Core\Engine\EngineSpruceExceptionTests.cs" />

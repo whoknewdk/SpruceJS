@@ -3,7 +3,7 @@ using Xunit;
 
 namespace SpruceJS.Tests.Core.Visitor
 {
-	public class AmdVisitorTest
+	public class AmdTests
 	{
 		private ModuleVisitor getVisitor(string script)
 		{
