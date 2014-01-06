@@ -40,19 +40,14 @@ namespace SpruceJS.Web
 				return;
 			}
 
-			if (context.Request.RawUrl.Contains("?source"))
-			{
-				context.Response.WriteFile(filePath);
-				return;
-			}
-
 			try
 			{
 				IEngine engine;
 
-				if (File.Exists(context.Server.MapPath(filePath)))
+				string actualPath = filePath.Replace(".spruce.js", ".js");
+				if (File.Exists(context.Server.MapPath(actualPath)))
 				{
-					engine = WebEngine.CreateFile(context.Server.MapPath(filePath), context);
+					engine = WebEngine.CreateFile(context.Server.MapPath(actualPath), context);
 				}
 				else
 				{

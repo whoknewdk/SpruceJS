@@ -67,9 +67,9 @@
   <ItemGroup>
     <Content Include="amd-demo1\Default.htm" />
     <Content Include="amd-demo1\hello.js" />
-    <Content Include="amd-demo1\main.spruce.js" />
+    <Content Include="amd-demo1\main.js" />
     <Content Include="cjs-demo1\Default.htm" />
-    <Content Include="cjs-demo1\main.spruce.js" />
+    <Content Include="cjs-demo1\main.js" />
     <Content Include="cjs-demo1\hello.js" />
     <Content Include="cjs-demo2\Default.htm" />
     <Content Include="cjs-demo2\help\output.js" />

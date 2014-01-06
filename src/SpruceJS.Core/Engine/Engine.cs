@@ -59,6 +59,9 @@ namespace SpruceJS.Core.Engine
 					var module = createModule(file, trimToName(UrlPath(file)));
 					app.AddModule(module);
 
+					if (module == null) 
+						continue;
+
 					// Store keys and dependencies
 					keys.Add(module.Name);
 					foreach (var d in module.Dependencies)
@@ -72,7 +75,9 @@ namespace SpruceJS.Core.Engine
 			{
 				var module = createModule(filePath, trimToName(UrlPath(filePath)));
 				app.AddModule(module);
-				fetchModulesOnDisk(module.Dependencies);
+
+				if (module != null)
+					fetchModulesOnDisk(module.Dependencies);
 			}
 
 			try
@@ -109,6 +114,9 @@ namespace SpruceJS.Core.Engine
 				{
 					var module = createModule(fileOnDisk, unfoundDependency);
 					app.AddModule(module);
+
+					if (module == null)
+						continue;
 
 					// Add
 					keys.Add(module.Name);
