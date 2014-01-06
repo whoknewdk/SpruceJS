@@ -19,6 +19,8 @@ using System.Runtime.InteropServices;
 // COM, set the ComVisible attribute to true on that type.
 [assembly: ComVisible(false)]
 
+[assembly: InternalsVisibleTo("SpruceJS.Test")]
+
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("d65f3982-a89f-42dc-98c5-a22b9c51fddc")]
 
