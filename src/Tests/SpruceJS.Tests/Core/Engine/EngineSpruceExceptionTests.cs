@@ -17,7 +17,6 @@ namespace SpruceJS.Tests.Core.Engine
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', function () { var enginetests2 = 456; });");
 
@@ -35,7 +34,6 @@ namespace SpruceJS.Tests.Core.Engine
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', function () { var enginetests2 = 456; });");
 
@@ -53,7 +51,6 @@ namespace SpruceJS.Tests.Core.Engine
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('a', function () { var enginetests2 = 456; });");
 
@@ -71,7 +68,6 @@ namespace SpruceJS.Tests.Core.Engine
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('a', function () { var enginetests2 = 456; });");
 
@@ -89,7 +85,6 @@ namespace SpruceJS.Tests.Core.Engine
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['b'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', ['a'], function () { var enginetests2 = 456; });");
 
@@ -107,7 +102,6 @@ namespace SpruceJS.Tests.Core.Engine
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['b'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', ['a'], function () { var enginetests2 = 456; });");
 
@@ -125,7 +119,6 @@ namespace SpruceJS.Tests.Core.Engine
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "a", "b" });
 
 			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define(function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define([], function () { var enginetests2 = 456; });");
 
