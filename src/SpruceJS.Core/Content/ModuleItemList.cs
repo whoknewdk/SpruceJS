@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SpruceJS.Core.Exceptions.Modules;
+using SpruceJS.Core.Content.Exceptions;
 using SpruceJS.Core.Sort;
 
 namespace SpruceJS.Core.Content

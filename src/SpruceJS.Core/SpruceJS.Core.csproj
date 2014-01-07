@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigJson.cs" />
-    <Compile Include="Exceptions\Modules\ModuleNotValidException.cs" />
+    <Compile Include="Content\Exceptions\ModuleNotValidException.cs" />
     <Compile Include="Visitor\ModuleVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />
@@ -56,12 +56,12 @@
     <Compile Include="Engine\ContentLoader.cs" />
     <Compile Include="Engine\EngineResult.cs" />
     <Compile Include="Engine\IEngine.cs" />
-    <Compile Include="Exceptions\SpruceException.cs" />
-    <Compile Include="Exceptions\Modules\ModuleKeyCircularReferenceException.cs" />
-    <Compile Include="Exceptions\Modules\ModuleKeyDoesNotExistException.cs" />
-    <Compile Include="Exceptions\Modules\ModuleKeyNotUniqueException.cs" />
-    <Compile Include="Exceptions\Sort\NameNotFoundException.cs" />
-    <Compile Include="Exceptions\Sort\NotDirectedAcyclicGraphException.cs" />
+    <Compile Include="Content\Exceptions\SpruceModuleException.cs" />
+    <Compile Include="Content\Exceptions\ModuleKeyCircularReferenceException.cs" />
+    <Compile Include="Content\Exceptions\ModuleKeyDoesNotExistException.cs" />
+    <Compile Include="Content\Exceptions\ModuleKeyNotUniqueException.cs" />
+    <Compile Include="Sort\Exceptions\NameNotFoundException.cs" />
+    <Compile Include="Sort\Exceptions\NotDirectedAcyclicGraphException.cs" />
     <Compile Include="SpruceApplication.cs" />
     <Compile Include="Content\ModuleItem.cs" />
     <Compile Include="Content\ModuleItemList.cs" />

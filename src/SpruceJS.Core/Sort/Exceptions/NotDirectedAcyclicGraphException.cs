@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpruceJS.Core.Exceptions.Sort
+namespace SpruceJS.Core.Sort.Exceptions
 {
 	internal class NotDirectedAcyclicGraphException<T> : Exception
 	{

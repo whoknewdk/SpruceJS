@@ -65,7 +65,7 @@ namespace SpruceJS.Web
 				// Write JavaScript
 				context.Response.Write(result.JavaScriptBody);
 			}
-			catch (SpruceException ex)
+			catch (SpruceModuleException ex)
 			{
 				context.Response.Write("throw '" + ex.Message + "';");
 			}

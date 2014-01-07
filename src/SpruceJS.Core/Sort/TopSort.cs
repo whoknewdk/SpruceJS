@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SpruceJS.Core.Exceptions.Sort;
+using SpruceJS.Core.Sort.Exceptions;
 
 namespace SpruceJS.Core.Sort
 {

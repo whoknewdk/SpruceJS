@@ -6,9 +6,9 @@ using System.Text.RegularExpressions;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
-using SpruceJS.Core.Exceptions.Modules;
-using SpruceJS.Core.Exceptions.Sort;
+using SpruceJS.Core.Content.Exceptions;
 using SpruceJS.Core.Minification;
+using SpruceJS.Core.Sort.Exceptions;
 using SpruceJS.Core.Visitor;
 
 namespace SpruceJS.Core.Engine
