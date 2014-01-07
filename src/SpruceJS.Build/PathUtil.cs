@@ -3,9 +3,9 @@ using System.IO;
 
 namespace SpruceJS.Build
 {
-	public static class PathUtil
+	internal static class PathUtil
 	{
-		public static string GetPathDifference(string folderPath, string filePath)
+		internal static string GetPathDifference(string folderPath, string filePath)
 		{
 			var file = new Uri(filePath);
 
