@@ -26,27 +26,15 @@ The basic way of using SpruceJS uses a single JavaScript module as entry point.
 <html>
 	<body>
 		<p id="msg"></p>
-		<script src="app.spruce.js"></script>
+		<script src="hello.spruce.js"></script>
 	</body>
 </html>
 ```
 
-**app.spruce.config**
-```json
-{
-	externals: [
-		"path/to/jquery.js"
-	],
-	modules: [
-		"views/*.js"
-	]
-}
-```
-
-**views/hello.js**
+**hello.js**
 ```javascript
 define(function (require) {
-	var message = require('models/message');
+	var message = require('./models/message');
 
 	$('#msg').html(message.hello);
 });
@@ -69,14 +57,17 @@ Setup
 ```
 
 **ASP.NET MVC**
+You will also need to ignore the route for it to work.
+
 ```csharp
 routes.IgnoreRoute("{*spruce}", new { spruce = @".*\.spruce\.js" });
 ```
 
 Publishing
 ==========
-...
+Using the SpruceJS [Build Task](https://github.com/whoknewdk/SpruceJS/wiki/Publishing-sprucejs) you can automatically unregister the Http Handler and genenerate at static JavaScript file in its place. This means you will only use the Http Handler during development and instead serve a static file in production.
 
+Read more about [publishing SpruceJS](https://github.com/whoknewdk/SpruceJS/wiki/Publishing-sprucejs)
 
 Documentation
 =============
