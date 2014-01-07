@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using SpruceJS.Core.Content;
+﻿using SpruceJS.Core.Content;
 using Xunit;
 
 namespace SpruceJS.Tests.Core.Content

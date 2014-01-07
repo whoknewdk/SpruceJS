@@ -1,5 +1,4 @@
-﻿using System;
-using Moq;
+﻿using Moq;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Engine;
 using SpruceJS.Core.Exceptions.Modules;

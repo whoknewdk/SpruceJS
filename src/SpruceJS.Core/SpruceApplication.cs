@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Text;
-using SpruceJS.Core.Config;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Minification;
 using SpruceJS.Core.Script;
