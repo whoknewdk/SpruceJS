@@ -6,9 +6,9 @@ using SpruceJS.Core.Engine;
 using Xunit;
 using E = SpruceJS.Core.Engine;
 
-namespace SpruceJS.Tests.Core.Engine
+namespace SpruceJS.Tests.Core
 {
-	public class EngineSpruceExceptionTests
+	public class SpruceBuilderExceptionTests
 	{
 		[Fact]
 		public void OutputThrowsModuleKeyDoesNotExistException()

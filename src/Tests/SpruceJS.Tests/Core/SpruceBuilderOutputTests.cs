@@ -7,9 +7,9 @@ using SpruceJS.Core.Script;
 using Xunit;
 using E = SpruceJS.Core.Engine;
 
-namespace SpruceJS.Tests.Core.Engine
+namespace SpruceJS.Tests.Core
 {
-	public class EngineOutputTests
+	public class SpruceBuilderOutputTests
 	{
 		[Fact]
 		public void OutputContainsExternals()

@@ -63,8 +63,8 @@
     <Compile Include="Core\Visitor\AmdTests.cs" />
     <Compile Include="Core\Config\SpruceConfigTests.cs" />
     <Compile Include="Core\Content\ModuleItemListTests.cs" />
-    <Compile Include="Core\Engine\EngineSpruceExceptionTests.cs" />
-    <Compile Include="Core\Engine\EngineOutputTests.cs" />
+    <Compile Include="Core\SpruceBuilderExceptionTests.cs" />
+    <Compile Include="Core\SpruceBuilderOutputTests.cs" />
     <Compile Include="Core\Script\ScriptLibTests.cs" />
     <Compile Include="Core\Sort\TopSortExceptionTests.cs" />
     <Compile Include="Core\Sort\TopSortTests.cs" />
