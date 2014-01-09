@@ -1,5 +1,6 @@
 ﻿using System;
 using Moq;
+using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Engine;
 using SpruceJS.Core.Script;
@@ -23,7 +24,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns(fileval1);
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns(fileval2);
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -45,7 +46,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns(fileval1);
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns(fileval2);
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			var output = engine.GetOutput();
 
@@ -70,7 +71,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("e")).Returns(fileval1);
 			contentLoaderMock.Setup(i => i.GetContent("f")).Returns(fileval2);
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -92,7 +93,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("e")).Returns(fileval1);
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -109,7 +110,7 @@ namespace SpruceJS.Tests.Core.Engine
 
 			var contentLoaderMock = new Mock<IContentLoader>();
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = true };
 
 			var output = engine.GetOutput();
 

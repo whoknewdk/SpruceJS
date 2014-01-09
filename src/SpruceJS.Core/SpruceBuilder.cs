@@ -7,13 +7,14 @@ using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Content.Exceptions;
+using SpruceJS.Core.Engine;
 using SpruceJS.Core.Minification;
 using SpruceJS.Core.Sort.Exceptions;
 using SpruceJS.Core.Visitor;
 
-namespace SpruceJS.Core.Engine
+namespace SpruceJS.Core
 {
-	public class Engine : IEngine
+	public class SpruceBuilder : IBuilder
 	{
 		readonly Regex regex = new Regex(Regex.Escape("define("));
 		HashSet<string> keys = new HashSet<string>();
@@ -27,20 +28,20 @@ namespace SpruceJS.Core.Engine
 		private readonly IContentLoader loader;
 
 		// Single file entry constructor
-		public Engine(string filePath, IContentLoader loader)
+		public SpruceBuilder(string filePath, IContentLoader loader)
 		{
 			this.filePath = filePath;
 			this.loader = loader;
 		}
 
 		// Config file entry contructor
-		public Engine(IFileConfig fileConfig, IContentLoader loader, bool includeScript)
+		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader, bool includeScript)
 		{
 			this.fileConfig = fileConfig;
 			this.loader = loader;
 			app.IncludeScript = includeScript;
 		}
-		public Engine(IFileConfig fileConfig, IContentLoader loader)
+		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
 			: this(fileConfig, loader, true) { }
 
 		public IOutput GetOutput()
@@ -171,14 +172,14 @@ namespace SpruceJS.Core.Engine
 			return path;
 		}
 
-		public static IEngine Create(string configFilePath, string projecyDirPath)
+		public static IBuilder Create(string configFilePath, string projecyDirPath)
 		{
 			var config = new SpruceConfig();
 			config.Load(configFilePath);
 
 			var loader = new ContentLoader(projecyDirPath, Path.GetDirectoryName(configFilePath));
 			var fileConfig = new FileConfig(config, loader);
-			return new Engine(fileConfig, loader, config.IncludeScript);
+			return new SpruceBuilder(fileConfig, loader, config.IncludeScript);
 		}
 	}
 }

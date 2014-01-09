@@ -1,4 +1,5 @@
 ﻿using Moq;
+using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content.Exceptions;
 using SpruceJS.Core.Engine;
@@ -19,7 +20,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', function () { var enginetests2 = 456; });");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			Assert.Throws<ModuleKeyDoesNotExistException>(
 				() => { engine.GetOutput(); }
@@ -36,7 +37,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', function () { var enginetests2 = 456; });");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.Throws<ModuleKeyDoesNotExistException>(
 				() => { engine.GetOutput(); }
@@ -53,7 +54,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('a', function () { var enginetests2 = 456; });");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			Assert.Throws<ModuleKeyNotUniqueException>(
 				() => { engine.GetOutput(); }
@@ -70,7 +71,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('a', function () { var enginetests2 = 456; });");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.Throws<ModuleKeyNotUniqueException>(
 				() => { engine.GetOutput(); }
@@ -87,7 +88,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['b'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', ['a'], function () { var enginetests2 = 456; });");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 
 			Assert.Throws<ModuleKeyCircularReferenceException>(
 				() => { engine.GetOutput(); }
@@ -104,7 +105,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define('a', ['b'], function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define('b', ['a'], function () { var enginetests2 = 456; });");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.Throws<ModuleKeyCircularReferenceException>(
 				() => { engine.GetOutput(); }
@@ -121,7 +122,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define(function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define([], function () { var enginetests2 = 456; });");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.DoesNotThrow(
 				() =>
@@ -141,7 +142,7 @@ namespace SpruceJS.Tests.Core.Engine
 			contentLoaderMock.Setup(i => i.GetContent("a")).Returns("define(function () { var enginetests1 = 123; });");
 			contentLoaderMock.Setup(i => i.GetContent("b")).Returns("define();");
 
-			var engine = new E.Engine(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
 
 			Assert.Throws<ModuleNotValidException>(
 				() => { engine.GetOutput(); }

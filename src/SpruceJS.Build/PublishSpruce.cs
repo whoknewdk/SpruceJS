@@ -3,6 +3,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
+using SpruceJS.Core;
 using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Build
@@ -26,7 +27,7 @@ namespace SpruceJS.Build
 
 			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.json", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
 			{
-				var engine = Engine.Create(file, ProjectDir);
+				var engine = SpruceBuilder.Create(file, ProjectDir);
 				engine.Minify = true;
 				var output = engine.GetOutput();
 
