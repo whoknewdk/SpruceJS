@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
-using SpruceJS.Core.Content;
+﻿
+using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Core.Minification
 {
 	public interface IMinifier
 	{
-		MinifyOutput Minify(ModuleItemList modules, IEnumerable<ExternalItem> externals, bool includeScript);
+		void Add(string content, string url);
+		void Clear();
+		EngineOutput Minify();
 	}
 }

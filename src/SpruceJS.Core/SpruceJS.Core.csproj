@@ -67,7 +67,6 @@
     <Compile Include="Content\ModuleItemList.cs" />
     <Compile Include="Minification\AjaxminMinifier.cs" />
     <Compile Include="Minification\IMinifier.cs" />
-    <Compile Include="Minification\MinifyOutput.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpruceBuilder.cs" />
     <Compile Include="Engine\IOutput.cs" />

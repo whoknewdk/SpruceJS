@@ -2,6 +2,7 @@
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Content;
+using SpruceJS.Core.Engine;
 using SpruceJS.Core.Minification;
 using SpruceJS.Core.Script;
 using Xunit;
@@ -13,9 +14,9 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanAddModules()
 		{
-			var fileconfigMock = new Mock<IMinifier>();
+			var minifierMock = new Mock<IMinifier>();
 
-			var jsapp = new SpruceApplication(fileconfigMock.Object);
+			var jsapp = new SpruceApplication(minifierMock.Object);
 
 			jsapp.AddModule(new ModuleItem("a", "", "a"));
 			jsapp.AddModule(new ModuleItem("b", "", "b"));
@@ -26,9 +27,9 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanAddExternals()
 		{
-			var fileconfigMock = new Mock<IMinifier>();
+			var minifierMock = new Mock<IMinifier>();
 
-			var jsapp = new SpruceApplication(fileconfigMock.Object);
+			var jsapp = new SpruceApplication(minifierMock.Object);
 
 			jsapp.AddExternal(new ExternalItem("", ""));
 			jsapp.AddExternal(new ExternalItem("", ""));
@@ -39,12 +40,12 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanGetMinifiedOutput()
 		{
-			var fileconfigMock = new Mock<IMinifier>();
-			fileconfigMock
-				.Setup(i => i.Minify(It.IsAny<ModuleItemList>(), It.IsAny<IEnumerable<ExternalItem>>(), true))
-				.Returns(new MinifyOutput { JavaScriptBody = "JSBody"});
+			var minifierMock = new Mock<IMinifier>();
+			minifierMock
+				.Setup(i => i.Minify())
+				.Returns(new EngineOutput { JavaScriptBody = "JSBody"});
 
-			var jsapp = new SpruceApplication(fileconfigMock.Object);
+			var jsapp = new SpruceApplication(minifierMock.Object);
 
 			Assert.Equal("JSBody", jsapp.GetMinifiedOutput().JavaScriptBody);
 		}
@@ -52,8 +53,8 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanGetOutput()
 		{
-			var fileconfigMock = new Mock<IMinifier>();
-			var jsapp = new SpruceApplication(fileconfigMock.Object);
+			var minifierMock = new Mock<IMinifier>();
+			var jsapp = new SpruceApplication(minifierMock.Object);
 
 			jsapp.AddExternal(new ExternalItem("", "JSBody"));
 
