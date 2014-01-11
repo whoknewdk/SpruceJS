@@ -4,34 +4,29 @@ using System.Text;
 using Microsoft.Ajax.Utilities;
 using SpruceJS.Core.Engine;
 
-namespace SpruceJS.Core.Minification
+namespace SpruceJS.Core.Combiner
 {
-	public class AjaxminMinifier : IMinifier
+	public class AjaxminCombiner : StandardCombiner
 	{
-		readonly StringBuilder sb = new StringBuilder();
-
-		public void Add(string content, string url)
+		public override void Add(string content, string url)
 		{
 			sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", url));
-			sb.AppendLine(content);
+			base.Add(content, url);
 		}
 
-		public void Clear()
+		public override EngineOutput GetOutput()
 		{
+			string combinedOutput = sb.ToString();
+
 			sb.Clear();
-		}
 
-		public EngineOutput Minify()
-		{
-			var result = new EngineOutput();
-
+			string minifiedJavaScript;
 			var sourceMapBuilder = new StringBuilder();
 			using (var sw = new StringWriter(sourceMapBuilder))
 			{
 				using(ISourceMap sourcemap = new V3SourceMap(sw))
 				{
-					var settings = new CodeSettings
-					{
+					var settings = new CodeSettings {
 						SymbolsMap = sourcemap,
 						TermSemicolons = true
 					};
@@ -40,15 +35,16 @@ namespace SpruceJS.Core.Minification
 
 					var minifier = new Minifier();
 
-					result.JavaScriptBody = minifier.MinifyJavaScript(sb.ToString(), settings);
+					minifiedJavaScript = minifier.MinifyJavaScript(combinedOutput, settings);
 
 					sourcemap.EndPackage();
 				}
 			}
 
-			result.SourceMapBody = sourceMapBuilder.ToString();
-
-			return result;
+			return new EngineOutput {
+				JavaScriptBody = minifiedJavaScript,
+				SourceMapBody = sourceMapBuilder.ToString()
+			};
 		}
 	}
 }

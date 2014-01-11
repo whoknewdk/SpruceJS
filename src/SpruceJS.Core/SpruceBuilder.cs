@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using SpruceJS.Core.Combiner;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Content.Exceptions;
 using SpruceJS.Core.Engine;
-using SpruceJS.Core.Minification;
 using SpruceJS.Core.Sort.Exceptions;
 using SpruceJS.Core.Visitor;
 
@@ -19,13 +19,12 @@ namespace SpruceJS.Core
 		readonly Regex regex = new Regex(Regex.Escape("define("));
 		HashSet<string> keys = new HashSet<string>();
 
-		readonly SpruceApplication app = new SpruceApplication(new AjaxminMinifier());
-
 		public bool Minify { get; set; }
 
 		private readonly string filePath;
 		private readonly IFileConfig fileConfig;
 		private readonly IContentLoader loader;
+		private readonly bool includeScript;
 
 		// Single file entry constructor
 		public SpruceBuilder(string filePath, IContentLoader loader)
@@ -39,13 +38,16 @@ namespace SpruceJS.Core
 		{
 			this.fileConfig = fileConfig;
 			this.loader = loader;
-			app.IncludeScript = includeScript;
+			this.includeScript = includeScript;
 		}
 		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
 			: this(fileConfig, loader, true) { }
 
 		public IOutput GetOutput()
 		{
+			var app = new SpruceApplication(Minify ? (ICombiner)new AjaxminCombiner() : new StandardCombiner());
+			app.IncludeScript = includeScript;
+
 			if (fileConfig != null)
 			{
 				// Add externals
@@ -70,7 +72,7 @@ namespace SpruceJS.Core
 				}
 
 				// Try to locate module on disk
-				fetchModulesOnDisk(dependencies.Except(keys));
+				fetchModulesOnDisk(app, dependencies.Except(keys));
 			}
 			else
 			{
@@ -78,18 +80,12 @@ namespace SpruceJS.Core
 				app.AddModule(module);
 
 				if (module != null)
-					fetchModulesOnDisk(module.Dependencies);
+					fetchModulesOnDisk(app, module.Dependencies);
 			}
 
 			try
 			{
-				// Minify?
-				if (Minify)
-					return app.GetMinifiedOutput();
-
-				return new EngineOutput {
-					JavaScriptBody = app.GetOutput()
-				};
+				return app.GetMinifiedOutput();
 			}
 			catch (NameNotFoundException<ModuleItem> ex)
 			{
@@ -106,7 +102,7 @@ namespace SpruceJS.Core
 			return name.Substring(1).Replace(".spruce.js", "").Replace(".js", "");
 		}
 
-		private void fetchModulesOnDisk(IEnumerable<string> unfoundDependencies)
+		private void fetchModulesOnDisk(SpruceApplication app, IEnumerable<string> unfoundDependencies)
 		{
 			foreach (var unfoundDependency in unfoundDependencies)
 			{
@@ -121,7 +117,7 @@ namespace SpruceJS.Core
 
 					// Add
 					keys.Add(module.Name);
-					fetchModulesOnDisk(module.Dependencies.Except(keys));
+					fetchModulesOnDisk(app, module.Dependencies.Except(keys));
 				}
 			}
 		}

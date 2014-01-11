@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using Moq;
+﻿using Moq;
 using SpruceJS.Core;
+using SpruceJS.Core.Combiner;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Engine;
-using SpruceJS.Core.Minification;
 using SpruceJS.Core.Script;
 using Xunit;
 
@@ -14,9 +13,9 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanAddModules()
 		{
-			var minifierMock = new Mock<IMinifier>();
+			var combinerMock = new Mock<ICombiner>();
 
-			var jsapp = new SpruceApplication(minifierMock.Object);
+			var jsapp = new SpruceApplication(combinerMock.Object);
 
 			jsapp.AddModule(new ModuleItem("a", "", "a"));
 			jsapp.AddModule(new ModuleItem("b", "", "b"));
@@ -27,9 +26,9 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanAddExternals()
 		{
-			var minifierMock = new Mock<IMinifier>();
+			var combinerMock = new Mock<ICombiner>();
 
-			var jsapp = new SpruceApplication(minifierMock.Object);
+			var jsapp = new SpruceApplication(combinerMock.Object);
 
 			jsapp.AddExternal(new ExternalItem("", ""));
 			jsapp.AddExternal(new ExternalItem("", ""));
@@ -40,12 +39,12 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanGetMinifiedOutput()
 		{
-			var minifierMock = new Mock<IMinifier>();
-			minifierMock
-				.Setup(i => i.Minify())
+			var combinerMock = new Mock<ICombiner>();
+			combinerMock
+				.Setup(i => i.GetOutput())
 				.Returns(new EngineOutput { JavaScriptBody = "JSBody"});
 
-			var jsapp = new SpruceApplication(minifierMock.Object);
+			var jsapp = new SpruceApplication(combinerMock.Object);
 
 			Assert.Equal("JSBody", jsapp.GetMinifiedOutput().JavaScriptBody);
 		}
@@ -53,13 +52,12 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void CanGetOutput()
 		{
-			var minifierMock = new Mock<IMinifier>();
-			var jsapp = new SpruceApplication(minifierMock.Object);
+			var jsapp = new SpruceApplication(new StandardCombiner());
 
 			jsapp.AddExternal(new ExternalItem("", "JSBody"));
 
-			Assert.Contains("JSBody", jsapp.GetOutput());
-			Assert.Contains(SpruceLib.Body, jsapp.GetOutput());
+			Assert.Contains("JSBody", jsapp.GetMinifiedOutput().JavaScriptBody);
+			Assert.Contains(SpruceLib.Body, jsapp.GetMinifiedOutput().JavaScriptBody);
 		}
 	}
 }
