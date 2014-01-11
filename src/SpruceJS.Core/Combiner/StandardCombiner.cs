@@ -1,5 +1,4 @@
 ﻿using System.Text;
-using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Core.Combiner
 {
@@ -12,13 +11,13 @@ namespace SpruceJS.Core.Combiner
 			sb.AppendLine(content);
 		}
 
-		public virtual EngineOutput GetOutput()
+		public virtual CombinerOutput GetOutput()
 		{
 			string combinedOutput = sb.ToString().Trim();
 
 			sb.Clear();
 
-			return new EngineOutput { JavaScriptBody = combinedOutput };
+			return new CombinerOutput { JavaScriptBody = combinedOutput };
 		}
 	}
 }

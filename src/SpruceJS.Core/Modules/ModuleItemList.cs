@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using SpruceJS.Core.Content.Exceptions;
+using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Sort;
 
-namespace SpruceJS.Core.Content
+namespace SpruceJS.Core.Modules
 {
 	public class ModuleItemList : IEnumerable<ModuleItem>
 	{

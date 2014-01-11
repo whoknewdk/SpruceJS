@@ -7,8 +7,8 @@ using SpruceJS.Core.Combiner;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
-using SpruceJS.Core.Content.Exceptions;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Modules;
+using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Sort.Exceptions;
 using SpruceJS.Core.Visitor;
 
@@ -24,7 +24,7 @@ namespace SpruceJS.Core
 		private readonly string filePath;
 		private readonly IFileConfig fileConfig;
 		private readonly IContentLoader loader;
-		private readonly bool includeScript;
+		private readonly bool excludeScript;
 
 		// Single file entry constructor
 		public SpruceBuilder(string filePath, IContentLoader loader)
@@ -34,19 +34,19 @@ namespace SpruceJS.Core
 		}
 
 		// Config file entry contructor
-		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader, bool includeScript)
+		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader, bool excludeScript)
 		{
 			this.fileConfig = fileConfig;
 			this.loader = loader;
-			this.includeScript = includeScript;
+			this.excludeScript = excludeScript;
 		}
 		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
-			: this(fileConfig, loader, true) { }
+			: this(fileConfig, loader, false) { }
 
-		public IOutput GetOutput()
+		public CombinerOutput GetOutput()
 		{
 			var app = new SpruceApplication(Minify ? (ICombiner)new AjaxminCombiner() : new StandardCombiner());
-			app.IncludeScript = includeScript;
+			app.ExcludeScript = excludeScript;
 
 			if (fileConfig != null)
 			{
@@ -175,7 +175,7 @@ namespace SpruceJS.Core
 
 			var loader = new ContentLoader(projecyDirPath, Path.GetDirectoryName(configFilePath));
 			var fileConfig = new FileConfig(config, loader);
-			return new SpruceBuilder(fileConfig, loader, config.IncludeScript);
+			return new SpruceBuilder(fileConfig, loader, !config.IncludeScript);
 		}
 	}
 }

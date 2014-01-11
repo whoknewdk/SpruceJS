@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace SpruceJS.Core.Engine
+namespace SpruceJS.Core.Content
 {
 	public interface IContentLoader
 	{

@@ -2,8 +2,7 @@
 using System.Web;
 using System.Web.SessionState;
 using SpruceJS.Core;
-using SpruceJS.Core.Engine;
-using SpruceJS.Core.Exceptions;
+using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Script;
 
 namespace SpruceJS.Web

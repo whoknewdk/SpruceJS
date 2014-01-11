@@ -59,11 +59,11 @@
   <ItemGroup>
     <Compile Include="Build\PathUtilTests.cs" />
     <Compile Include="Core\Combiner\CombinerTests.cs" />
-    <Compile Include="Core\Content\ModuleItemTests.cs" />
+    <Compile Include="Core\Modules\ModuleItemTests.cs" />
     <Compile Include="Core\Visitor\CommonJsTests.cs" />
     <Compile Include="Core\Visitor\AmdTests.cs" />
     <Compile Include="Core\Config\SpruceConfigTests.cs" />
-    <Compile Include="Core\Content\ModuleItemListTests.cs" />
+    <Compile Include="Core\Modules\ModuleItemListTests.cs" />
     <Compile Include="Core\SpruceBuilderExceptionTests.cs" />
     <Compile Include="Core\SpruceBuilderOutputTests.cs" />
     <Compile Include="Core\Script\ScriptLibTests.cs" />

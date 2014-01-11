@@ -1,7 +1,7 @@
 ﻿
-namespace SpruceJS.Core.Engine
+namespace SpruceJS.Core.Combiner
 {
-	public struct EngineOutput : IOutput
+	public struct CombinerOutput
 	{
 		public string JavaScriptBody { get; set; }
 		public string SourceMapBody { get; set; }

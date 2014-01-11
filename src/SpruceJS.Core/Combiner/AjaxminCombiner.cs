@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using Microsoft.Ajax.Utilities;
-using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Core.Combiner
 {
@@ -14,7 +13,7 @@ namespace SpruceJS.Core.Combiner
 			base.Add(content, url);
 		}
 
-		public override EngineOutput GetOutput()
+		public override CombinerOutput GetOutput()
 		{
 			string combinedOutput = sb.ToString();
 
@@ -41,7 +40,8 @@ namespace SpruceJS.Core.Combiner
 				}
 			}
 
-			return new EngineOutput {
+			return new CombinerOutput
+			{
 				JavaScriptBody = minifiedJavaScript,
 				SourceMapBody = sourceMapBuilder.ToString()
 			};

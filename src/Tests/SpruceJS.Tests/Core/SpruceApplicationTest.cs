@@ -1,8 +1,7 @@
 ﻿using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Combiner;
-using SpruceJS.Core.Content;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Modules;
 using SpruceJS.Core.Script;
 using Xunit;
 
@@ -42,7 +41,7 @@ namespace SpruceJS.Tests.Core
 			var combinerMock = new Mock<ICombiner>();
 			combinerMock
 				.Setup(i => i.GetOutput())
-				.Returns(new EngineOutput { JavaScriptBody = "JSBody"});
+				.Returns(new CombinerOutput { JavaScriptBody = "JSBody" });
 
 			var jsapp = new SpruceApplication(combinerMock.Object);
 

@@ -1,10 +1,10 @@
-﻿using SpruceJS.Core.Engine;
+﻿using SpruceJS.Core.Combiner;
 
 namespace SpruceJS.Core
 {
 	public interface IBuilder
 	{
-		IOutput GetOutput();
+		CombinerOutput GetOutput();
 		bool Minify { get; set; }
 	}
 }

@@ -1,7 +1,7 @@
-﻿using SpruceJS.Core.Content;
+﻿using SpruceJS.Core.Modules;
 using Xunit;
 
-namespace SpruceJS.Tests.Core.Content
+namespace SpruceJS.Tests.Core.Modules
 {
 	public class ModuleItemTests
 	{

@@ -1,10 +1,9 @@
 ﻿using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Content.Exceptions;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Content;
+using SpruceJS.Core.Modules.Exceptions;
 using Xunit;
-using E = SpruceJS.Core.Engine;
 
 namespace SpruceJS.Tests.Core
 {

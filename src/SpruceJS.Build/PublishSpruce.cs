@@ -4,7 +4,6 @@ using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using SpruceJS.Core;
-using SpruceJS.Core.Engine;
 
 namespace SpruceJS.Build
 {

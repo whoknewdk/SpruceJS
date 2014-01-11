@@ -2,7 +2,7 @@
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Content;
 using Xunit;
 
 namespace SpruceJS.Bugs.Tests

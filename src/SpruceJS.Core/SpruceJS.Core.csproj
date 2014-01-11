@@ -46,31 +46,30 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigJson.cs" />
-    <Compile Include="Content\Exceptions\ModuleNotValidException.cs" />
+    <Compile Include="Modules\Exceptions\ModuleNotValidException.cs" />
     <Compile Include="Combiner\StandardCombiner.cs" />
     <Compile Include="Visitor\ModuleVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />
     <Compile Include="Config\Files\IFileConfig.cs" />
     <Compile Include="Config\ISpruceConfig.cs" />
-    <Compile Include="Content\ExternalItem.cs" />
-    <Compile Include="Engine\ContentLoader.cs" />
-    <Compile Include="Engine\EngineOutput.cs" />
+    <Compile Include="Modules\ExternalItem.cs" />
+    <Compile Include="Content\ContentLoader.cs" />
+    <Compile Include="Combiner\CombinerOutput.cs" />
     <Compile Include="IBuilder.cs" />
-    <Compile Include="Content\Exceptions\SpruceModuleException.cs" />
-    <Compile Include="Content\Exceptions\ModuleKeyCircularReferenceException.cs" />
-    <Compile Include="Content\Exceptions\ModuleKeyDoesNotExistException.cs" />
-    <Compile Include="Content\Exceptions\ModuleKeyNotUniqueException.cs" />
+    <Compile Include="Modules\Exceptions\SpruceModuleException.cs" />
+    <Compile Include="Modules\Exceptions\ModuleKeyCircularReferenceException.cs" />
+    <Compile Include="Modules\Exceptions\ModuleKeyDoesNotExistException.cs" />
+    <Compile Include="Modules\Exceptions\ModuleKeyNotUniqueException.cs" />
     <Compile Include="Sort\Exceptions\NameNotFoundException.cs" />
     <Compile Include="Sort\Exceptions\NotDirectedAcyclicGraphException.cs" />
     <Compile Include="SpruceApplication.cs" />
-    <Compile Include="Content\ModuleItem.cs" />
-    <Compile Include="Content\ModuleItemList.cs" />
+    <Compile Include="Modules\ModuleItem.cs" />
+    <Compile Include="Modules\ModuleItemList.cs" />
     <Compile Include="Combiner\AjaxminCombiner.cs" />
     <Compile Include="Combiner\ICombiner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpruceBuilder.cs" />
-    <Compile Include="Engine\IOutput.cs" />
     <Compile Include="Script\SpruceLib.cs" />
     <Compile Include="Sort\TopSort.cs" />
   </ItemGroup>

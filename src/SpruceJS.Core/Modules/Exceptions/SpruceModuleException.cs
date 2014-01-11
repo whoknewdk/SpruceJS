@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SpruceJS.Core.Exceptions
+namespace SpruceJS.Core.Modules.Exceptions
 {
 	public class SpruceModuleException : Exception
 	{

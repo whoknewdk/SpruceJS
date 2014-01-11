@@ -2,7 +2,7 @@
 using System.Web;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Content;
 
 namespace SpruceJS.Web
 {
@@ -17,8 +17,8 @@ namespace SpruceJS.Web
 			this.context = context;
 		}
 
-		public WebSpruceBuilder(IFileConfig fileConfig, IContentLoader loader, HttpContext context, bool includeScript)
-			: base(fileConfig, loader, includeScript)
+		public WebSpruceBuilder(IFileConfig fileConfig, IContentLoader loader, HttpContext context, bool excludeScript)
+			: base(fileConfig, loader, excludeScript)
 		{
 			this.context = context;
 		}
@@ -43,7 +43,7 @@ namespace SpruceJS.Web
 			var fileConfig = new FileConfig(config, loader);
 
 			// Create engine instance
-			return new WebSpruceBuilder(fileConfig, loader, context, config.IncludeScript);
+			return new WebSpruceBuilder(fileConfig, loader, context, !config.IncludeScript);
 		}
 	}
 }

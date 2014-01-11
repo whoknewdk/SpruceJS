@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace SpruceJS.Core.Content
+namespace SpruceJS.Core.Modules
 {
 	public class ModuleItem : ExternalItem
 	{

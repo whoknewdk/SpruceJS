@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Content;
 
 namespace SpruceJS.Core.Config.Files
 {

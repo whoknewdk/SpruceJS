@@ -2,10 +2,9 @@
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Content;
 using SpruceJS.Core.Script;
 using Xunit;
-using E = SpruceJS.Core.Engine;
 
 namespace SpruceJS.Tests.Core
 {
@@ -93,7 +92,7 @@ namespace SpruceJS.Tests.Core
 			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("e")).Returns(fileval1);
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, true) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -104,13 +103,11 @@ namespace SpruceJS.Tests.Core
 		[Fact]
 		public void MinifiedOutputNotContainsLibrary()
 		{
-			//const string fileval1 = "define('e', function () { var enginetests1 = 123; });";
-
 			var fileconfigMock = new Mock<IFileConfig>();
 
 			var contentLoaderMock = new Mock<IContentLoader>();
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, false) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, true) { Minify = true };
 
 			var output = engine.GetOutput();
 

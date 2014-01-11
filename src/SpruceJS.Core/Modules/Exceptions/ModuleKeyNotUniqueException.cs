@@ -1,6 +1,5 @@
-﻿using SpruceJS.Core.Exceptions;
-
-namespace SpruceJS.Core.Content.Exceptions
+﻿
+namespace SpruceJS.Core.Modules.Exceptions
 {
 	public class ModuleKeyNotUniqueException : SpruceModuleException
 	{

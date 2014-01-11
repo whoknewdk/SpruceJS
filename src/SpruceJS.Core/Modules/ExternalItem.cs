@@ -1,5 +1,5 @@
 ﻿
-namespace SpruceJS.Core.Content
+namespace SpruceJS.Core.Modules
 {
 	public class ExternalItem
 	{

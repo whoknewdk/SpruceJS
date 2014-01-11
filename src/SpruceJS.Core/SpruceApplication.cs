@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using SpruceJS.Core.Combiner;
-using SpruceJS.Core.Content;
-using SpruceJS.Core.Engine;
+using SpruceJS.Core.Modules;
 using SpruceJS.Core.Script;
 
 namespace SpruceJS.Core
@@ -11,13 +10,12 @@ namespace SpruceJS.Core
 		private readonly ModuleItemList modules = new ModuleItemList();
 		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
 
-		public bool IncludeScript { get; set; }
+		public bool ExcludeScript { get; set; }
 
 		readonly ICombiner combiner;
 		public SpruceApplication(ICombiner combiner)
 		{
 			this.combiner = combiner;
-			IncludeScript = true;
 		}
 
 		public void AddModule(ModuleItem module)
@@ -30,10 +28,10 @@ namespace SpruceJS.Core
 			externals.Add(external);
 		}
 
-		public EngineOutput GetMinifiedOutput()
+		public CombinerOutput GetMinifiedOutput()
 		{
 			// Included js lib
-			if (IncludeScript)
+			if (!ExcludeScript)
 				combiner.Add(SpruceLib.Body, "spruce-define.spruce.js");
 
 			// Add externals
