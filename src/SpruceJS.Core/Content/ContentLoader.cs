@@ -11,8 +11,8 @@ namespace SpruceJS.Core.Content
 
 	public class ContentLoader : IContentLoader
 	{
-		private string projectDirectoryPath;
-		private string configDirectoryPath;
+		private readonly string projectDirectoryPath;
+		private readonly string configDirectoryPath;
 		public ContentLoader(string projectDirectoryPath, string configDirectoryPath)
 		{
 			this.projectDirectoryPath = projectDirectoryPath;
@@ -32,7 +32,6 @@ namespace SpruceJS.Core.Content
 			}
 		}
 
-		//
 		public string GetFullPath(string path)
 		{
 

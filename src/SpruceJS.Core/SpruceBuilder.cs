@@ -45,8 +45,7 @@ namespace SpruceJS.Core
 
 		public CombinerOutput GetOutput()
 		{
-			var app = new SpruceApplication(Minify ? (ICombiner)new AjaxminCombiner() : new StandardCombiner());
-			app.ExcludeScript = excludeScript;
+			var app = new SpruceApplication(Minify ? new AjaxminCombiner() : new StandardCombiner());
 
 			if (fileConfig != null)
 			{
@@ -85,7 +84,7 @@ namespace SpruceJS.Core
 
 			try
 			{
-				return app.GetMinifiedOutput();
+				return app.GetMinifiedOutput(excludeScript);
 			}
 			catch (NameNotFoundException<ModuleItem> ex)
 			{

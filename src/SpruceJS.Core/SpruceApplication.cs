@@ -10,8 +10,6 @@ namespace SpruceJS.Core
 		private readonly ModuleItemList modules = new ModuleItemList();
 		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
 
-		public bool ExcludeScript { get; set; }
-
 		readonly ICombiner combiner;
 		public SpruceApplication(ICombiner combiner)
 		{
@@ -28,10 +26,10 @@ namespace SpruceJS.Core
 			externals.Add(external);
 		}
 
-		public CombinerOutput GetMinifiedOutput()
+		public CombinerOutput GetMinifiedOutput(bool excludeScript)
 		{
 			// Included js lib
-			if (!ExcludeScript)
+			if (!excludeScript)
 				combiner.Add(SpruceLib.Body, "spruce-define.spruce.js");
 
 			// Add externals
@@ -43,6 +41,11 @@ namespace SpruceJS.Core
 				combiner.Add(module.Content, module.Url);
 
 			return combiner.GetOutput();
+		}
+
+		public CombinerOutput GetMinifiedOutput()
+		{
+			return GetMinifiedOutput(false);
 		}
 	}
 }

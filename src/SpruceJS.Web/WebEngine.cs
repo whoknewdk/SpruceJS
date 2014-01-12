@@ -10,7 +10,6 @@ namespace SpruceJS.Web
 	{
 		readonly HttpContext context;
 
-
 		public WebSpruceBuilder(string filePath, IContentLoader loader, HttpContext context)
 			: base(filePath, loader)
 		{
