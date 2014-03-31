@@ -30,11 +30,12 @@ namespace SpruceJS.Web
 		public static IBuilder CreateFile(string JsfilePath)
 		{
 			var context = HttpContext.Current;
+			string mappedPath = context.Server.MapPath(JsfilePath);
 
 			// Create engine instance
-			string directoryName = Path.GetDirectoryName(context.Server.MapPath(JsfilePath));
+			string directoryName = Path.GetDirectoryName(mappedPath);
 			var loader = new ContentLoader(context.Request.PhysicalApplicationPath, directoryName);
-			return new WebSpruceBuilder(JsfilePath, loader);
+			return new WebSpruceBuilder(mappedPath, loader);
 		}
 
 		public static IBuilder Create(string jsonConfigPath)
