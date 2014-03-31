@@ -5,7 +5,7 @@ using System.Web.Script.Serialization;
 
 namespace SpruceJS.Core.Config
 {
-	public class SpruceConfig : ISpruceConfig
+	public class SpruceConfig
 	{
 		public IEnumerable<ConfigElement> Externals { get; private set; }
 		public IEnumerable<ConfigElement> Modules { get; private set; }
@@ -18,9 +18,9 @@ namespace SpruceJS.Core.Config
 			loadDirectoriesAndFile(json);
 		}
 
-		public void Load(string json)
+		public void Load(string path)
 		{
-			loadDirectoriesAndFile(GetFullPathContent(json));
+			loadDirectoriesAndFile(GetFullPathContent(path));
 		}
 
 		private void loadDirectoriesAndFile(string json)

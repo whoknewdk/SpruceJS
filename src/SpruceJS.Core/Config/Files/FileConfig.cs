@@ -14,7 +14,7 @@ namespace SpruceJS.Core.Config.Files
 
 		private readonly IContentLoader loader;
 
-		public FileConfig(ISpruceConfig appConfig, IContentLoader loader)
+		public FileConfig(SpruceConfig appConfig, IContentLoader loader)
 		{
 			this.loader = loader;
 
