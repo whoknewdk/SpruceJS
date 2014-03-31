@@ -41,11 +41,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SpruceJSConfigurationSection.cs" />
+    <Compile Include="WebConfig\SpruceJSConfigurationSection.cs" />
     <Compile Include="Utils\NoCacheHttpHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpruceHandler.cs" />
-    <Compile Include="WebSpruceConfig.cs" />
     <Compile Include="WebSpruceBuilder.cs" />
   </ItemGroup>
   <ItemGroup>

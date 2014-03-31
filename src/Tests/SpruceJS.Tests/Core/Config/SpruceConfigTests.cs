@@ -70,5 +70,35 @@ namespace SpruceJS.Tests.Core.Config
 
 			Assert.False(appconfig.IncludeScript);
 		}
+
+		[Fact]
+		public void LoadXmlTest()
+		{
+			// Config
+			var config = new SpruceConfig();
+			config.LoadJson(@"{
+
+								externals: [
+									'/libs/mylib.js'
+								],
+
+								modules: [
+									'/shared/models/main.js',
+									'/shared/models/*.js',
+									'/shared/models/',
+									'views/'
+								]
+
+							}");
+
+			Assert.Equal(1, config.Externals.Count());
+			Assert.Equal(4, config.Modules.Count());
+
+			Assert.Equal("/libs/mylib.js", config.Externals.ElementAt(0).Path);
+			Assert.Equal("/shared/models/main.js", config.Modules.ElementAt(0).Path);
+			Assert.Equal("/shared/models/*.js", config.Modules.ElementAt(1).Path);
+			Assert.Equal("/shared/models/", config.Modules.ElementAt(2).Path);
+			Assert.Equal("views/", config.Modules.ElementAt(3).Path);
+		}
 	}
 }

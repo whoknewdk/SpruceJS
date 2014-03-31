@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Web;
 using SpruceJS.Core;
+using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
 
@@ -42,8 +43,8 @@ namespace SpruceJS.Web
 		{
 			var context = HttpContext.Current;
 
-			var config = new WebSpruceConfig(new HttpContextWrapper(context));
-			config.Load(jsonConfigPath);
+			var config = new SpruceConfig();
+			config.Load(context.Server.MapPath(jsonConfigPath));
 
 			string directoryName = Path.GetDirectoryName(context.Server.MapPath(jsonConfigPath));
 			var loader = new ContentLoader(context.Request.PhysicalApplicationPath, directoryName);

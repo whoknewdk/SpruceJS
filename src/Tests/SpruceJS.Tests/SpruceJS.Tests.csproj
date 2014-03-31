@@ -71,7 +71,6 @@
     <Compile Include="Core\Sort\TopSortTests.cs" />
     <Compile Include="Core\SpruceApplicationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Web\WebSpruceConfigTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\SpruceJS.Build\SpruceJS.Build.csproj">
