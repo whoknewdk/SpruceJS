@@ -63,7 +63,6 @@
     <Compile Include="Modules\Exceptions\ModuleKeyNotUniqueException.cs" />
     <Compile Include="Sort\Exceptions\NameNotFoundException.cs" />
     <Compile Include="Sort\Exceptions\NotDirectedAcyclicGraphException.cs" />
-    <Compile Include="SpruceApplication.cs" />
     <Compile Include="Modules\ModuleItem.cs" />
     <Compile Include="Modules\ModuleItemList.cs" />
     <Compile Include="Combiner\AjaxminCombiner.cs" />

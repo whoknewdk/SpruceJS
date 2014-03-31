@@ -9,6 +9,7 @@ using SpruceJS.Core.Config.Files;
 using SpruceJS.Core.Content;
 using SpruceJS.Core.Modules;
 using SpruceJS.Core.Modules.Exceptions;
+using SpruceJS.Core.Script;
 using SpruceJS.Core.Sort.Exceptions;
 using SpruceJS.Core.Visitor;
 
@@ -16,15 +17,19 @@ namespace SpruceJS.Core
 {
 	public class SpruceBuilder : IBuilder
 	{
+		private readonly ModuleItemList modules = new ModuleItemList();
+		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
+
+		// OLD
 		readonly Regex regex = new Regex(Regex.Escape("define("));
 		readonly HashSet<string> keys = new HashSet<string>();
-
-		public bool Minify { get; set; }
-		public bool ExcludeScript { get; set; }
 
 		private readonly string filePath;
 		private readonly IFileConfig fileConfig;
 		private readonly IContentLoader loader;
+
+		public bool Minify { get; set; }
+		public bool ExcludeScript { get; set; }
 
 		// Single file entry constructor
 		public SpruceBuilder(string filePath, IContentLoader loader)
@@ -42,13 +47,11 @@ namespace SpruceJS.Core
 
 		public CombinerOutput GetOutput()
 		{
-			var app = new SpruceApplication(Minify ? new AjaxminCombiner() : new StandardCombiner());
-
 			if (fileConfig != null)
 			{
 				// Add externals
 				foreach (var externalFile in fileConfig.Externals)
-					app.AddExternal(createExternal(externalFile));
+					externals.Add(createExternal(externalFile));
 
 				var dependencies = new HashSet<string>();
 
@@ -56,7 +59,7 @@ namespace SpruceJS.Core
 				foreach (var file in fileConfig.Files)
 				{
 					var module = createModule(file, trimToName(UrlPath(file)));
-					app.AddModule(module);
+					modules.Add(module);
 
 					// Is module actually null?
 					if (module == null) 
@@ -69,20 +72,34 @@ namespace SpruceJS.Core
 				}
 
 				// Try to locate module on disk
-				fetchModulesOnDisk(app, dependencies.Except(keys));
+				fetchModulesOnDisk(dependencies.Except(keys));
 			}
 			else
 			{
 				var module = createModule(filePath, trimToName(UrlPath(filePath)));
-				app.AddModule(module);
+				modules.Add(module);
 
 				if (module != null)
-					fetchModulesOnDisk(app, module.Dependencies);
+					fetchModulesOnDisk(module.Dependencies);
 			}
 
 			try
 			{
-				return app.GetMinifiedOutput(ExcludeScript);
+				var combiner = Minify ? new AjaxminCombiner() : new StandardCombiner();
+
+				// Included js lib
+				if (!ExcludeScript)
+					combiner.Add(SpruceLib.Body, "spruce-define.js");
+
+				// Add externals
+				foreach (var external in externals)
+					combiner.Add(external.Content, external.Url);
+
+				// Add modules
+				foreach (var module in modules)
+					combiner.Add(module.Content, module.Url);
+
+				return combiner.GetOutput();
 			}
 			catch (NameNotFoundException<ModuleItem> ex)
 			{
@@ -99,7 +116,7 @@ namespace SpruceJS.Core
 			return name.Substring(1).Replace(".spruce.js", "").Replace(".js", "");
 		}
 
-		private void fetchModulesOnDisk(SpruceApplication app, IEnumerable<string> unfoundDependencies)
+		private void fetchModulesOnDisk(IEnumerable<string> unfoundDependencies)
 		{
 			foreach (var unfoundDependency in unfoundDependencies)
 			{
@@ -107,14 +124,14 @@ namespace SpruceJS.Core
 				if (File.Exists(fileOnDisk))
 				{
 					var module = createModule(fileOnDisk, unfoundDependency);
-					app.AddModule(module);
+					modules.Add(module);
 
 					if (module == null)
 						continue;
 
 					// Add
 					keys.Add(module.Name);
-					fetchModulesOnDisk(app, module.Dependencies.Except(keys));
+					fetchModulesOnDisk(module.Dependencies.Except(keys));
 				}
 			}
 		}

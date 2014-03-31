@@ -43,18 +43,18 @@ namespace SpruceJS.Web
 
 			try
 			{
-				IBuilder engine;
+				IBuilder builder;
 
 				string actualPath = filePath.Replace(".spruce.js", ".js");
 				if (File.Exists(context.Server.MapPath(actualPath)))
-					engine = WebSpruceBuilder.CreateFile(actualPath);
+					builder = WebSpruceBuilder.CreateFile(actualPath);
 				else
-					engine = WebSpruceBuilder.Create(filePath.Replace(".spruce.js", ".spruce.json"));
+					builder = WebSpruceBuilder.Create(filePath.Replace(".spruce.js", ".spruce.json"));
 
-				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
+				builder.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
 				// Get result
-				var result = engine.GetOutput();
+				var result = builder.GetOutput();
 
 				// Save SourceMap for next request
 				context.Application[filePath + ".map"] = result.SourceMapBody;

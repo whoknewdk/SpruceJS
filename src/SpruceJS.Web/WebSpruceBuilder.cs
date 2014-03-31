@@ -33,7 +33,7 @@ namespace SpruceJS.Web
 			var context = HttpContext.Current;
 			string mappedPath = context.Server.MapPath(JsfilePath);
 
-			// Create engine instance
+			// Create builder instance
 			string directoryName = Path.GetDirectoryName(mappedPath);
 			var loader = new ContentLoader(context.Request.PhysicalApplicationPath, directoryName);
 			return new WebSpruceBuilder(mappedPath, loader);
@@ -50,7 +50,7 @@ namespace SpruceJS.Web
 			var loader = new ContentLoader(context.Request.PhysicalApplicationPath, directoryName);
 			var fileConfig = new FileConfig(config, loader);
 
-			// Create engine instance
+			// Create builder instance
 			return new WebSpruceBuilder(fileConfig, loader) {
 				ExcludeScript = !config.IncludeScript
 			};

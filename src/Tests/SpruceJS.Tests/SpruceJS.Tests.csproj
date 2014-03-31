@@ -69,7 +69,6 @@
     <Compile Include="Core\Script\ScriptLibTests.cs" />
     <Compile Include="Core\Sort\TopSortExceptionTests.cs" />
     <Compile Include="Core\Sort\TopSortTests.cs" />
-    <Compile Include="Core\SpruceApplicationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
