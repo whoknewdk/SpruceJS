@@ -30,7 +30,7 @@ namespace SpruceJS.Core
 		{
 			// Included js lib
 			if (!excludeScript)
-				combiner.Add(SpruceLib.Body, "spruce-define.spruce.js");
+				combiner.Add(SpruceLib.Body, "spruce-define.js");
 
 			// Add externals
 			foreach (var external in externals)

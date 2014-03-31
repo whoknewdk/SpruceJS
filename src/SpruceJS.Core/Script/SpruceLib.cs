@@ -8,7 +8,7 @@ namespace SpruceJS.Core.Script
 		private static string body;
 		public static string Body
 		{
-			get { return body ?? (body = load("spruce.js")); }
+			get { return body ?? (body = load("spruce-define.js")); }
 		}
 
 		private static string load(string filename)

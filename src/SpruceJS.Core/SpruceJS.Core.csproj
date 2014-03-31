@@ -74,7 +74,7 @@
     <Compile Include="Sort\TopSort.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Script\spruce.js" />
+    <EmbeddedResource Include="Script\spruce-define.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Script\test\define_amd_tests.js" />
