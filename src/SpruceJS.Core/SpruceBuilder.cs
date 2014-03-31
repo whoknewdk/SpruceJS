@@ -17,14 +17,14 @@ namespace SpruceJS.Core
 	public class SpruceBuilder : IBuilder
 	{
 		readonly Regex regex = new Regex(Regex.Escape("define("));
-		HashSet<string> keys = new HashSet<string>();
+		readonly HashSet<string> keys = new HashSet<string>();
 
 		public bool Minify { get; set; }
+		public bool ExcludeScript { get; set; }
 
 		private readonly string filePath;
 		private readonly IFileConfig fileConfig;
 		private readonly IContentLoader loader;
-		private readonly bool excludeScript;
 
 		// Single file entry constructor
 		public SpruceBuilder(string filePath, IContentLoader loader)
@@ -34,14 +34,11 @@ namespace SpruceJS.Core
 		}
 
 		// Config file entry contructor
-		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader, bool excludeScript)
+		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
 		{
 			this.fileConfig = fileConfig;
 			this.loader = loader;
-			this.excludeScript = excludeScript;
 		}
-		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
-			: this(fileConfig, loader, false) { }
 
 		public CombinerOutput GetOutput()
 		{
@@ -61,6 +58,7 @@ namespace SpruceJS.Core
 					var module = createModule(file, trimToName(UrlPath(file)));
 					app.AddModule(module);
 
+					// Is module actually null?
 					if (module == null) 
 						continue;
 
@@ -84,7 +82,7 @@ namespace SpruceJS.Core
 
 			try
 			{
-				return app.GetMinifiedOutput(excludeScript);
+				return app.GetMinifiedOutput(ExcludeScript);
 			}
 			catch (NameNotFoundException<ModuleItem> ex)
 			{
@@ -174,7 +172,7 @@ namespace SpruceJS.Core
 
 			var loader = new ContentLoader(projecyDirPath, Path.GetDirectoryName(configFilePath));
 			var fileConfig = new FileConfig(config, loader);
-			return new SpruceBuilder(fileConfig, loader, !config.IncludeScript);
+			return new SpruceBuilder(fileConfig, loader) { ExcludeScript = !config.IncludeScript };
 		}
 	}
 }

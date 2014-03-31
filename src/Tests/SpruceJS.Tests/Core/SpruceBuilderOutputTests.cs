@@ -92,7 +92,10 @@ namespace SpruceJS.Tests.Core
 			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
 			contentLoaderMock.Setup(i => i.GetContent("e")).Returns(fileval1);
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, true) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) {
+				Minify = false, 
+				ExcludeScript = true
+			};
 
 			var output = engine.GetOutput();
 
@@ -107,7 +110,10 @@ namespace SpruceJS.Tests.Core
 
 			var contentLoaderMock = new Mock<IContentLoader>();
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object, true) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) {
+				Minify = true,
+				ExcludeScript = true
+			};
 
 			var output = engine.GetOutput();
 

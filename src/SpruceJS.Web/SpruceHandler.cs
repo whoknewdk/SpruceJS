@@ -47,12 +47,12 @@ namespace SpruceJS.Web
 				string actualPath = filePath.Replace(".spruce.js", ".js");
 				if (File.Exists(context.Server.MapPath(actualPath)))
 				{
-					engine = WebSpruceBuilder.CreateFile(context.Server.MapPath(actualPath), context);
+					engine = WebSpruceBuilder.CreateFile(actualPath);
 				}
 				else
 				{
 					string configFilePath = filePath.Replace(".spruce.js", ".spruce.json");
-					engine = WebSpruceBuilder.Create(configFilePath, context);
+					engine = WebSpruceBuilder.Create(configFilePath);
 				}
 				engine.Minify = SpruceJSConfigurationSection.Instance.Minify;
 

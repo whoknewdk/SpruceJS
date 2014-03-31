@@ -1,5 +1,5 @@
 ﻿/// <reference path="jasmine/jasmine.js"/>
-/// <reference path="../spruce.js"/>
+/// <reference path="../spruce-define.js"/>
 
 describe('define amd', function() {
 	it('can define object', function () {
