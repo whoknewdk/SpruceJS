@@ -8,9 +8,10 @@ Features
 ========
 * Module centric JavaScript development.
 * Automatic dependency resolution.
-* Debugging via source maps.
-* No build step. Edit-save-refresh!
 * Minification.
+* Edit-save-refresh workflow (No build step).
+* Debugging via source maps.
+* Static file generation for production
 
 How it works
 ============
@@ -19,7 +20,7 @@ SpruceJS supports the following module signatures.
 * [CommonJS style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
 * [AMD style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
 
-The basic way of using SpruceJS uses a single JavaScript module as entry point.
+The basic way of using SpruceJS is a single JavaScript module as entry point.
 
 **app.html**
 ```xml
@@ -46,6 +47,14 @@ define(function (require, exports) {
 	exports.hello = 'Hello world!';
 });
 ```
+
+Advanced setup using Config file entry allows you to
+
+* Specify multiple module entry points
+* Include non module JavaScript files
+* Exclude files
+* Configure minification, caching and more
+
 
 Setup
 =====
