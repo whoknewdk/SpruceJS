@@ -5,18 +5,15 @@ namespace SpruceJS.Core.Content
 	public interface IContentLoader
 	{
 		string GetContent(string filePath);
-		string GetFullPath(string path);
 		string GetFullPathForKey(string path);
 	}
 
 	public class ContentLoader : IContentLoader
 	{
 		private readonly string projectDirectoryPath;
-		private readonly string configDirectoryPath;
-		public ContentLoader(string projectDirectoryPath, string configDirectoryPath)
+		public ContentLoader(string projectDirectoryPath)
 		{
 			this.projectDirectoryPath = projectDirectoryPath;
-			this.configDirectoryPath = configDirectoryPath;
 		}
 
 		public string GetContent(string filePath)
@@ -30,18 +27,6 @@ namespace SpruceJS.Core.Content
 			{
 				return null;
 			}
-		}
-
-		public string GetFullPath(string path)
-		{
-
-			if (path.StartsWith("\\"))
-			{
-				string pathWithoutBeginnningSlash = path.Substring(1, path.Length - 1);
-				return Path.Combine(projectDirectoryPath, pathWithoutBeginnningSlash);
-			}
-
-			return Path.Combine(configDirectoryPath, path);
 		}
 
 		public string GetFullPathForKey(string path)

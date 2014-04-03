@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace SpruceJS.Core.Modules.Exceptions
 {
 	public class ModuleNotValidException : SpruceModuleException

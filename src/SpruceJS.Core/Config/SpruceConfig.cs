@@ -20,7 +20,8 @@ namespace SpruceJS.Core.Config
 
 		public void Load(string path)
 		{
-			loadDirectoriesAndFile(GetFullPathContent(path));
+			string content = File.ReadAllText(Path.GetFullPath(path));
+			loadDirectoriesAndFile(content);
 		}
 
 		private void loadDirectoriesAndFile(string json)
@@ -31,11 +32,6 @@ namespace SpruceJS.Core.Config
 			Externals = (result.externals ?? new string[0]).Select(x => new ConfigElement { Path = x });
 
 			IncludeScript = result.config.includescript;
-		}
-
-		protected virtual string GetFullPathContent(string path)
-		{
-			return File.ReadAllText(Path.GetFullPath(path));
 		}
 	}
 

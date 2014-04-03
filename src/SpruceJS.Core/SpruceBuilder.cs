@@ -24,25 +24,47 @@ namespace SpruceJS.Core
 		readonly Regex regex = new Regex(Regex.Escape("define("));
 		readonly HashSet<string> keys = new HashSet<string>();
 
-		private readonly string filePath;
-		private readonly IFileConfig fileConfig;
-		private readonly IContentLoader loader;
+		protected string filePath;
+		protected IFileConfig fileConfig;
+		protected IContentLoader loader;
 
 		public bool Minify { get; set; }
 		public bool ExcludeScript { get; set; }
 
-		// Single file entry constructor
-		public SpruceBuilder(string filePath, IContentLoader loader)
+		public SpruceBuilder()
 		{
-			this.filePath = filePath;
-			this.loader = loader;
+			
 		}
-
-		// Config file entry contructor
 		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
 		{
 			this.fileConfig = fileConfig;
 			this.loader = loader;
+		}
+
+		public void LoadJS(string jsFilePath, string projectDirPath)
+		{
+			this.filePath = jsFilePath;
+
+			// Allow for mock
+			if (loader == null)
+				loader = new ContentLoader(projectDirPath);
+		}
+
+		// Single file entry constructor
+		public void LoadConfig(string configFilePath, string projectDirPath)
+		{
+			// Allow for mock
+			if (loader == null)
+				loader = new ContentLoader(projectDirPath);
+
+			var config = new SpruceConfig();
+			config.Load(configFilePath);
+
+			// Allow for mock
+			if (fileConfig == null)
+				fileConfig = new FileConfig(config, projectDirPath, configFilePath);
+
+			ExcludeScript = !config.IncludeScript;
 		}
 
 		public CombinerOutput GetOutput()
@@ -180,16 +202,6 @@ namespace SpruceJS.Core
 		protected virtual string UrlPath(string path)
 		{
 			return path;
-		}
-
-		public static IBuilder Create(string configFilePath, string projecyDirPath)
-		{
-			var config = new SpruceConfig();
-			config.Load(configFilePath);
-
-			var loader = new ContentLoader(projecyDirPath, Path.GetDirectoryName(configFilePath));
-			var fileConfig = new FileConfig(config, loader);
-			return new SpruceBuilder(fileConfig, loader) { ExcludeScript = !config.IncludeScript };
 		}
 	}
 }

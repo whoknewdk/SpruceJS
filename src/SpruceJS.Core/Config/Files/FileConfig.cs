@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using SpruceJS.Core.Content;
 
 namespace SpruceJS.Core.Config.Files
 {
@@ -12,11 +11,12 @@ namespace SpruceJS.Core.Config.Files
 		public IEnumerable<string> Files { get { return files;  } }
 		public IEnumerable<string> Externals { get { return externals; } }
 
-		private readonly IContentLoader loader;
+		private readonly string projectDirectoryPath, configFilePath;
 
-		public FileConfig(SpruceConfig appConfig, IContentLoader loader)
+		public FileConfig(SpruceConfig appConfig, string projectDirectoryPath, string configFilePath)
 		{
-			this.loader = loader;
+			this.projectDirectoryPath = projectDirectoryPath;
+			this.configFilePath = configFilePath;
 
 			populateFiles(appConfig.Externals, externals);
 			populateFiles(appConfig.Modules, files);
@@ -27,7 +27,7 @@ namespace SpruceJS.Core.Config.Files
 			foreach (ConfigElement data in dataList)
 			{
 				string pathForFileSystem = data.Path.Replace("/", "\\");
-				string fullPath = loader.GetFullPath(pathForFileSystem);
+				string fullPath = getFullPath(pathForFileSystem);
 				var option = data.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
 
 				if (Directory.Exists(fullPath))
@@ -44,6 +44,19 @@ namespace SpruceJS.Core.Config.Files
 					list.AddRange(filePaths);
 				}
 			}
+		}
+
+		private string getFullPath(string path)
+		{
+
+			if (path.StartsWith("\\"))
+			{
+				string pathWithoutBeginnningSlash = path.Substring(1, path.Length - 1);
+				return Path.Combine(projectDirectoryPath, pathWithoutBeginnningSlash);
+			}
+
+			string configDirectoryPath = Path.GetDirectoryName(configFilePath);
+			return Path.Combine(configDirectoryPath, path);
 		}
 	}
 }

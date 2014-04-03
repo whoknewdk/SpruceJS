@@ -1,7 +1,6 @@
 ﻿using System.IO;
 using System.Web;
 using System.Web.SessionState;
-using SpruceJS.Core;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Script;
 using SpruceJS.Web.WebConfig;
@@ -43,13 +42,15 @@ namespace SpruceJS.Web
 
 			try
 			{
-				IBuilder builder;
+				var builder = new WebSpruceBuilder();
 
 				string actualPath = filePath.Replace(".spruce.js", ".js");
+
+				// Load JavaScript or JSON config
 				if (File.Exists(context.Server.MapPath(actualPath)))
-					builder = WebSpruceBuilder.CreateFile(actualPath);
+					builder.LoadJS(actualPath);
 				else
-					builder = WebSpruceBuilder.Create(filePath.Replace(".spruce.js", ".spruce.json"));
+					builder.LoadConfig(filePath.Replace(".spruce.js", ".spruce.json"));
 
 				builder.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
