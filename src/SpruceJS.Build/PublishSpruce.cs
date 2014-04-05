@@ -26,10 +26,12 @@ namespace SpruceJS.Build
 
 			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.json", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
 			{
-				var engine = new SpruceBuilder();
+				var engine = new SpruceBuilder {
+					Minify = true,
+					ModuleRootPath = ProjectDir
+				};
+				engine.LoadConfig(file);
 
-				engine.LoadJS(file, ProjectDir);
-				engine.Minify = true;
 				var output = engine.GetOutput();
 
 				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".json", ".js");

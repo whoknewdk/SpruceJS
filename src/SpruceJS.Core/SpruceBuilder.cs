@@ -20,7 +20,6 @@ namespace SpruceJS.Core
 		private readonly ModuleItemList modules = new ModuleItemList();
 		private readonly IList<ExternalItem> externals = new List<ExternalItem>();
 
-		// OLD
 		readonly Regex regex = new Regex(Regex.Escape("define("));
 		readonly HashSet<string> keys = new HashSet<string>();
 
@@ -30,6 +29,8 @@ namespace SpruceJS.Core
 
 		public bool Minify { get; set; }
 		public bool ExcludeScript { get; set; }
+
+		public string ModuleRootPath { get; set; }
 
 		public SpruceBuilder()
 		{
@@ -41,34 +42,40 @@ namespace SpruceJS.Core
 			this.loader = loader;
 		}
 
-		public void LoadJS(string jsFilePath, string projectDirPath)
+		public void LoadJS(string jsFilePath)
 		{
-			this.filePath = jsFilePath;
+			setModuleRootPath(jsFilePath);
 
-			// Allow for mock
-			if (loader == null)
-				loader = new ContentLoader(projectDirPath);
+			this.filePath = jsFilePath;
 		}
 
 		// Single file entry constructor
-		public void LoadConfig(string configFilePath, string projectDirPath)
+		public void LoadConfig(string configFilePath)
 		{
-			// Allow for mock
-			if (loader == null)
-				loader = new ContentLoader(projectDirPath);
+			setModuleRootPath(configFilePath);
 
 			var config = new SpruceConfig();
 			config.Load(configFilePath);
 
 			// Allow for mock
 			if (fileConfig == null)
-				fileConfig = new FileConfig(config, projectDirPath, configFilePath);
+				fileConfig = new FileConfig(config, ModuleRootPath, configFilePath);
 
 			ExcludeScript = !config.IncludeScript;
 		}
 
+		private void setModuleRootPath(string file)
+		{
+			if (String.IsNullOrEmpty(ModuleRootPath))
+				ModuleRootPath = Path.GetDirectoryName(file);
+		}
+
 		public CombinerOutput GetOutput()
 		{
+			// Allow for mock
+			if (loader == null)
+				loader = new ContentLoader(ModuleRootPath);
+
 			if (fileConfig != null)
 			{
 				// Add externals
@@ -80,7 +87,7 @@ namespace SpruceJS.Core
 				// Add files
 				foreach (var file in fileConfig.Files)
 				{
-					var module = createModule(file, trimToName(UrlPath(file)));
+					var module = createModule(file, trimToName(urlPath(file)));
 					modules.Add(module);
 
 					// Is module actually null?
@@ -98,7 +105,7 @@ namespace SpruceJS.Core
 			}
 			else
 			{
-				var module = createModule(filePath, trimToName(UrlPath(filePath)));
+				var module = createModule(filePath, trimToName(urlPath(filePath)));
 				modules.Add(module);
 
 				if (module != null)
@@ -179,7 +186,7 @@ namespace SpruceJS.Core
 			string c = moduleVisitor.Indentifier != null
 				                 ? content
 				                 : regex.Replace(content, String.Format("define('{0}',", n), 1);
-			string url = UrlPath(filePath);
+			string url = urlPath(filePath);
 
 			// Build new module
 			return new ModuleItem(url, c, n, moduleVisitor.Dependencies);
@@ -193,15 +200,15 @@ namespace SpruceJS.Core
 			if (content == null)
 				return null;
 
-			string url = UrlPath(filePath);
+			string url = urlPath(filePath);
 
 			// Build new module
 			return new ExternalItem(url, content);
 		}
 
-		protected virtual string UrlPath(string path)
+		private string urlPath(string path)
 		{
-			return path;
+			return "/" + path.Replace(ModuleRootPath, "").Replace("\\", "/");
 		}
 	}
 }

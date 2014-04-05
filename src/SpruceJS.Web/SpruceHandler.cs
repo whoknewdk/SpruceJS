@@ -42,7 +42,9 @@ namespace SpruceJS.Web
 
 			try
 			{
-				var builder = new WebSpruceBuilder();
+				var builder = new WebSpruceBuilder {
+					Minify = SpruceJSConfigurationSection.Instance.Minify
+				};
 
 				string actualPath = filePath.Replace(".spruce.js", ".js");
 
@@ -51,8 +53,6 @@ namespace SpruceJS.Web
 					builder.LoadJS(actualPath);
 				else
 					builder.LoadConfig(filePath.Replace(".spruce.js", ".spruce.json"));
-
-				builder.Minify = SpruceJSConfigurationSection.Instance.Minify;
 
 				// Get result
 				var result = builder.GetOutput();

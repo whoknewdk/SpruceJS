@@ -11,29 +11,21 @@ namespace SpruceJS.Web
 
 		public WebSpruceBuilder() : base()
 		{
+			ModuleRootPath = context.Request.PhysicalApplicationPath;
 		}
+
 		public WebSpruceBuilder(IFileConfig fileConfig, IContentLoader loader) : base(fileConfig, loader)
 		{
 		}
 
-		public void LoadJS(string jsFilePath)
+		public new void LoadJS(string jsFilePath)
 		{
-			LoadJS(mapPath(jsFilePath), context.Request.PhysicalApplicationPath);
+			base.LoadJS(context.Server.MapPath(jsFilePath));
 		}
 
-		public void LoadConfig(string jsonConfigPath)
+		public new void LoadConfig(string jsonConfigPath)
 		{
-			LoadConfig(mapPath(jsonConfigPath), context.Request.PhysicalApplicationPath);
-		}
-
-		protected override string UrlPath(string path)
-		{
-			return "/" + path.Replace(context.Request.PhysicalApplicationPath, "").Replace("\\", "/");
-		}
-
-		private string mapPath(string path)
-		{
-			return context.Server.MapPath(path);
+			base.LoadConfig(context.Server.MapPath(jsonConfigPath));
 		}
 	}
 }
