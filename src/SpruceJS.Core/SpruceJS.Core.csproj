@@ -76,14 +76,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Script\spruce-define.js" />
   </ItemGroup>
-  <ItemGroup>
-    <Content Include="Script\test\define_amd_tests.js" />
-    <Content Include="Script\test\define_cjs_tests.js" />
-    <Content Include="Script\test\jasmine\jasmine.js" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Script\test\jasmine\MIT.LICENSE" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

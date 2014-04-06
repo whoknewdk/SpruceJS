@@ -85,7 +85,10 @@
       <Name>SpruceJS.Web</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Script\define_amd_tests.js" />
+    <Content Include="Script\define_cjs_tests.js" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

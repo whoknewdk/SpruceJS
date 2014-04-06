@@ -1,5 +1,4 @@
-﻿/// <reference path="jasmine/jasmine.js"/>
-/// <reference path="../spruce-define.js"/>
+﻿/// <reference path="../../../SpruceJS.Core/Script/spruce-define.js"/>
 
 describe('define commonjs', function() {
 	it('can define object', function () {
