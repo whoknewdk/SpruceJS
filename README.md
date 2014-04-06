@@ -82,7 +82,7 @@ Documentation
 =============
 * [Using SpruceJS](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
 * [Publishing SpruceJS](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
-* Entire [Documentation](https://github.com/whoknewdk/SpruceJS/wiki).
+* [Entire Documentation](https://github.com/whoknewdk/SpruceJS/wiki).
 
 Copyright
 =========
