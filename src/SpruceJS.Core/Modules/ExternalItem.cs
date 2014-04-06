@@ -4,7 +4,7 @@ namespace SpruceJS.Core.Modules
 	public class ExternalItem
 	{
 		public string Url { get; private set; }
-		public string Content { get; private set; }
+		public string Content { get; protected set; }
 
 		public ExternalItem(string url, string content)
 		{

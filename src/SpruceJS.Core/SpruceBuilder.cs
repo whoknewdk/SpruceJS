@@ -34,10 +34,12 @@ namespace SpruceJS.Core
 
 		public SpruceBuilder()
 		{
-			
+			ModuleRootPath = "";
 		}
 		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
 		{
+			ModuleRootPath = "";
+
 			this.fileConfig = fileConfig;
 			this.loader = loader;
 		}
@@ -74,7 +76,7 @@ namespace SpruceJS.Core
 		{
 			// Allow for mock
 			if (loader == null)
-				loader = new ContentLoader(ModuleRootPath);
+				loader = new ContentLoader();
 
 			if (fileConfig != null)
 			{
@@ -145,11 +147,16 @@ namespace SpruceJS.Core
 			return name.Substring(1).Replace(".spruce.js", "").Replace(".js", "");
 		}
 
+		public string getFullPathForKey(string path)
+		{
+			return Path.Combine(ModuleRootPath, path);
+		}
+
 		private void fetchModulesOnDisk(IEnumerable<string> unfoundDependencies)
 		{
 			foreach (var unfoundDependency in unfoundDependencies)
 			{
-				var fileOnDisk = loader.GetFullPathForKey(unfoundDependency.Replace("/", "\\") + ".js");
+				var fileOnDisk = getFullPathForKey(unfoundDependency.Replace("/", "\\") + ".js");
 				if (File.Exists(fileOnDisk))
 				{
 					var module = createModule(fileOnDisk, unfoundDependency);
@@ -182,14 +189,14 @@ namespace SpruceJS.Core
 			if (!moduleVisitor.IsValid)
 				throw new ModuleNotValidException(filePath);
 
-			string n = moduleVisitor.Indentifier ?? name;
-			string c = moduleVisitor.Indentifier != null
+			string moduleId = moduleVisitor.Indentifier ?? name;
+			string moduleContent = moduleVisitor.Indentifier != null
 				                 ? content
-				                 : regex.Replace(content, String.Format("define('{0}',", n), 1);
+								 : regex.Replace(content, String.Format("define('{0}',", moduleId), 1);
 			string url = urlPath(filePath);
 
 			// Build new module
-			return new ModuleItem(url, c, n, moduleVisitor.Dependencies);
+			return new ModuleItem(url, moduleContent, moduleId, moduleVisitor.Dependencies.ToArray());
 		}
 
 		private ExternalItem createExternal(string filePath)
@@ -208,7 +215,10 @@ namespace SpruceJS.Core
 
 		private string urlPath(string path)
 		{
-			return "/" + path.Replace(ModuleRootPath, "").Replace("\\", "/");
+			if (!String.IsNullOrEmpty(ModuleRootPath))
+				return "/" + path.Replace(ModuleRootPath, "").Replace("\\", "/");
+
+			return path;
 		}
 	}
 }
