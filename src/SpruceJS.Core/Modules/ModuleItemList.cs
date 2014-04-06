@@ -17,6 +17,12 @@ namespace SpruceJS.Core.Modules
 				modules.Add(module);
 		}
 
+		public void AddRange(IEnumerable<ModuleItem> moduleItems)
+		{
+			foreach (var m in moduleItems)
+				modules.Add(m);
+		}
+
 		public IEnumerator<ModuleItem> GetEnumerator()
 		{
 			// Throw exception if duplicate keys exist

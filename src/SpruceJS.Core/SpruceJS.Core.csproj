@@ -46,8 +46,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\ConfigJson.cs" />
+    <Compile Include="ModuleResolver.cs" />
     <Compile Include="Modules\Exceptions\ModuleNotValidException.cs" />
     <Compile Include="Combiner\StandardCombiner.cs" />
+    <Compile Include="Modules\ItemFactory.cs" />
     <Compile Include="Visitor\ModuleVisitor.cs" />
     <Compile Include="Config\SpruceConfig.cs" />
     <Compile Include="Config\Files\FileConfig.cs" />

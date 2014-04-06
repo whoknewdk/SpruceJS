@@ -1,7 +1,5 @@
 ﻿using System.Web;
 using SpruceJS.Core;
-using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Content;
 
 namespace SpruceJS.Web
 {
@@ -12,10 +10,6 @@ namespace SpruceJS.Web
 		public WebSpruceBuilder() : base()
 		{
 			ModuleRootPath = context.Request.PhysicalApplicationPath;
-		}
-
-		public WebSpruceBuilder(IFileConfig fileConfig, IContentLoader loader) : base(fileConfig, loader)
-		{
 		}
 
 		public new void LoadJS(string jsFilePath)

@@ -8,7 +8,7 @@ namespace SpruceJS.Core.Config.Files
 		readonly List<string> files = new List<string>();
 		readonly List<string> externals = new List<string>();
 
-		public IEnumerable<string> Files { get { return files;  } }
+		public IEnumerable<string> Files { get { return files; } }
 		public IEnumerable<string> Externals { get { return externals; } }
 
 		private readonly string projectDirectoryPath, configFilePath;
