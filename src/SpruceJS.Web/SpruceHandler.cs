@@ -39,18 +39,18 @@ namespace SpruceJS.Web
 
 				// Load JavaScript or JSON config
 				if (File.Exists(context.Server.MapPath(actualPath)))
-					builder.LoadJS(actualPath);
+					builder.LoadModule(actualPath);
 				else
 					builder.LoadConfig(filePath.Replace(".spruce.js", ".spruce.json"));
 
-				// Get result
-				var result = builder.GetOutput();
+				// Build everything and get output
+				var output = builder.GetOutput();
 
 				// Save SourceMap for next request
-				context.Application[filePath + ".map"] = result.SourceMapBody;
+				context.Application[filePath + ".map"] = output.SourceMapBody;
 
 				// Write JavaScript
-				context.Response.Write(result.JavaScriptBody);
+				context.Response.Write(output.JavaScriptBody);
 			}
 			catch (SpruceModuleException ex)
 			{

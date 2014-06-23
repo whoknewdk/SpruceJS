@@ -37,25 +37,24 @@ namespace SpruceJS.Core
 			this.fileSystem = fileSystem;
 		}
 
-		public void LoadJS(string filePath)
+		public void LoadModule(string path)
 		{
-			setModuleRootPath(filePath);
-
-			this.filePath = filePath;
+			setModuleRootPath(path);
+			filePath = path;
 		}
 
 		// Single file entry constructor
-		public void LoadConfig(string configFilePath)
+		public void LoadConfig(string path)
 		{
-			setModuleRootPath(configFilePath);
+			setModuleRootPath(path);
 
-			string content = fileSystem.ReadAllText(Path.GetFullPath(configFilePath));
+			string content = fileSystem.ReadAllText(Path.GetFullPath(path));
 			var config = new SpruceConfig();
 			config.LoadJson(content);
 
 			// Allow for mock
 			if (fileConfig == null)
-				fileConfig = new FileConfig(config, ModuleRootPath, configFilePath);
+				fileConfig = new FileConfig(config, ModuleRootPath, path);
 
 			ExcludeScript = !config.IncludeScript;
 		}
@@ -69,11 +68,10 @@ namespace SpruceJS.Core
 		private void addModules(string filepath, ItemFactory itemFactory, ModuleResolver moduleResolver)
 		{
 			var module = itemFactory.CreateModule(filepath);
+
+			// Try to locate referenced modules on disk
 			if (module != null)
-			{
-				// Try to locate referenced modules on disk
 				modules.AddRange(moduleResolver.fetchModulesOnDisk(module));
-			}
 		}
 
 		public CombinerOutput GetOutput()

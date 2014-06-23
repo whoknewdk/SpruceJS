@@ -4,8 +4,8 @@ namespace SpruceJS.Core
 {
 	public interface IBuilder
 	{
-		void LoadJS(string jsFilePath);
-		void LoadConfig(string confileFilePath);
+		void LoadModule(string path);
+		void LoadConfig(string path);
 
 		CombinerOutput GetOutput();
 		bool Minify { get; set; }

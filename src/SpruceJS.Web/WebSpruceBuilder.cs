@@ -7,19 +7,19 @@ namespace SpruceJS.Web
 	{
 		readonly HttpContext context = HttpContext.Current;
 
-		public WebSpruceBuilder() : base()
+		public WebSpruceBuilder()
 		{
 			ModuleRootPath = context.Request.PhysicalApplicationPath;
 		}
 
-		public new void LoadJS(string jsFilePath)
+		public new void LoadModule(string path)
 		{
-			base.LoadJS(context.Server.MapPath(jsFilePath));
+			base.LoadModule(context.Server.MapPath(path));
 		}
 
-		public new void LoadConfig(string jsonConfigPath)
+		public new void LoadConfig(string path)
 		{
-			base.LoadConfig(context.Server.MapPath(jsonConfigPath));
+			base.LoadConfig(context.Server.MapPath(path));
 		}
 	}
 }
