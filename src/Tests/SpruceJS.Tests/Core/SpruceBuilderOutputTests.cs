@@ -2,7 +2,7 @@
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Content;
+using SpruceJS.Core.IO;
 using SpruceJS.Core.Script;
 using Xunit;
 
@@ -19,11 +19,11 @@ namespace SpruceJS.Tests.Core
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b" });
 
-			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent("a")).Returns(fileval1);
-			contentLoaderMock.Setup(i => i.GetContent("b")).Returns(fileval2);
+			var fileSystemMock = new Mock<IFileSystem>();
+			fileSystemMock.Setup(i => i.ReadAllText("a")).Returns(fileval1);
+			fileSystemMock.Setup(i => i.ReadAllText("b")).Returns(fileval2);
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -41,11 +41,11 @@ namespace SpruceJS.Tests.Core
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b" });
 
-			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent("a")).Returns(fileval1);
-			contentLoaderMock.Setup(i => i.GetContent("b")).Returns(fileval2);
+			var fileSystemMock = new Mock<IFileSystem>();
+			fileSystemMock.Setup(i => i.ReadAllText("a")).Returns(fileval1);
+			fileSystemMock.Setup(i => i.ReadAllText("b")).Returns(fileval2);
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = true };
 
 			var output = engine.GetOutput();
 
@@ -65,12 +65,12 @@ namespace SpruceJS.Tests.Core
 			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b", "c", "d" });
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "e", "f" });
 
-			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
-			contentLoaderMock.Setup(i => i.GetContent("e")).Returns(fileval1);
-			contentLoaderMock.Setup(i => i.GetContent("f")).Returns(fileval2);
+			var fileSystemMock = new Mock<IFileSystem>();
+			fileSystemMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("");
+			fileSystemMock.Setup(i => i.ReadAllText("e")).Returns(fileval1);
+			fileSystemMock.Setup(i => i.ReadAllText("f")).Returns(fileval2);
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -88,9 +88,9 @@ namespace SpruceJS.Tests.Core
 			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b", "c", "d" });
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "e" });
 
-			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("");
-			contentLoaderMock.Setup(i => i.GetContent("e")).Returns(fileval1);
+			var contentLoaderMock = new Mock<IFileSystem>();
+			contentLoaderMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("");
+			contentLoaderMock.Setup(i => i.ReadAllText("e")).Returns(fileval1);
 
 			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) {
 				Minify = false, 
@@ -108,7 +108,7 @@ namespace SpruceJS.Tests.Core
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
 
-			var contentLoaderMock = new Mock<IContentLoader>();
+			var contentLoaderMock = new Mock<IFileSystem>();
 
 			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) {
 				Minify = true,

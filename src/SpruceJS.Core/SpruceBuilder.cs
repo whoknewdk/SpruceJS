@@ -4,7 +4,7 @@ using System.Linq;
 using SpruceJS.Core.Combiner;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Content;
+using SpruceJS.Core.IO;
 using SpruceJS.Core.Modules;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Script;
@@ -18,7 +18,7 @@ namespace SpruceJS.Core
 
 		protected string filePath;
 		protected IFileConfig fileConfig;
-		protected IContentLoader loader;
+		protected IFileSystem fileSystem;
 
 		public bool Minify { get; set; }
 		public bool ExcludeScript { get; set; }
@@ -29,12 +29,12 @@ namespace SpruceJS.Core
 		{
 			ModuleRootPath = "";
 		}
-		public SpruceBuilder(IFileConfig fileConfig, IContentLoader loader)
+		public SpruceBuilder(IFileConfig fileConfig, IFileSystem fileSystem)
 		{
 			ModuleRootPath = "";
 
 			this.fileConfig = fileConfig;
-			this.loader = loader;
+			this.fileSystem = fileSystem;
 		}
 
 		public void LoadJS(string filePath)
@@ -78,10 +78,10 @@ namespace SpruceJS.Core
 		public CombinerOutput GetOutput()
 		{
 			// Allow for mock
-			if (loader == null)
-				loader = new ContentLoader();
+			if (fileSystem == null)
+				fileSystem = new FileSystem();
 
-			var itemFactory = new ItemFactory(ModuleRootPath, loader);
+			var itemFactory = new ItemFactory(ModuleRootPath, fileSystem);
 			var moduleResolver = new ModuleResolver(ModuleRootPath, itemFactory);
 
 			// Decided combiner strategy

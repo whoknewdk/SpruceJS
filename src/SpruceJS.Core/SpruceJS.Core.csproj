@@ -55,7 +55,7 @@
     <Compile Include="Config\Files\FileConfig.cs" />
     <Compile Include="Config\Files\IFileConfig.cs" />
     <Compile Include="Modules\ExternalItem.cs" />
-    <Compile Include="Content\ContentLoader.cs" />
+    <Compile Include="IO\FileSystem.cs" />
     <Compile Include="Combiner\CombinerOutput.cs" />
     <Compile Include="IBuilder.cs" />
     <Compile Include="Modules\Exceptions\SpruceModuleException.cs" />

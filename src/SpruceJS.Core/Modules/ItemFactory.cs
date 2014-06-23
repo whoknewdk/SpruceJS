@@ -1,7 +1,8 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using SpruceJS.Core.Content;
+using SpruceJS.Core.IO;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Visitor;
 
@@ -12,11 +13,11 @@ namespace SpruceJS.Core.Modules
 		readonly Regex regex = new Regex(Regex.Escape("define("));
 
 		readonly string moduleRootPath;
-		readonly IContentLoader loader;
-		public ItemFactory(string moduleRootPath, IContentLoader loader)
+		readonly IFileSystem fileSystem;
+		public ItemFactory(string moduleRootPath, IFileSystem fileSystem)
 		{
 			this.moduleRootPath = moduleRootPath;
-			this.loader = loader;
+			this.fileSystem = fileSystem;
 		}
 
 		public ModuleItem CreateModule(string filename)
@@ -26,11 +27,16 @@ namespace SpruceJS.Core.Modules
 
 		public ModuleItem CreateModule(string filename, string name)
 		{
-			string content = loader.GetContent(filename);
-
-			// Stop if no file exists
-			if (content == null)
+			string content;
+			try
+			{
+				content = fileSystem.ReadAllText(filename);
+			}
+			catch (FileNotFoundException)
+			{
+				// Stop if no file exists
 				return null;
+			}
 
 			// Read/Analyse file
 			var moduleVisitor = new ModuleVisitor();
@@ -53,11 +59,16 @@ namespace SpruceJS.Core.Modules
 
 		public ExternalItem CreateExternal(string filename)
 		{
-			string content = loader.GetContent(filename);
-
-			// Stop if no file exists
-			if (content == null)
+			string content;
+			try
+			{
+				content = fileSystem.ReadAllText(filename);
+			}
+			catch (FileNotFoundException)
+			{
+				// Stop if no file exists
 				return null;
+			}
 
 			string url = urlPath(filename);
 

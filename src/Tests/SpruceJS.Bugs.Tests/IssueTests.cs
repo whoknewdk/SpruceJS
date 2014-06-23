@@ -2,7 +2,7 @@
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.Content;
+using SpruceJS.Core.IO;
 using Xunit;
 
 namespace SpruceJS.Bugs.Tests
@@ -15,8 +15,8 @@ namespace SpruceJS.Bugs.Tests
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "/main.spruce.js" });
 
-			var contentLoaderMock = new Mock<IContentLoader>();
-			contentLoaderMock.Setup(i => i.GetContent(It.IsAny<String>())).Returns("define(function () {});");
+			var contentLoaderMock = new Mock<IFileSystem>();
+			contentLoaderMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("define(function () {});");
 
 			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
 

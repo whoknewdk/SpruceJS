@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SpruceJS.Core.Content;
 using SpruceJS.Core.Modules;
 using Xunit;
 
