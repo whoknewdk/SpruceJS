@@ -27,22 +27,16 @@ namespace SpruceJS.Core
 
 			foreach (var unfoundDependency in module.Dependencies.Except(keys))
 			{
-				var fileOnDisk = getFullPathForKey(unfoundDependency.Replace("/", "\\") + ".js");
+				// Full path for key
+				var pathOnDisk = Path.Combine(moduleRootPath, unfoundDependency.Replace("/", "\\") + ".js");
 				
-				if (!File.Exists(fileOnDisk))
-					continue;
-				
-				var referencedModule = itemFactory.CreateModule(fileOnDisk, unfoundDependency);
+				// Create module
+				var referencedModule = itemFactory.CreateModule(pathOnDisk, unfoundDependency);
 				if (referencedModule != null)
 					modules.AddRange(fetchModulesOnDisk(referencedModule));
 			}
 
 			return modules;
-		}
-
-		public string getFullPathForKey(string path)
-		{
-			return Path.Combine(moduleRootPath, path);
 		}
 	}
 }

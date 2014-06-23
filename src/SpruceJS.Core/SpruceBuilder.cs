@@ -49,8 +49,9 @@ namespace SpruceJS.Core
 		{
 			setModuleRootPath(configFilePath);
 
+			string content = fileSystem.ReadAllText(Path.GetFullPath(configFilePath));
 			var config = new SpruceConfig();
-			config.Load(configFilePath);
+			config.LoadJson(content);
 
 			// Allow for mock
 			if (fileConfig == null)

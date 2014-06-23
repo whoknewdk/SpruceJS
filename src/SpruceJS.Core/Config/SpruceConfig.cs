@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Web.Script.Serialization;
 
@@ -18,12 +17,6 @@ namespace SpruceJS.Core.Config
 			loadDirectoriesAndFile(json);
 		}
 
-		public void Load(string path)
-		{
-			string content = File.ReadAllText(Path.GetFullPath(path));
-			loadDirectoriesAndFile(content);
-		}
-
 		private void loadDirectoriesAndFile(string json)
 		{
 			var result = serializer.Deserialize<ConfigJson>(json);
@@ -39,5 +32,17 @@ namespace SpruceJS.Core.Config
 	{
 		public string Path;
 		public bool Recursive;
+	}
+
+	internal class ConfigJson
+	{
+		public string[] modules;
+		public string[] externals;
+		public Config config = new Config();
+	}
+
+	internal class Config
+	{
+		public bool includescript = true;
 	}
 }
