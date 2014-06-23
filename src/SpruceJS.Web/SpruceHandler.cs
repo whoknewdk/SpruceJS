@@ -3,7 +3,6 @@ using System.Web;
 using System.Web.SessionState;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Script;
-using SpruceJS.Web.WebConfig;
 
 namespace SpruceJS.Web
 {
@@ -16,14 +15,6 @@ namespace SpruceJS.Web
 			// Response Headers
 			context.Response.ContentType = "text/javascript";
 			context.Response.AppendHeader("X-SourceMap", filePath + ".map");
-			
-			// no-cache
-			if (!SpruceJSConfigurationSection.Instance.Cache)
-			{
-				context.Response.AppendHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1.
-				context.Response.AppendHeader("Pragma", "no-cache"); // HTTP 1.0.
-				context.Response.AppendHeader("Expires", "0"); // Proxies.	
-			}
 			context.Response.Flush();
 
 			// Output SourceMap
@@ -42,9 +33,7 @@ namespace SpruceJS.Web
 
 			try
 			{
-				var builder = new WebSpruceBuilder {
-					Minify = SpruceJSConfigurationSection.Instance.Minify
-				};
+				var builder = new WebSpruceBuilder { Minify = true };
 
 				string actualPath = filePath.Replace(".spruce.js", ".js");
 

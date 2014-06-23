@@ -41,7 +41,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="WebConfig\SpruceJSConfigurationSection.cs" />
     <Compile Include="Utils\NoCacheHttpHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SpruceHandler.cs" />
