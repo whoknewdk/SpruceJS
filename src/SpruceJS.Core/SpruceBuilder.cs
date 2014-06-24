@@ -84,7 +84,7 @@ namespace SpruceJS.Core
 
 			// Included js lib
 			if (!ExcludeScript)
-				combiner.Add(SpruceLib.Body, "spruce-define.js");
+				combiner.Add(SpruceLib.Body, "spruce-define.spruce.js");
 
 			try
 			{

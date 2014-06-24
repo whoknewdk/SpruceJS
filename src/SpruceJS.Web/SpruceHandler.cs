@@ -26,7 +26,7 @@ namespace SpruceJS.Web
 			}
 
 			// Spruce library
-			if (filePath.Contains("spruce-define.js"))
+			if (filePath.Contains("spruce-define.spruce.js"))
 			{
 				context.Response.Write(SpruceLib.Body);
 				return;
