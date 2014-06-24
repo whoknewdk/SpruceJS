@@ -25,10 +25,6 @@ namespace SpruceJS.Core
 
 		public string ModuleRootPath { get; set; }
 
-		public SpruceBuilder()
-		{
-			ModuleRootPath = "";
-		}
 		public SpruceBuilder(IFileConfig fileConfig, IFileSystem fileSystem)
 		{
 			ModuleRootPath = "";

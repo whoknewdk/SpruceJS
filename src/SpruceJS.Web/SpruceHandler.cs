@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Web;
 using System.Web.SessionState;
+using SpruceJS.Core.IO;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Script;
 
@@ -33,7 +34,7 @@ namespace SpruceJS.Web
 
 			try
 			{
-				var builder = new WebSpruceBuilder { Minify = true };
+				var builder = new WebSpruceBuilder(null, new FileSystem()) { Minify = true };
 
 				string actualPath = filePath.Replace(".spruce.js", ".js");
 
