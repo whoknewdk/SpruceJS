@@ -78,7 +78,7 @@
     <Content Include="amd-demo2\Default.htm" />
     <Content Include="amd-demo2\views\main.js" />
     <Content Include="amd-demo2\help\overview.js" />
-    <Content Include="Read Before Publishing.txt" />
+    <None Include="Read Before Publishing.txt" />
     <Content Include="shared\car.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="amd-demo2\demo.spruce.json" />
-    <Content Include="cjs-demo2\demo.spruce.json" />
+    <None Include="cjs-demo2\demo.spruce.json" />
     <None Include="Properties\PublishProfiles\Publish.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -120,11 +120,12 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>49723</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:53732/</IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -137,7 +138,7 @@
   <!-- Please use this in you project -->
   <UsingTask TaskName="PublishSpruce" AssemblyFile="$(SolutionDir)SpruceJS.Build\bin\debug\SpruceJS.Build.dll" />
   <Target Name="PublishSpruceFiles">
-    <PublishSpruce ProjectDir="$(ProjectDir)">
+    <PublishSpruce ProjectDir="$(ProjectDir)" SearchPattern="*.spruce.json">
       <Output TaskParameter="OutputFiles" PropertyName="SpruceFiles" />
     </PublishSpruce>
     <ItemGroup>

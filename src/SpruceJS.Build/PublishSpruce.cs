@@ -11,6 +11,7 @@ namespace SpruceJS.Build
 	public class PublishSpruce : AppDomainIsolatedTask
 	{
 		public string ProjectDir { get; set; }
+		public string SearchPattern { get; set; }
 
 		[Output]
 		public string OutputFiles { get; set; }
@@ -25,24 +26,29 @@ namespace SpruceJS.Build
 			if (Directory.Exists(tempDir))
 				Directory.Delete(tempDir, true);
 
-			foreach (string file in Directory.GetFiles(ProjectDir, "*.spruce.json", SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
+			foreach (var pattern in SearchPattern.Split(';'))
 			{
-				var engine = new SpruceBuilder(null, new FileSystem()) {
-					Minify = true,
-					ModuleRootPath = ProjectDir
-				};
-				engine.LoadConfig(file);
+				foreach (string file in Directory.GetFiles(ProjectDir, pattern, SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
+				{
+					var engine = new SpruceBuilder(null, new FileSystem())
+					{
+						Minify = true,
+						ModuleRootPath = ProjectDir
+					};
+					engine.LoadConfig(file);
 
-				var output = engine.GetOutput();
+					var output = engine.GetOutput();
 
-				string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".json", ".js");
+					string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".json", ".js");
 
-				string completeOutputFile = Path.Combine(tempDir, outputFile);
-				string completeOutputDirectory = Path.GetDirectoryName(completeOutputFile);
+					string completeOutputFile = Path.Combine(tempDir, outputFile);
+					string completeOutputDirectory = Path.GetDirectoryName(completeOutputFile);
 
-				Directory.CreateDirectory(completeOutputDirectory);
+					Directory.CreateDirectory(completeOutputDirectory);
 
-				File.WriteAllText(completeOutputFile, output.JavaScriptBody, Encoding.UTF8);
+					File.WriteAllText(completeOutputFile, output.JavaScriptBody, Encoding.UTF8);
+				}
+				
 			}
 
 			// Expose destionation path
