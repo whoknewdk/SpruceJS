@@ -138,7 +138,7 @@
   <!-- Please use this in you project -->
   <UsingTask TaskName="PublishSpruce" AssemblyFile="$(SolutionDir)SpruceJS.Build\bin\debug\SpruceJS.Build.dll" />
   <Target Name="PublishSpruceFiles">
-    <PublishSpruce ProjectDir="$(ProjectDir)" SearchPattern="*.spruce.json">
+    <PublishSpruce ProjectDir="$(ProjectDir)" SearchPattern="*.spruce.json;main.js">
       <Output TaskParameter="OutputFiles" PropertyName="SpruceFiles" />
     </PublishSpruce>
     <ItemGroup>

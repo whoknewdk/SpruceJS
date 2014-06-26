@@ -28,25 +28,36 @@ namespace SpruceJS.Build
 
 			foreach (var pattern in SearchPattern.Split(';'))
 			{
-				foreach (string file in Directory.GetFiles(ProjectDir, pattern, SearchOption.AllDirectories).Where(x => !x.Contains(@"\obj\")))
+				var files = Directory.GetFiles(ProjectDir, pattern, SearchOption.AllDirectories).Where(path => !path.Contains(@"\obj\"));
+				foreach (string file in files)
 				{
 					var engine = new SpruceBuilder(null, new FileSystem())
 					{
 						Minify = true,
 						ModuleRootPath = ProjectDir
 					};
-					engine.LoadConfig(file);
+
+					var content = File.ReadAllText(file);
+					if (content.Contains("define("))
+						engine.LoadModule(file);
+					else
+						engine.LoadConfig(file);
 
 					var output = engine.GetOutput();
 
-					string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".json", ".js");
+					// Make extension .spruce.js
+					string outputFile = PathUtil.GetPathDifference(ProjectDir, file).Replace(".js", ".spruce.js");
+					outputFile = outputFile.Replace(".spruce.json", ".spruce.js");
 
-					string completeOutputFile = Path.Combine(tempDir, outputFile);
-					string completeOutputDirectory = Path.GetDirectoryName(completeOutputFile);
+					// We need absolute paths
+					string absoluteOutputFile = Path.Combine(tempDir, outputFile);
+					string absoluteOutputDirectory = Path.GetDirectoryName(absoluteOutputFile);
 
-					Directory.CreateDirectory(completeOutputDirectory);
+					// Create output directory
+					Directory.CreateDirectory(absoluteOutputDirectory);
 
-					File.WriteAllText(completeOutputFile, output.JavaScriptBody, Encoding.UTF8);
+					// Write file to disk
+					File.WriteAllText(absoluteOutputFile, output.JavaScriptBody, Encoding.UTF8);
 				}
 				
 			}
