@@ -34,7 +34,7 @@ namespace SpruceJS.Web
 
 			try
 			{
-				var builder = new WebSpruceBuilder(null, new FileSystem()) { Minify = true };
+				var builder = new WebSpruceBuilder(new FileSystem()) { Minify = true };
 
 				string actualPath = filePath.Replace(".spruce.js", ".js");
 

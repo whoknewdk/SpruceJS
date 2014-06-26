@@ -32,6 +32,12 @@ namespace SpruceJS.Core
 			this.fileConfig = fileConfig;
 			this.fileSystem = fileSystem;
 		}
+		public SpruceBuilder(IFileSystem fileSystem)
+		{
+			ModuleRootPath = "";
+
+			this.fileSystem = fileSystem;
+		}
 
 		public void LoadModule(string path)
 		{

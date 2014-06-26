@@ -1,7 +1,6 @@
-﻿using System.Web;
-using SpruceJS.Core;
-using SpruceJS.Core.Config.Files;
+﻿using SpruceJS.Core;
 using SpruceJS.Core.IO;
+using System.Web;
 
 namespace SpruceJS.Web
 {
@@ -9,7 +8,7 @@ namespace SpruceJS.Web
 	{
 		readonly HttpContext context = HttpContext.Current;
 
-		public WebSpruceBuilder(IFileConfig fileConfig, IFileSystem fileSystem) : base(fileConfig, fileSystem)
+		public WebSpruceBuilder(IFileSystem fileSystem) : base(fileSystem)
 		{
 			ModuleRootPath = context.Request.PhysicalApplicationPath;
 		}

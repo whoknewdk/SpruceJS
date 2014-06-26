@@ -31,7 +31,7 @@ namespace SpruceJS.Build
 				var files = Directory.GetFiles(ProjectDir, pattern, SearchOption.AllDirectories).Where(path => !path.Contains(@"\obj\"));
 				foreach (string file in files)
 				{
-					var engine = new SpruceBuilder(null, new FileSystem())
+					var engine = new SpruceBuilder(new FileSystem())
 					{
 						Minify = true,
 						ModuleRootPath = ProjectDir
