@@ -20,7 +20,7 @@ SpruceJS supports the following module signatures.
 * [CommonJS style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
 * [AMD style](https://github.com/whoknewdk/SpruceJS/wiki/Module-signature)
 
-The basic way of using SpruceJS is a single JavaScript module as entry point.
+The basic way of using SpruceJS is with a single JavaScript module as entry point.
 
 **app.html**
 ```xml
@@ -48,12 +48,35 @@ define(function (require, exports) {
 });
 ```
 
-Advanced setup using Config file entry allows you to
+For more advanved usage a configuration file can be used. This allows you to
 
 * Specify multiple module entry points
 * Include non module JavaScript files
-* Exclude files
-* Configure minification, caching and more
+
+
+**app.html**
+```xml
+<html>
+	<body>
+		<p id="msg"></p>
+		<script src="hello.spruce.js"></script>
+	</body>
+</html>
+```
+
+**hello.spruce.json**
+```javascript
+{
+    modules: [
+        "/example1/*.js",
+        "/example2/one.js"
+    ],
+
+    externals: [
+        "/libs/mylib.js"
+    ]
+}
+```
 
 
 Setup
