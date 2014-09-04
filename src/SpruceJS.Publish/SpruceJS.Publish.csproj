@@ -7,8 +7,8 @@
     <ProjectGuid>{6CDC9AE3-6468-4291-B61D-23DAA2A71789}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SpruceJS.Build</RootNamespace>
-    <AssemblyName>SpruceJS.Build</AssemblyName>
+    <RootNamespace>SpruceJS.Publish</RootNamespace>
+    <AssemblyName>SpruceJS.Publish</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

@@ -1,4 +1,4 @@
-﻿using SpruceJS.Build;
+﻿using SpruceJS.Publish;
 using Xunit;
 
 namespace SpruceJS.Tests.Build

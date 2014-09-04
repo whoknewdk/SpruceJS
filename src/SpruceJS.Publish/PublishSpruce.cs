@@ -6,7 +6,7 @@ using Microsoft.Build.Utilities;
 using SpruceJS.Core;
 using SpruceJS.Core.IO;
 
-namespace SpruceJS.Build
+namespace SpruceJS.Publish
 {
 	public class PublishSpruce : AppDomainIsolatedTask
 	{

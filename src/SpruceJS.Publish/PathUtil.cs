@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace SpruceJS.Build
+namespace SpruceJS.Publish
 {
 	internal static class PathUtil
 	{
