@@ -50,7 +50,7 @@ define(function (require, exports) {
 });
 ```
 
-For more advanved usage a configuration file can be used. This allows you to
+For more advanced usage a configuration file can be used. This allows you to
 
 * Specify multiple module entry points
 * Include non module JavaScript files
