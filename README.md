@@ -1,4 +1,4 @@
-SpruceJS
+SpruceJS (Beta)
 ========
 SpruceJS is a JavaScript module assembler for ASP.NET. It will assemble your source files, resolve dependencies, minify the result and generate corresponding source maps.
 
@@ -109,8 +109,10 @@ Documentation
 
 Copyright
 =========
-Copyright (c) 2013 Jacob T. Nielsen.
+Copyright (c) 2014 Jacob T. Nielsen.
 
 License
 =======
 SpruceJS is free software, distributed under the MIT License.
+
+![Build status](https://ci.appveyor.com/api/projects/status/github/whoknewdk/sprucejs?branch=master&svg=true)
