@@ -98,16 +98,6 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\SpruceJS.Core\SpruceJS.Core.csproj">
-      <Project>{53cbc47f-f9ca-4f55-ae3a-37d463e8a5b4}</Project>
-      <Name>SpruceJS.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\src\SpruceJS.Web\SpruceJS.Web.csproj">
-      <Project>{701de11a-2be8-4107-993a-e0627affec6d}</Project>
-      <Name>SpruceJS.Web</Name>
-    </ProjectReference>
-  </ItemGroup>
   <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

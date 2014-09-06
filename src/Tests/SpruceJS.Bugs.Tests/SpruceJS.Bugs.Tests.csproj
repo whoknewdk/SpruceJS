@@ -58,13 +58,9 @@
     <Compile Include="IssueTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SpruceJS.Core\SpruceJS.Core.csproj">
-      <Project>{53cbc47f-f9ca-4f55-ae3a-37d463e8a5b4}</Project>
-      <Name>SpruceJS.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\SpruceJS.Web\SpruceJS.Web.csproj">
-      <Project>{701de11a-2be8-4107-993a-e0627affec6d}</Project>
-      <Name>SpruceJS.Web</Name>
+    <ProjectReference Include="..\..\SpruceJS\SpruceJS.csproj">
+      <Project>{cea2c5e2-23d4-4a34-b1c5-46daa2f3cd5a}</Project>
+      <Name>SpruceJS</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

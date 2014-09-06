@@ -1,4 +1,4 @@
-﻿/// <reference path="../../../SpruceJS.Core/Script/spruce-define.js"/>
+﻿/// <reference path="../../../SpruceJS/Core/Script/spruce-define.js"/>
 
 describe('define amd', function() {
 	it('can define object', function () {
