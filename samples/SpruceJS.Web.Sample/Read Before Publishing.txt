@@ -5,8 +5,8 @@ Should you choose to publish this Project you will have to manually run the foll
 "taskkill /im msbuild.exe /f /t"
 
 Why?
-This sample project uses the MSBuild Task defined in SpruceJS.Build. When MSBuild loads this dll into memory it will NOT release it again until killed.
+This sample project uses the MSBuild Task defined in SpruceJS.Publish. When MSBuild loads this dll into memory it will NOT release it again until killed.
 This means you will not be able to build SpruceJS.Build as long as MSBuild.exe is running!
 
-Note: this issue is only a problem for this solution since SpruceJS.Build a work item. 
+Note: this issue is only a problem for this solution since SpruceJS.Publish a work item. 
 When using the release DLL everything will be working fine.
