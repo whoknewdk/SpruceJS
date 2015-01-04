@@ -30,7 +30,7 @@ namespace SpruceJS.Core.Combiner
 						TermSemicolons = true
 					};
 
-					sourcemap.StartPackage("test.js", "test.js" + ".map");
+					sourcemap.StartPackage("test.js", "");
 
 					var minifier = new Minifier();
 

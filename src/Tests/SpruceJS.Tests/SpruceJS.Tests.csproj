@@ -36,9 +36,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin, Version=5.1.5007.23725, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\lib\Microsoft Ajax Minifier 5.10\AjaxMin.dll</HintPath>
+    <Reference Include="AjaxMin">
+      <HintPath>..\..\packages\AjaxMin.5.13.5463.15282\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
     <Reference Include="Moq">
       <HintPath>..\..\..\lib\Moq.4.0.10827\NET40\Moq.dll</HintPath>

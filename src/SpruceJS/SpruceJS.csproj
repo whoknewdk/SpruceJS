@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxMin">
-      <HintPath>..\..\lib\Microsoft Ajax Minifier 5.10\AjaxMin.dll</HintPath>
+      <HintPath>..\packages\AjaxMin.5.13.5463.15282\lib\net40\AjaxMin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -76,6 +76,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Core\Script\spruce-define.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
