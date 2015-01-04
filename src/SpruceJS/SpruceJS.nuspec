@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SpruceJS</id>
+    <version>0.1.0-alpha</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/whoknewdk/SpruceJS/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/whoknewdk/SpruceJS</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial alpha release.</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>JavaScript ASP.NET</tags>
+  </metadata>
+  <files>
+	<file src="bin\Debug\*.dll" target="lib\net40" />
+	<file src="bin\Debug\*.pdb" target="lib\net40" />
+  </files>
+</package>

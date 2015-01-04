@@ -1,0 +1,7 @@
+<configuration>
+	<system.webServer>
+		<handlers>
+			<add name="SpruceJS" verb="*" path="*.spruce.js*" type="SpruceJS.Web.SpruceHandler,SpruceJS" />
+		</handlers>
+	</system.webServer>
+</configuration>
