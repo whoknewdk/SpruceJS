@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>SpruceJS</id>
-    <version>0.1.0-alpha</version>
+    <version>0.1.1-beta</version>
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
@@ -10,12 +10,12 @@
     <projectUrl>https://github.com/whoknewdk/SpruceJS</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial alpha release.</releaseNotes>
+    <releaseNotes>Initial beta release.</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>JavaScript ASP.NET</tags>
   </metadata>
   <files>
-	<file src="bin\Debug\*.dll" target="lib\net40" />
-	<file src="bin\Debug\*.pdb" target="lib\net40" />
+	<file src="bin\Debug\AjaxMin.dll" target="lib\net45" />
+	<file src="web.config.transform" target="content" />
   </files>
 </package>
