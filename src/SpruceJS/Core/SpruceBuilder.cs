@@ -48,11 +48,13 @@ namespace SpruceJS.Core
 		// Single file entry constructor
 		public void LoadConfig(string path)
 		{
-			setModuleRootPath(path);
-
 			string content = fileSystem.ReadAllText(Path.GetFullPath(path));
 			var config = new SpruceConfig();
 			config.LoadJson(content);
+
+			ModuleRootPath += config.BasePath;
+
+			setModuleRootPath(path);
 
 			// Allow for mock
 			if (fileConfig == null)
@@ -73,7 +75,7 @@ namespace SpruceJS.Core
 
 			// Try to locate referenced modules on disk
 			if (module != null)
-				modules.AddRange(moduleResolver.fetchModulesOnDisk(module));
+				modules.AddRange(moduleResolver.FetchModulesOnDisk(module));
 		}
 
 		public CombinerOutput GetOutput()

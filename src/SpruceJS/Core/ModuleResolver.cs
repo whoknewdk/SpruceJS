@@ -17,7 +17,7 @@ namespace SpruceJS.Core
 			this.itemFactory = itemFactory;
 		}
 
-		public IEnumerable<ModuleItem> fetchModulesOnDisk(ModuleItem module)
+		public IEnumerable<ModuleItem> FetchModulesOnDisk(ModuleItem module)
 		{
 			var modules = new List<ModuleItem>();
 
@@ -33,7 +33,7 @@ namespace SpruceJS.Core
 				// Create module
 				var referencedModule = itemFactory.CreateModule(pathOnDisk, unfoundDependency);
 				if (referencedModule != null)
-					modules.AddRange(fetchModulesOnDisk(referencedModule));
+					modules.AddRange(FetchModulesOnDisk(referencedModule));
 			}
 
 			return modules;

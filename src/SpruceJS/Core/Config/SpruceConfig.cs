@@ -9,6 +9,7 @@ namespace SpruceJS.Core.Config
 		public IEnumerable<ConfigElement> Externals { get; private set; }
 		public IEnumerable<ConfigElement> Modules { get; private set; }
 		public bool IncludeScript { get; private set; } 
+		public string BasePath { get; private set; } 
 
 		readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -21,10 +22,11 @@ namespace SpruceJS.Core.Config
 		{
 			var result = serializer.Deserialize<ConfigJson>(json);
 
-			Modules = (result.modules ?? new string[0]).Select(x => new ConfigElement { Path = x, Recursive = x.Contains("**/*") });
-			Externals = (result.externals ?? new string[0]).Select(x => new ConfigElement { Path = x });
+			Modules = (result.modules ?? new string[0]).Select(x => new ConfigElement { Path = x.Replace("**/", ""), Recursive = x.Contains("**/*") });
+			Externals = (result.externals ?? new string[0]).Select(x => new ConfigElement { Path = x.Replace("**/", ""), Recursive = x.Contains("**/*") });
 
 			IncludeScript = result.config.includescript;
+			BasePath = result.config.basepath;
 		}
 	}
 
@@ -44,5 +46,6 @@ namespace SpruceJS.Core.Config
 	internal class Config
 	{
 		public bool includescript = true;
+		public string basepath = "";
 	}
 }
