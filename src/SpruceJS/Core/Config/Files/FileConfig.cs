@@ -30,19 +30,11 @@ namespace SpruceJS.Core.Config.Files
 				string fullPath = getFullPath(pathForFileSystem);
 				var option = data.Recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
 
-				if (Directory.Exists(fullPath))
-				{
-					string[] filePaths = Directory.GetFiles(fullPath, "*", option);
-					list.AddRange(filePaths);
-				}
-				else
-				{
-					string directoryName = Path.GetDirectoryName(fullPath);
-					string fileName = Path.GetFileName(fullPath);
+				string directoryName = Path.GetDirectoryName(fullPath);
+				string fileName = Path.GetFileName(fullPath);
 
-					string[] filePaths = Directory.GetFiles(directoryName, fileName, option);
-					list.AddRange(filePaths);
-				}
+				string[] filePaths = Directory.GetFiles(directoryName, fileName, option);
+				list.AddRange(filePaths);
 			}
 		}
 
