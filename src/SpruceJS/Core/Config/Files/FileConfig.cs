@@ -6,10 +6,10 @@ namespace SpruceJS.Core.Config.Files
 	public class FileConfig : IFileConfig
 	{
 		readonly List<string> files = new List<string>();
-		readonly List<string> externals = new List<string>();
+		readonly List<string> scripts = new List<string>();
 
 		public IEnumerable<string> Files { get { return files; } }
-		public IEnumerable<string> Externals { get { return externals; } }
+		public IEnumerable<string> Scripts { get { return scripts; } }
 
 		private readonly string projectDirectoryPath, configFilePath;
 
@@ -18,7 +18,7 @@ namespace SpruceJS.Core.Config.Files
 			this.projectDirectoryPath = projectDirectoryPath;
 			this.configFilePath = configFilePath;
 
-			populateFiles(appConfig.Externals, externals);
+			populateFiles(appConfig.Scripts, scripts);
 			populateFiles(appConfig.Modules, files);
 		}
 

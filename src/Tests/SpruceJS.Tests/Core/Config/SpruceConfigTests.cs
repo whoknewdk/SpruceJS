@@ -24,10 +24,10 @@ namespace SpruceJS.Tests.Core.Config
 		}
 
 		[Fact]
-		public void CanReadExternals()
+		public void CanReadScripts()
 		{
 			string json = @"{
-								externals: [ 
+								scripts: [ 
 									'abc.js',
 									'def.js',
 									'/**/*.js'
@@ -37,7 +37,7 @@ namespace SpruceJS.Tests.Core.Config
 			var appconfig = new SpruceConfig();
 			appconfig.LoadJson(json);
 
-			Assert.Equal(3, appconfig.Externals.Count());
+			Assert.Equal(3, appconfig.Scripts.Count());
 		}
 
 		[Fact]
@@ -78,7 +78,7 @@ namespace SpruceJS.Tests.Core.Config
 			var config = new SpruceConfig();
 			config.LoadJson(@"{
 
-								externals: [
+								scripts: [
 									'/libs/mylib.js'
 								],
 
@@ -91,10 +91,10 @@ namespace SpruceJS.Tests.Core.Config
 
 							}");
 
-			Assert.Equal(1, config.Externals.Count());
+			Assert.Equal(1, config.Scripts.Count());
 			Assert.Equal(4, config.Modules.Count());
 
-			Assert.Equal("/libs/mylib.js", config.Externals.ElementAt(0).Path);
+			Assert.Equal("/libs/mylib.js", config.Scripts.ElementAt(0).Path);
 			Assert.Equal("/shared/models/main.js", config.Modules.ElementAt(0).Path);
 			Assert.Equal("/shared/models/*.js", config.Modules.ElementAt(1).Path);
 			Assert.Equal("/shared/models/", config.Modules.ElementAt(2).Path);

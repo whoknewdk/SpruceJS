@@ -98,8 +98,8 @@ namespace SpruceJS.Core
 			{
 				if (fileConfig != null)
 				{
-					// Add externals
-					foreach (var externalFile in fileConfig.Externals)
+					// Add scripts
+					foreach (var externalFile in fileConfig.Scripts)
 					{
 						var external = itemFactory.CreateExternal(externalFile);
 						combiner.Add(external.Content, external.Url);

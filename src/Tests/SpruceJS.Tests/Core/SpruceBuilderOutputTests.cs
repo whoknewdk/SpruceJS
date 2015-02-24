@@ -11,13 +11,13 @@ namespace SpruceJS.Tests.Core
 	public class SpruceBuilderOutputTests
 	{
 		[Fact]
-		public void OutputContainsExternals()
+		public void OutputContainsScripts()
 		{
 			const string fileval1 = "var enginetests1 = 123;";
 			const string fileval2 = "var enginetests2 = 456;";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b" });
 
 			var fileSystemMock = new Mock<IFileSystem>();
 			fileSystemMock.Setup(i => i.ReadAllText("a")).Returns(fileval1);
@@ -33,13 +33,13 @@ namespace SpruceJS.Tests.Core
 		}
 
 		[Fact]
-		public void OutputContainsMinifiedExternals()
+		public void OutputContainsMinifiedScripts()
 		{
 			const string fileval1 = "var enginetests1 = 123;";
 			const string fileval2 = "var enginetests2 = 456;";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b" });
 
 			var fileSystemMock = new Mock<IFileSystem>();
 			fileSystemMock.Setup(i => i.ReadAllText("a")).Returns(fileval1);
@@ -62,7 +62,7 @@ namespace SpruceJS.Tests.Core
 			const string fileval2 = "define('f', function () { var enginetests2 = 456; });";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b", "c", "d" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b", "c", "d" });
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "e", "f" });
 
 			var fileSystemMock = new Mock<IFileSystem>();
@@ -85,7 +85,7 @@ namespace SpruceJS.Tests.Core
 			const string fileval1 = "define('e', function () { var enginetests1 = 123; });";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Externals).Returns(new[] { "a", "b", "c", "d" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b", "c", "d" });
 			fileconfigMock.Setup(i => i.Files).Returns(new[] { "e" });
 
 			var contentLoaderMock = new Mock<IFileSystem>();
