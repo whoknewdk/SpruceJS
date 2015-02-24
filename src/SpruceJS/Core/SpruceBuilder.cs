@@ -106,7 +106,7 @@ namespace SpruceJS.Core
 					}
 
 					// Add files
-					foreach (var filepath in fileConfig.Files)
+					foreach (var filepath in fileConfig.Modules)
 						addModules(filepath, itemFactory, moduleResolver);
 				}
 				else

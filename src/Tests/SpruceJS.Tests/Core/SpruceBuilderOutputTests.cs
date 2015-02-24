@@ -63,7 +63,7 @@ namespace SpruceJS.Tests.Core
 
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b", "c", "d" });
-			fileconfigMock.Setup(i => i.Files).Returns(new[] { "e", "f" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "e", "f" });
 
 			var fileSystemMock = new Mock<IFileSystem>();
 			fileSystemMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("");
@@ -86,7 +86,7 @@ namespace SpruceJS.Tests.Core
 
 			var fileconfigMock = new Mock<IFileConfig>();
 			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b", "c", "d" });
-			fileconfigMock.Setup(i => i.Files).Returns(new[] { "e" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "e" });
 
 			var contentLoaderMock = new Mock<IFileSystem>();
 			contentLoaderMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("");

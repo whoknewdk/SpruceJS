@@ -4,7 +4,7 @@ namespace SpruceJS.Core.Config.Files
 {
 	public interface IFileConfig
 	{
-		IEnumerable<string> Files { get; }
+		IEnumerable<string> Modules { get; }
 		IEnumerable<string> Scripts { get; }
 	}
 }

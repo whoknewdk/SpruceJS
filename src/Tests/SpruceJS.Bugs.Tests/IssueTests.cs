@@ -13,7 +13,7 @@ namespace SpruceJS.Bugs.Tests
 		public void ModuleNameShouldStripSpruceJsExtension()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Files).Returns(new[] { "/main.spruce.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "/main.spruce.js" });
 
 			var contentLoaderMock = new Mock<IFileSystem>();
 			contentLoaderMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("define(function () {});");
