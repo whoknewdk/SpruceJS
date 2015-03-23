@@ -35,6 +35,9 @@ namespace SpruceJS.Core.Modules
 			var filename = Directory.EnumerateFiles(path, Path.GetFileNameWithoutExtension(file) + ".*", SearchOption.TopDirectoryOnly)
 						.FirstOrDefault(s => extensions.Contains(Path.GetExtension(s)));
 
+			if (filename == null)
+				return null;
+
 			string content;
 			try
 			{
