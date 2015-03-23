@@ -22,6 +22,7 @@ namespace SpruceJS.Core
 
 		public bool Minify { get; set; }
 		public bool ExcludeScript { get; set; }
+		public string[] Extensions { get; set; }
 
 		public string ModuleRootPath { get; set; }
 
@@ -61,6 +62,7 @@ namespace SpruceJS.Core
 				fileConfig = new FileConfig(config, ModuleRootPath, path);
 
 			ExcludeScript = !config.IncludeScript;
+			Extensions = config.Extensions.Union(new [] { ".js" }).ToArray();
 		}
 
 		private void setModuleRootPath(string file)
@@ -84,7 +86,7 @@ namespace SpruceJS.Core
 			if (fileSystem == null)
 				fileSystem = new FileSystem();
 
-			var itemFactory = new ItemFactory(ModuleRootPath, fileSystem);
+			var itemFactory = new ItemFactory(ModuleRootPath, fileSystem, Extensions);
 			var moduleResolver = new ModuleResolver(ModuleRootPath, itemFactory);
 
 			// Decided combiner strategy

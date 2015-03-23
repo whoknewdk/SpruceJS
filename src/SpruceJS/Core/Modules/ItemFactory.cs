@@ -14,10 +14,12 @@ namespace SpruceJS.Core.Modules
 
 		readonly string moduleRootPath;
 		readonly IFileSystem fileSystem;
-		public ItemFactory(string moduleRootPath, IFileSystem fileSystem)
+		readonly string[] extensions;
+		public ItemFactory(string moduleRootPath, IFileSystem fileSystem, string[] extensions)
 		{
 			this.moduleRootPath = moduleRootPath;
 			this.fileSystem = fileSystem;
+			this.extensions = extensions;
 		}
 
 		public ModuleItem CreateModule(string filename)
@@ -25,8 +27,14 @@ namespace SpruceJS.Core.Modules
 			return CreateModule(filename, trimToName(urlPath(filename)));
 		}
 
-		public ModuleItem CreateModule(string filename, string name)
+
+
+		public ModuleItem CreateModule(string file, string name)
 		{
+			var path = Path.GetDirectoryName(file);
+			var filename = Directory.EnumerateFiles(path, Path.GetFileNameWithoutExtension(file) + ".*", SearchOption.TopDirectoryOnly)
+						.FirstOrDefault(s => extensions.Contains(Path.GetExtension(s)));
+
 			string content;
 			try
 			{

@@ -9,7 +9,8 @@ namespace SpruceJS.Core.Config
 		public IEnumerable<ConfigElement> Scripts { get; private set; }
 		public IEnumerable<ConfigElement> Modules { get; private set; }
 		public bool IncludeScript { get; private set; } 
-		public string BasePath { get; private set; } 
+		public string BasePath { get; private set; }
+		public string[] Extensions { get; private set; }
 
 		readonly JavaScriptSerializer serializer = new JavaScriptSerializer();
 
@@ -27,6 +28,7 @@ namespace SpruceJS.Core.Config
 
 			IncludeScript = result.config.includescript;
 			BasePath = result.config.basepath;
+			Extensions = result.config.extensions;
 		}
 	}
 
@@ -47,5 +49,6 @@ namespace SpruceJS.Core.Config
 	{
 		public bool includescript = true;
 		public string basepath = "";
+		public string[] extensions = new string[0];
 	}
 }
