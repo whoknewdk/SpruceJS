@@ -27,21 +27,16 @@ namespace SpruceJS.Core.Modules
 			return CreateModule(filename, trimToName(urlPath(filename)));
 		}
 
-
-
-		public ModuleItem CreateModule(string file, string name)
+		public ModuleItem CreateModule(string filename, string name)
 		{
-			var path = Path.GetDirectoryName(file);
-			var filename = Directory.EnumerateFiles(path, Path.GetFileNameWithoutExtension(file) + ".*", SearchOption.TopDirectoryOnly)
+			var path = Path.GetDirectoryName(filename);
+			var fileOnDisk = Directory.EnumerateFiles(path, Path.GetFileNameWithoutExtension(filename) + ".*", SearchOption.TopDirectoryOnly)
 						.FirstOrDefault(s => extensions.Contains(Path.GetExtension(s)));
-
-			if (filename == null)
-				return null;
 
 			string content;
 			try
 			{
-				content = fileSystem.ReadAllText(filename);
+				content = fileSystem.ReadAllText(fileOnDisk);
 			}
 			catch (FileNotFoundException)
 			{

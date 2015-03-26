@@ -26,16 +26,14 @@ namespace SpruceJS.Core
 
 		public string ModuleRootPath { get; set; }
 
-		public SpruceBuilder(IFileConfig fileConfig, IFileSystem fileSystem)
+		public SpruceBuilder(IFileConfig fileConfig, IFileSystem fileSystem) : this(fileSystem)
 		{
-			ModuleRootPath = "";
-
 			this.fileConfig = fileConfig;
-			this.fileSystem = fileSystem;
 		}
 		public SpruceBuilder(IFileSystem fileSystem)
 		{
 			ModuleRootPath = "";
+			Extensions = new [] { ".js" };
 
 			this.fileSystem = fileSystem;
 		}
@@ -62,7 +60,7 @@ namespace SpruceJS.Core
 				fileConfig = new FileConfig(config, ModuleRootPath, path);
 
 			ExcludeScript = !config.IncludeScript;
-			Extensions = config.Extensions.Union(new [] { ".js" }).ToArray();
+			Extensions = Extensions.Union(config.Extensions).ToArray();
 		}
 
 		private void setModuleRootPath(string file)
