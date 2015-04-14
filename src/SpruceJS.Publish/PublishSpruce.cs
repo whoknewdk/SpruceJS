@@ -1,10 +1,10 @@
 ﻿using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Text;
 using Microsoft.Build.Framework;
 using Microsoft.Build.Utilities;
 using SpruceJS.Core;
-using SpruceJS.Core.IO;
 
 namespace SpruceJS.Publish
 {

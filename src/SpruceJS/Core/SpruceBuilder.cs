@@ -1,10 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using SpruceJS.Core.Combiner;
 using SpruceJS.Core.Config;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.IO;
 using SpruceJS.Core.Modules;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Script;
@@ -47,7 +47,7 @@ namespace SpruceJS.Core
 		// Single file entry constructor
 		public void LoadConfig(string path)
 		{
-			string content = fileSystem.ReadAllText(Path.GetFullPath(path));
+			string content = fileSystem.File.ReadAllText(Path.GetFullPath(path));
 			var config = new SpruceConfig();
 			config.LoadJson(content);
 

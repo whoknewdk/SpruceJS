@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.IO.Abstractions;
 using System.Linq;
 using System.Text.RegularExpressions;
-using SpruceJS.Core.IO;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Visitor;
 
@@ -29,14 +29,14 @@ namespace SpruceJS.Core.Modules
 
 		public ModuleItem CreateModule(string filename, string name)
 		{
-			var path = Path.GetDirectoryName(filename);
-			var fileOnDisk = Directory.EnumerateFiles(path, Path.GetFileNameWithoutExtension(filename) + ".*", SearchOption.TopDirectoryOnly)
+			var path = fileSystem.Path.GetDirectoryName(filename);
+			var fileOnDisk = fileSystem.Directory.EnumerateFiles(path, Path.GetFileNameWithoutExtension(filename) + ".*", SearchOption.TopDirectoryOnly)
 						.FirstOrDefault(s => extensions.Contains(Path.GetExtension(s)));
-
+						
 			string content;
 			try
 			{
-				content = fileSystem.ReadAllText(fileOnDisk);
+				content = fileSystem.File.ReadAllText(fileOnDisk);
 			}
 			catch (FileNotFoundException)
 			{
@@ -68,7 +68,7 @@ namespace SpruceJS.Core.Modules
 			string content;
 			try
 			{
-				content = fileSystem.ReadAllText(filename);
+				content = fileSystem.File.ReadAllText(filename);
 			}
 			catch (FileNotFoundException)
 			{

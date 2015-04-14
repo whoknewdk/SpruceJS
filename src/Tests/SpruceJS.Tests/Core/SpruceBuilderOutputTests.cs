@@ -1,8 +1,8 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.IO.Abstractions.TestingHelpers;
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.IO;
 using SpruceJS.Core.Script;
 using Xunit;
 
@@ -17,13 +17,14 @@ namespace SpruceJS.Tests.Core
 			const string fileval2 = "var enginetests2 = 456;";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a")).Returns(fileval1);
-			fileSystemMock.Setup(i => i.ReadAllText("b")).Returns(fileval2);
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData(fileval1) },
+				{ @"c:\b.js", new MockFileData(fileval2) }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -39,13 +40,14 @@ namespace SpruceJS.Tests.Core
 			const string fileval2 = "var enginetests2 = 456;";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a")).Returns(fileval1);
-			fileSystemMock.Setup(i => i.ReadAllText("b")).Returns(fileval2);
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData(fileval1) },
+				{ @"c:\b.js", new MockFileData(fileval2) }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = true };
 
 			var output = engine.GetOutput();
 
@@ -62,15 +64,15 @@ namespace SpruceJS.Tests.Core
 			const string fileval2 = "define('f', function () { var enginetests2 = 456; });";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b", "c", "d" });
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "e", "f" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { @"c:\a.js", @"c:\b.js", @"c:\c.js", @"c:\d.js" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { @"c:\e.js", @"c:\f.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("");
-			fileSystemMock.Setup(i => i.ReadAllText("e")).Returns(fileval1);
-			fileSystemMock.Setup(i => i.ReadAllText("f")).Returns(fileval2);
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\e.js", new MockFileData(fileval1) },
+				{ @"c:\f.js", new MockFileData(fileval2) }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = false };
 
 			var output = engine.GetOutput();
 
@@ -85,15 +87,16 @@ namespace SpruceJS.Tests.Core
 			const string fileval1 = "define('e', function () { var enginetests1 = 123; });";
 
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { "a", "b", "c", "d" });
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "e" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { @"c:\a.js", @"c:\b.js", @"c:\c.js", @"c:\d.js" });
+			fileconfigMock.Setup(i => i.Scripts).Returns(new[] { @"c:\e.js" });
 
-			var contentLoaderMock = new Mock<IFileSystem>();
-			contentLoaderMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("");
-			contentLoaderMock.Setup(i => i.ReadAllText("e")).Returns(fileval1);
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\e.js", new MockFileData(fileval1) }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) {
-				Minify = false, 
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem)
+			{
+				Minify = false,
 				ExcludeScript = true
 			};
 
@@ -108,9 +111,10 @@ namespace SpruceJS.Tests.Core
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
 
-			var contentLoaderMock = new Mock<IFileSystem>();
+			var fileSystem = new MockFileSystem();
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) {
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem)
+			{
 				Minify = true,
 				ExcludeScript = true
 			};

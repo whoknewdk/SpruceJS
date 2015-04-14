@@ -1,8 +1,8 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO.Abstractions.TestingHelpers;
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.IO;
 using SpruceJS.Core.Modules.Exceptions;
 using Xunit;
 
@@ -14,14 +14,15 @@ namespace SpruceJS.Tests.Core
 		public void OutputThrowsModuleKeyDoesNotExistException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define('b', function () { var enginetests2 = 456; });");
-			fileSystemMock.Setup(i => i.ReadAllText("c.js")).Throws<FileNotFoundException>();
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define('a', ['c'], function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define('b', function () { var enginetests2 = 456; });") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = false };
+			engine.LoadModule(@"c:\a.js");
 
 			Assert.Throws<ModuleKeyDoesNotExistException>(
 				() => { engine.GetOutput(); }
@@ -32,14 +33,15 @@ namespace SpruceJS.Tests.Core
 		public void MinifiedOutputThrowsModuleKeyDoesNotExistException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define('b', function () { var enginetests2 = 456; });");
-			fileSystemMock.Setup(i => i.ReadAllText("c.js")).Throws<FileNotFoundException>();
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define('a', ['c'], function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define('b', function () { var enginetests2 = 456; });") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = true };
+			engine.LoadModule(@"c:\a.js");
 
 			Assert.Throws<ModuleKeyDoesNotExistException>(
 				() => { engine.GetOutput(); }
@@ -50,13 +52,15 @@ namespace SpruceJS.Tests.Core
 		public void OutputThrowsModuleKeyNotUniqueException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define('a', function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define('a', function () { var enginetests2 = 456; });");
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define('a', function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define('a', function () { var enginetests2 = 456; });") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = false };
+			engine.LoadModule(@"c:\a.js");
 
 			Assert.Throws<ModuleKeyNotUniqueException>(
 				() => { engine.GetOutput(); }
@@ -67,14 +71,15 @@ namespace SpruceJS.Tests.Core
 		public void MinifiedOutputThrowsModuleKeyNotUniqueException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define('a', ['c'], function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define('a', function () { var enginetests2 = 456; });");
-			fileSystemMock.Setup(i => i.ReadAllText("c.js")).Throws<FileNotFoundException>();
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define('a', ['c'], function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define('a', function () { var enginetests2 = 456; });") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = true };
+			engine.LoadModule(@"c:\a.js");
 
 			Assert.Throws<ModuleKeyNotUniqueException>(
 				() => { engine.GetOutput(); }
@@ -85,13 +90,15 @@ namespace SpruceJS.Tests.Core
 		public void OutputThrowsModuleKeyCircularReferenceException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define('a', ['b'], function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define('b', ['a'], function () { var enginetests2 = 456; });");
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define('a', ['b'], function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define('b', ['a'], function () { var enginetests2 = 456; });") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = false };
+			engine.LoadModule(@"c:\a.js");
 
 			Assert.Throws<ModuleKeyCircularReferenceException>(
 				() => { engine.GetOutput(); }
@@ -102,13 +109,15 @@ namespace SpruceJS.Tests.Core
 		public void MinifiedOutputModuleKeyCircularReferenceException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define('a', ['b'], function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define('b', ['a'], function () { var enginetests2 = 456; });");
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define('a', ['b'], function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define('b', ['a'], function () { var enginetests2 = 456; });") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = true };
+			engine.LoadModule(@"c:\a.js");
 
 			Assert.Throws<ModuleKeyCircularReferenceException>(
 				() => { engine.GetOutput(); }
@@ -119,19 +128,17 @@ namespace SpruceJS.Tests.Core
 		public void NamelessModulesNotThrowsException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define(function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define([], function () { var enginetests2 = 456; });");
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define(function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define([], function () { var enginetests2 = 456; });") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = true };
 
 			Assert.DoesNotThrow(
-				() =>
-					{
-						engine.GetOutput();
-					}
+				() => { engine.GetOutput(); }
 			);
 		}
 
@@ -139,13 +146,14 @@ namespace SpruceJS.Tests.Core
 		public void OutputThrowsNotValidModuleException()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "a.js", "b.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\a.js", @"c:\b.js" });
 
-			var fileSystemMock = new Mock<IFileSystem>();
-			fileSystemMock.Setup(i => i.ReadAllText("a.js")).Returns("define(function () { var enginetests1 = 123; });");
-			fileSystemMock.Setup(i => i.ReadAllText("b.js")).Returns("define();");
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\a.js", new MockFileData("define(function () { var enginetests1 = 123; });") },
+				{ @"c:\b.js", new MockFileData("define();") }
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystemMock.Object) { Minify = true };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = true };
 
 			Assert.Throws<ModuleNotValidException>(
 				() => { engine.GetOutput(); }

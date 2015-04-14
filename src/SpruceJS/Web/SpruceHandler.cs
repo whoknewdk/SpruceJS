@@ -1,7 +1,7 @@
 ﻿using System.IO;
+using System.IO.Abstractions;
 using System.Web;
 using System.Web.SessionState;
-using SpruceJS.Core.IO;
 using SpruceJS.Core.Modules.Exceptions;
 using SpruceJS.Core.Script;
 

@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO.Abstractions.TestingHelpers;
 using Moq;
 using SpruceJS.Core;
 using SpruceJS.Core.Config.Files;
-using SpruceJS.Core.IO;
 using Xunit;
 
 namespace SpruceJS.Bugs.Tests
@@ -13,12 +14,14 @@ namespace SpruceJS.Bugs.Tests
 		public void ModuleNameShouldStripSpruceJsExtension()
 		{
 			var fileconfigMock = new Mock<IFileConfig>();
-			fileconfigMock.Setup(i => i.Modules).Returns(new[] { "/main.spruce.js" });
+			fileconfigMock.Setup(i => i.Modules).Returns(new[] { @"c:\main.spruce.js" });
 
-			var contentLoaderMock = new Mock<IFileSystem>();
-			contentLoaderMock.Setup(i => i.ReadAllText(It.IsAny<String>())).Returns("define(function () {});");
+			var fileSystem = new MockFileSystem(new Dictionary<string, MockFileData> {
+				{ @"c:\main.spruce.js", new MockFileData("define(function () {});") },
+			});
 
-			var engine = new SpruceBuilder(fileconfigMock.Object, contentLoaderMock.Object) { Minify = false };
+			var engine = new SpruceBuilder(fileconfigMock.Object, fileSystem) { Minify = false };
+			engine.LoadModule(@"c:\main.spruce.js");
 
 			var output = engine.GetOutput();
 
