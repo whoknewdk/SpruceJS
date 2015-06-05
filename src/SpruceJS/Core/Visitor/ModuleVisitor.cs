@@ -20,8 +20,7 @@ namespace SpruceJS.Core.Visitor
 			CodeSettings settings = new CodeSettings();
 			settings.AddKnownGlobal("define");
 
-			JSParser parser = new JSParser();
-			parser.Settings = settings;
+			JSParser parser = new JSParser { Settings = settings };
 
 			Visit(parser.Parse(script));
 		}

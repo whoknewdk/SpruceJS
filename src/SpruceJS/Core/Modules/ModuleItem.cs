@@ -22,29 +22,29 @@ namespace SpruceJS.Core.Modules
 			Dependencies = dependencies;
 
 			// Modules without name should use dependencies as is
-			if (!String.IsNullOrEmpty(Name))
+			if (String.IsNullOrEmpty(Name))
+				return;
+			
+			var nameParts = Name.Split('/');
+			for (int i = 0; i < dependencies.Length; i++)
 			{
-				var nameParts = Name.Split('/');
-				for (int i = 0; i < dependencies.Length; i++)
+				var dependency = dependencies[i];
+
+				// Current path
+				if (dependency.StartsWith("./"))
 				{
-					var dependency = dependencies[i];
+					var listWithoutLast = nameParts.Take(nameParts.Length - 1).ToList();
+					listWithoutLast.Add(dependency.Replace("./", ""));
+					dependencies[i] = string.Join("/", listWithoutLast);
+				}
 
-					// Current path
-					if (dependency.StartsWith("./"))
-					{
-						var listWithoutLast = nameParts.Take(nameParts.Length - 1).ToList();
-						listWithoutLast.Add(dependency.Replace("./", ""));
-						dependencies[i] = string.Join("/", listWithoutLast);
-					}
-
-					// Move levelse out
-					if (dependency.StartsWith("../"))
-					{
-						var dependencyParts = Regex.Split(dependency, Regex.Escape("../"));
-						var listWithoutLast = nameParts.Take(nameParts.Length - dependencyParts.Length).ToList();
-						listWithoutLast.Add(dependencyParts[dependencyParts.Length - 1]);
-						dependencies[i] = string.Join("/", listWithoutLast);
-					}
+				// Move levelse out
+				if (dependency.StartsWith("../"))
+				{
+					var dependencyParts = Regex.Split(dependency, Regex.Escape("../"));
+					var listWithoutLast = nameParts.Take(nameParts.Length - dependencyParts.Length).ToList();
+					listWithoutLast.Add(dependencyParts[dependencyParts.Length - 1]);
+					dependencies[i] = string.Join("/", listWithoutLast);
 				}
 			}
 		}
