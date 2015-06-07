@@ -7,6 +7,13 @@ namespace SpruceJS.Core.Combiner
 {
 	public class AjaxminCombiner : StandardCombiner
 	{
+		public bool MinifyCode { get; set; }
+
+		public AjaxminCombiner()
+		{
+			MinifyCode = true;
+		}
+
 		public override void Add(string content, string url)
 		{
 			sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", url));
@@ -27,7 +34,8 @@ namespace SpruceJS.Core.Combiner
 				{
 					var settings = new CodeSettings {
 						SymbolsMap = sourcemap,
-						TermSemicolons = true
+						TermSemicolons = true,
+						MinifyCode = MinifyCode
 					};
 
 					sourcemap.StartPackage("test.js", "");
