@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("SpruceJS")]
-[assembly: AssemblyDescription("A JavaScript module assembler for ASP.NET")]
+[assembly: AssemblyDescription("Dependency management & modular JavaScript for ASP.NET")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Jacob T. Nielsen")]
 [assembly: AssemblyProduct("SpruceJS")]
