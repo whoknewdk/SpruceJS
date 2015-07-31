@@ -18,28 +18,15 @@ namespace SpruceJS.Web.Configuration
 		}
 
 		[ConfigurationProperty("minify", DefaultValue = "true", IsRequired = false)]
-		public Boolean Minify
+		public bool Minify
 		{
 			get
 			{
-				return (Boolean)this["minify"];
+				return (bool)this["minify"];
 			}
 			set
 			{
 				this["minify"] = value;
-			}
-		}
-
-		[ConfigurationProperty("dev", DefaultValue = "false", IsRequired = false)]
-		public Boolean IsDev
-		{
-			get
-			{
-				return (Boolean)this["dev"];
-			}
-			set
-			{
-				this["dev"] = value;
 			}
 		}
 	}

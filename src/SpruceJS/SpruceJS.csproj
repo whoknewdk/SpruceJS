@@ -53,7 +53,6 @@
     <Compile Include="Core\Combiner\AjaxminCombiner.cs" />
     <Compile Include="Core\Combiner\CombinerOutput.cs" />
     <Compile Include="Core\Combiner\ICombiner.cs" />
-    <Compile Include="Core\Combiner\StandardCombiner.cs" />
     <Compile Include="Core\Config\Files\FileConfig.cs" />
     <Compile Include="Core\Config\Files\IFileConfig.cs" />
     <Compile Include="Core\Config\SpruceConfig.cs" />

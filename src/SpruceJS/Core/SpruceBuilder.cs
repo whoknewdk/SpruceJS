@@ -21,7 +21,6 @@ namespace SpruceJS.Core
 		protected IFileSystem fileSystem;
 
 		public bool Minify { get; set; }
-		public bool IsDev { get; set; }
 		public bool ExcludeScript { get; set; }
 		public string[] Extensions { get; set; }
 
@@ -89,7 +88,7 @@ namespace SpruceJS.Core
 			var moduleResolver = new ModuleResolver(ModuleRootPath, itemFactory);
 
 			// Decided combiner strategy
-			var combiner = Minify ? new AjaxminCombiner { MinifyCode = !IsDev } : new StandardCombiner();
+			var combiner = new AjaxminCombiner { MinifyCode = Minify };
 
 			// Included js lib
 			if (!ExcludeScript)

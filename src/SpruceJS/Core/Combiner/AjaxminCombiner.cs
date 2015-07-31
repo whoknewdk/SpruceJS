@@ -5,22 +5,24 @@ using Microsoft.Ajax.Utilities;
 
 namespace SpruceJS.Core.Combiner
 {
-	public class AjaxminCombiner : StandardCombiner
+	public class AjaxminCombiner : ICombiner
 	{
 		public bool MinifyCode { get; set; }
+
+        protected readonly StringBuilder sb = new StringBuilder();
 
 		public AjaxminCombiner()
 		{
 			MinifyCode = true;
 		}
 
-		public override void Add(string content, string url)
+		public void Add(string content, string url)
 		{
 			sb.AppendLine(String.Format(";///#SOURCE 1 1 {0}", url));
-			base.Add(content, url);
-		}
+			sb.AppendLine(content);
+        }
 
-		public override CombinerOutput GetOutput()
+		public CombinerOutput GetOutput()
 		{
 			string combinedOutput = sb.ToString();
 

@@ -6,7 +6,7 @@
 
 	modules: [
 		"/shared/*.js",
-		"views/"
+		"views/*.js"
 	]
 
 }
